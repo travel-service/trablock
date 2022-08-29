@@ -1,0 +1,6 @@
+.wrap {position: relative;bottom: 40px; height: 43px; text-align: left;font-size: 12px;font-family: 'Malgun Gothic', dotum, '돋움', sans-serif;line-height: 1.5;}
+.wrap * {padding: 0;margin: 0;}
+.wrap .title {padding: 3px 25px 3px 10px;border-radius: 5px;border-bottom: 2px solid #ccc;border-right: 1px solid #ccc;overflow: hidden;background: #fff;font-size: 18px;font-weight: bold;}
+.wrap .close {position: absolute;top: 9px;right: 6px;color: #888;width: 17px;height: 17px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/overlay_close.png');}
+.wrap .close:hover {cursor: pointer;}
+.wrap:after {content: '';position: absolute;margin-left: -10.5px;left: 50%;bottom: 0px;width: 22px;height: 12px;background: url('https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/vertex_white.png')}

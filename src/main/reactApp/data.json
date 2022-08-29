@@ -1,0 +1,1057 @@
+{
+  "mainD": {
+    "planCount": 5,
+    "mainDirectory": [
+      {
+        "planId": 2,
+        "name": "제주도가자",
+        "periods": 2,
+        "createdDate": "2022-05-15T17:30:32.984683"
+      },
+      {
+        "planId": 11,
+        "name": "제주도가자2",
+        "periods": 2,
+        "createdDate": "2022-05-16T17:30:32.984683"
+      },
+      {
+        "planId": 28,
+        "name": "이종수3",
+        "periods": 2,
+        "createdDate": "2022-05-17T17:30:34.848498"
+      },
+      {
+        "planId": 41,
+        "name": "여행가자",
+        "periods": 2,
+        "createdDate": "2022-05-17T17:30:35.73649"
+      },
+      {
+        "planId": 30,
+        "name": "여행가자2",
+        "periods": 2,
+        "createdDate": "2022-05-18T17:30:35.73649"
+      }
+    ]
+  },
+  "userD": {
+    "planCount": [
+      3,
+      2
+    ],
+    "mainUserDirectory": [
+      {
+        "userDirectoryId": 80,
+        "directoryName": "내여행들"
+      },
+      {
+        "userDirectoryId": 81,
+        "directoryName": "제주도대안"
+      }
+    ],
+    "id": 82,
+    "userDirectoryId": 82,
+    "directoryName": "ㅇㅇㅇ"
+  },
+  "userDirectory80": [
+    {
+      "planId": 28,
+      "name": "이종수3",
+      "periods": 2,
+      "createdDate": "2022-05-17T17:30:34.848498"
+    },
+    {
+      "planId": 41,
+      "name": "여행가자",
+      "periods": 2,
+      "createdDate": "2022-05-17T17:30:35.73649"
+    },
+    {
+      "planId": 30,
+      "name": "여행가자2",
+      "periods": 2,
+      "createdDate": "2022-05-18T17:30:35.73649"
+    }
+  ],
+  "userDirectory81": [
+    {
+      "planId": 2,
+      "name": "제주도가자",
+      "periods": 2,
+      "createdDate": "2022-05-15T17:30:32.984683"
+    },
+    {
+      "planId": 11,
+      "name": "제주도가자2",
+      "periods": 2,
+      "createdDate": "2022-05-16T17:30:32.984683"
+    }
+  ],
+  "trashD": {
+    "trashPlanCount": 2,
+    "trashDirectory": [
+      {
+        "planId": 2,
+        "name": "이종수3",
+        "periods": 2,
+        "createdDate": "2022-05-17T17:30:32.984683"
+      },
+      {
+        "planId": 15,
+        "name": "자라란",
+        "periods": 2,
+        "createdDate": "2022-05-14T17:30:33.946052"
+      }
+    ]
+  },
+  "travelPlans": [
+    {
+      "id": 1,
+      "planForm": {
+        "id": "",
+        "depart": "",
+        "destination": "",
+        "name": "",
+        "periods": 3,
+        "planStatus": "MAIN",
+        "thumbnail": []
+      },
+      "conceptForm": {
+        "concept": [
+          "Love",
+          "Family",
+          "Alone"
+        ]
+      },
+      "selectedLocationForm": {
+        "selectedLocation": [
+          5,
+          6,
+          7
+        ]
+      },
+      "dayForm": {
+        "travelDay": [
+          [],
+          [],
+          []
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "planForm": {
+        "id": "",
+        "depart": "",
+        "destination": "",
+        "name": "",
+        "periods": 1,
+        "planStatus": "MAIN",
+        "thumbnail": []
+      },
+      "conceptForm": {
+        "concept": []
+      },
+      "selectedLocationForm": {
+        "selectedLocation": []
+      },
+      "dayForm": {
+        "travelDay": []
+      }
+    }
+  ],
+  "notices": [
+    {
+      "id": 1,
+      "numId": 1,
+      "title": "no.1 공지사항",
+      "author": "관리자",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "1. HTML <b>내용</b>입니다."
+    },
+    {
+      "id": 2,
+      "numId": 2,
+      "title": "no.2 공지사항",
+      "author": "관리자2",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "2. HTML 내용입니다."
+    },
+    {
+      "id": 4,
+      "numId": 4,
+      "title": "no.4공지사항",
+      "author": "관리자4",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "4. HTML 내용입니다."
+    },
+    {
+      "id": 3,
+      "numId": 3,
+      "title": "no.3 공지사항",
+      "author": "관리자3",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "3. HTML 내용입니다."
+    },
+    {
+      "id": 5,
+      "numId": 5,
+      "title": "no.5 공지사항",
+      "author": "관리자5",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "5. HTML <b>내용</b>입니다."
+    },
+    {
+      "id": 6,
+      "numId": 6,
+      "title": "no.6 공지사항",
+      "author": "관리자6",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "6. HTML 내용입니다."
+    },
+    {
+      "id": 7,
+      "numId": 7,
+      "title": "no.7 공지사항",
+      "author": "관리자7",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "7. HTML 내용입니다."
+    },
+    {
+      "id": 8,
+      "numId": 8,
+      "title": "no.8 공지사항",
+      "author": "관리자8",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "8. HTML 내용입니다."
+    },
+    {
+      "id": 9,
+      "numId": 9,
+      "title": "no.9 공지사항",
+      "author": "관리자9",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "9. HTML <b>내용</b>입니다."
+    },
+    {
+      "id": 10,
+      "numId": 10,
+      "title": "no.10 공지사항",
+      "author": "관리자10",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "10. HTML 내용입니다."
+    },
+    {
+      "id": 11,
+      "numId": 11,
+      "title": "no.11 공지사항",
+      "author": "관리자11",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "11. HTML 내용입니다."
+    },
+    {
+      "id": 12,
+      "numId": 12,
+      "title": "no.12 공지사항",
+      "author": "관리자12",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "12. HTML 내용입니다."
+    },
+    {
+      "id": 13,
+      "numId": 13,
+      "title": "no.13 공지사항",
+      "author": "관리자13",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "13. HTML 내용입니다."
+    },
+    {
+      "id": 14,
+      "numId": 14,
+      "title": "no.14 공지사항",
+      "author": "관리자14",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "14. HTML 내용입니다."
+    },
+    {
+      "id": 15,
+      "numId": 15,
+      "title": "no.15 공지사항",
+      "author": "관리자15",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "15. HTML 내용입니다."
+    },
+    {
+      "id": 16,
+      "numId": 16,
+      "title": "no.16 공지사항",
+      "author": "관리자16",
+      "date": "2022-03-17",
+      "views": 123,
+      "body": "16. HTML 내용입니다."
+    }
+  ],
+  "locations_v2": {
+    "Attraction": [
+      {
+        "id": 1,
+        "name": "휴애리자연생활공원",
+        "address1": "제주특별자치도 서귀포시 남원읍 신례동로 256",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/47/2615547_image2_1.bmp",
+        "type": {
+          "attraction": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "restaurant": false,
+          "festival": false,
+          "culture": false,
+          "type": 0
+        }
+      },
+      {
+        "id": 2,
+        "name": "섭지코지",
+        "address1": "제주특별자치도 서귀포시 성산읍 섭지코지로 107",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/80/2513480_image2_1.jpg",
+        "type": {
+          "attraction": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "restaurant": false,
+          "festival": false,
+          "culture": false,
+          "type": 0
+        }
+      },
+      {
+        "id": 3,
+        "name": "천지연폭포 (제주도 국가지질공원)",
+        "address1": "제주특별자치도 서귀포시 천지동",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/96/2612496_image2_1.jpg",
+        "type": {
+          "attraction": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "restaurant": false,
+          "festival": false,
+          "culture": false,
+          "type": 0
+        }
+      },
+      {
+        "id": 4,
+        "name": "성산일출봉 [유네스코 세계자연유산]",
+        "address1": "제주특별자치도 서귀포시 성산읍 일출로 284-12",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/00/2613500_image2_1.jpg",
+        "type": {
+          "attraction": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "restaurant": false,
+          "festival": false,
+          "culture": false,
+          "type": 0
+        }
+      }
+    ],
+    "Restaurant": [
+      {
+        "id": 19,
+        "name": "삼성혈해물탕",
+        "address1": "제주특별자치도 제주시 선덕로5길 20",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/45/656845_image2_1.jpg",
+        "type": {
+          "restaurant": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "attraction": false,
+          "festival": false,
+          "culture": false,
+          "type": 5
+        }
+      }
+    ],
+    "Leports": [
+      {
+        "id": 17,
+        "name": "제주도 스쿠터 여행사 한라하이킹",
+        "address1": "제주특별자치도 제주시 용두암길 50-1",
+        "address2": "(용담이동)",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/91/2394691_image2_1.jpg",
+        "type": {
+          "leports": true,
+          "member": false,
+          "lodge": false,
+          "restaurant": false,
+          "attraction": false,
+          "festival": false,
+          "culture": false,
+          "type": 3
+        }
+      },
+      {
+        "id": 20,
+        "name": "라마다프라자제주호텔 스포츠센터(실내.외 수영장)",
+        "address1": "제주특별자치도 제주시 탑동로 66",
+        "address2": "(삼도이동)",
+        "image": "null",
+        "type": {
+          "leports": true,
+          "member": false,
+          "lodge": false,
+          "restaurant": false,
+          "attraction": false,
+          "festival": false,
+          "culture": false,
+          "type": 3
+        }
+      },
+      {
+        "id": 24,
+        "name": "우도",
+        "address1": "제주특별자치도 제주시 우도면 우도로 153",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/95/2364395_image2_1.jpg",
+        "type": {
+          "leports": true,
+          "member": false,
+          "lodge": false,
+          "restaurant": false,
+          "attraction": false,
+          "festival": false,
+          "culture": false,
+          "type": 3
+        }
+      }
+    ],
+    "Festival": [
+      {
+        "id": 8,
+        "name": "제주 유채꽃축제",
+        "address1": "제주특별자치도 서귀포시 녹산로 381-17",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/89/2539389_image2_1.JPG",
+        "type": {
+          "festival": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "restaurant": false,
+          "attraction": false,
+          "culture": false,
+          "type": 2
+        }
+      },
+      {
+        "id": 10,
+        "name": "[문화관광축제] 제주들불축제",
+        "address1": "제주 제주시 애월읍 봉성리 산59-8",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/27/2689727_image2_1.png",
+        "type": {
+          "festival": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "restaurant": false,
+          "attraction": false,
+          "culture": false,
+          "type": 2
+        }
+      },
+      {
+        "id": 11,
+        "name": "제주 허브동산 \"별빛놀이\" 2021",
+        "address1": "제주특별자치도 서귀포시 표선면 돈오름로 170",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/21/2582021_image2_1.jpg",
+        "type": {
+          "festival": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "restaurant": false,
+          "attraction": false,
+          "culture": false,
+          "type": 2
+        }
+      }
+    ],
+    "Lodge": [
+      {
+        "id": 25,
+        "name": "도라지식당",
+        "address1": "제주특별자치도 제주시 연삼로 128",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/01/1934501_image2_1.jpg",
+        "type": {
+          "lodge": true,
+          "member": false,
+          "leports": false,
+          "restaurant": false,
+          "attraction": false,
+          "festival": false,
+          "culture": false,
+          "type": 4
+        }
+      },
+      {
+        "id": 36,
+        "name": "성산해오름식당",
+        "address1": "제주특별자치도 서귀포시 성산읍 일출로 260",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/15/1937215_image2_1.jpg",
+        "type": {
+          "lodge": true,
+          "member": false,
+          "leports": false,
+          "restaurant": false,
+          "attraction": false,
+          "festival": false,
+          "culture": false,
+          "type": 4
+        }
+      },
+      {
+        "id": 38,
+        "name": "네거리식당",
+        "address1": "제주특별자치도 서귀포시 서문로29번길 20",
+        "address2": "null",
+        "image": "null",
+        "type": {
+          "lodge": true,
+          "member": false,
+          "leports": false,
+          "restaurant": false,
+          "attraction": false,
+          "festival": false,
+          "culture": false,
+          "type": 4
+        }
+      }
+    ],
+    "Culture": [
+      {
+        "id": 14,
+        "name": "제주민속촌",
+        "address1": "제주특별자치도 서귀포시 표선면 민속해안로 631-34",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/78/2659578_image2_1.bmp",
+        "type": {
+          "culture": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "restaurant": false,
+          "attraction": false,
+          "festival": false,
+          "type": 1
+        }
+      },
+      {
+        "id": 15,
+        "name": "김영갑 갤러리(두모악)",
+        "address1": "제주특별자치도 서귀포시 성산읍 삼달로 137",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/79/1619979_image2_1.jpg",
+        "type": {
+          "culture": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "restaurant": false,
+          "attraction": false,
+          "festival": false,
+          "type": 1
+        }
+      },
+      {
+        "id": 16,
+        "name": "하멜상선전시관",
+        "address1": "제주특별자치도 서귀포시 안덕면 사계남로216번길 24-30",
+        "address2": "(안덕면)",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/03/1620203_image2_1.jpg",
+        "type": {
+          "culture": true,
+          "member": false,
+          "lodge": false,
+          "leports": false,
+          "restaurant": false,
+          "attraction": false,
+          "festival": false,
+          "type": 1
+        }
+      }
+    ]
+  },
+  "locations_mark": {
+    "Attraction": [
+      {
+        "id": 1,
+        "name": "휴애리자연생활공원",
+        "coords": {
+          "latitude": 33.3085,
+          "longitude": 126.634
+        },
+        "type": {
+          "type": 0
+        }
+      },
+      {
+        "id": 2,
+        "name": "섭지코지",
+        "coords": {
+          "latitude": 33.4302,
+          "longitude": 126.928
+        },
+        "type": {
+          "type": 1
+        }
+      },
+      {
+        "id": 3,
+        "name": "천지연폭포 (제주도 국가지질공원)",
+        "coords": {
+          "latitude": 33.2445,
+          "longitude": 126.559
+        },
+        "type": {
+          "type": 0
+        }
+      }
+    ]
+  },
+  "locationInfo": [
+    {
+      "id": 3,
+      "name": "천지연폭포 (제주도 국가지질공원)",
+      "areaCode": 39,
+      "address1": "제주특별자치도 서귀포시 천지동",
+      "address2": "null",
+      "image": "null",
+      "tel": "010-1234-5678",
+      "summary": "긴내용긴내용긴내용",
+      "report": "요약 타이틀",
+      "type": {
+          "type": "Attraction"
+      },
+      "parking": true,
+      "restDate": "매주 화요일"
+    },
+    {
+      "id": 2,
+      "name": "섭지코지",
+      "areaCode": 39,
+      "address1": "제주특별자치도 서귀포시 천지동",
+      "address2": "null",
+      "image": "null",
+      "tel": "010-1234-5678",
+      "summary": "긴내용긴내용긴내용",
+      "report": "요약 타이틀",
+      "type": {
+          "type": "Attraction"
+      },
+      "parking": true,
+      "restDate": "매주 화요일"
+    }
+  ],
+  "attractionInfo": [
+    {
+      "id": "1",
+      "name": "휴애리자연생활공원",
+      "address1": "제주특별자치도 서귀포시 남원읍 신례동로 256",
+      "address2": "",
+      "image1": "",
+      "image2": "",
+      "tel": "",
+      "summary": "설명",
+      "report": "상세설명",
+      "parking": "가능",
+      "restDate": "연중무휴",
+      "useTime": "하절기 (4월~10월) : 09:00~18:00 (입장마감 17:30분)<br /> 동절기 (11월~3월) : 09:00~18:00 (입장마감 16:30분)<br /> ※ 단, 감귤체험 이용시 17:00까지 입장해야 체험가능"
+    },
+    {
+      "id": "4",
+      "ATTRACTION": {
+        "id": 2,
+        "locationId": 2,
+        "parking": true,
+        "restDate": "null",
+        "useTime": "09:00 ~ 22:00 (매표마감 21:20)"
+      },
+      "location": {
+        "id": 2,
+        "name": "만장굴",
+        "address1": "제주특별자치도 서귀포시 천지동",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/96/2612496_image2_1.jpg",
+        "tel": null,
+        "summary": null,
+        "report": null,
+        "type": {
+          "attraction": true,
+          "festival": false,
+          "culture": false,
+          "leports": false,
+          "lodge": false,
+          "restaurant": false,
+          "member": false,
+          "type": 0
+        }
+      }
+    },
+    {
+      "id": "3",
+      "ATTRACTION": {
+        "id": 3,
+        "locationId": 3,
+        "parking": true,
+        "restDate": "null",
+        "useTime": "09:00 ~ 22:00 (매표마감 21:20)"
+      },
+      "location": {
+        "id": 3,
+        "name": "천지연폭포 (제주도 국가지질공원)",
+        "address1": "제주특별자치도 서귀포시 천지동",
+        "address2": "null",
+        "image": "http://tong.visitkorea.or.kr/cms/resource/96/2612496_image2_1.jpg",
+        "tel": null,
+        "summary": null,
+        "report": null,
+        "type": {
+          "attraction": true,
+          "festival": false,
+          "culture": false,
+          "leports": false,
+          "lodge": false,
+          "restaurant": false,
+          "member": false,
+          "type": 0
+        }
+      }
+    }
+  ],
+  "restaurantInfo": [
+    {
+      "id": "4",
+      "name": "곰막식당",
+      "address1": "제주특별자치도 서귀포시 남원읍 신례동로 256",
+      "address2": "",
+      "image1": "",
+      "image2": "",
+      "tel": "",
+      "summary": "설명",
+      "report": "상세설명",
+      "popularMenu": "",
+      "openTime": "",
+      "packing": "",
+      "parking": "가능",
+      "restDate": "연중무휴",
+      "menu": ""
+    },
+    {
+      "id": "5",
+      "name": "고집돌우럭",
+      "address1": "제주특별자치도 서귀포시 남원읍 신례동로 256",
+      "address2": "",
+      "image1": "",
+      "image2": "",
+      "tel": "",
+      "summary": "설명",
+      "report": "상세설명",
+      "popularMenu": "",
+      "openTime": "",
+      "packing": "",
+      "parking": "가능",
+      "restDate": "연중무휴",
+      "menu": ""
+    },
+    {
+      "id": "6",
+      "name": "정성듬뿍 제주국",
+      "address1": "제주특별자치도 서귀포시 남원읍 신례동로 256",
+      "address2": "",
+      "image1": "",
+      "image2": "",
+      "tel": "",
+      "summary": "설명",
+      "report": "상세설명",
+      "popularMenu": "",
+      "openTime": "",
+      "packing": "",
+      "parking": "가능",
+      "restDate": "연중무휴",
+      "menu": ""
+    }
+  ],
+  "lodgeInfo": [
+    {
+      "id": "7",
+      "name": "레인보우인 제주",
+      "address1": "제주특별자치도 서귀포시 남원읍 신례동로 256",
+      "address2": "",
+      "image1": "",
+      "image2": "",
+      "tel": "",
+      "summary": "설명",
+      "report": "상세설명",
+      "checkInTime": "",
+      "checkOutTime": "",
+      "chkCooking": "",
+      "parking": "가능",
+      "reservationUrl": "",
+      "subfacility": ""
+    },
+    {
+      "id": "8",
+      "name": "그랜드 하얏트 호텔",
+      "address1": "제주특별자치도 서귀포시 남원읍 신례동로 256",
+      "address2": "",
+      "image1": "",
+      "image2": "",
+      "tel": "",
+      "summary": "설명",
+      "report": "상세설명",
+      "checkInTime": "",
+      "checkOutTime": "",
+      "chkCooking": "",
+      "parking": "가능",
+      "reservationUrl": "",
+      "subfacility": ""
+    },
+    {
+      "id": "9",
+      "name": "제주 칼호텔",
+      "address1": "제주특별자치도 서귀포시 남원읍 신례동로 256",
+      "address2": "",
+      "image1": "",
+      "image2": "",
+      "tel": "",
+      "summary": "설명",
+      "report": "상세설명",
+      "checkInTime": "",
+      "checkOutTime": "",
+      "chkCooking": "",
+      "parking": "가능",
+      "reservationUrl": "",
+      "subfacility": ""
+    }
+  ],
+  "locations2": {
+    "attractions": {
+      "1": {
+        "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+        "id": 1,
+        "name": "한라산",
+        "summary": "간단한 설명",
+        "detail": "자세한 설명..."
+      },
+      "2": {
+        "id": 2,
+        "name": "만장굴",
+        "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+        "summary": "간단한 설명",
+        "detail": "자세한 설명..."
+      }
+    },
+    "restaurants": {
+      "3": {
+        "id": 3,
+        "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+        "name": "곰막식당",
+        "summary": "간단한 설명",
+        "detail": "자세한 설명..."
+      },
+      "4": {
+        "id": 4,
+        "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+        "name": "고집돌우럭",
+        "summary": "간단한 설명",
+        "detail": "자세한 설명..."
+      }
+    },
+    "lodges": {
+      "5": {
+        "id": 5,
+        "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+        "name": "레인보우인 제주",
+        "summary": "간단한 설명",
+        "detail": "자세한 설명..."
+      },
+      "6": {
+        "id": 6,
+        "image": "https://i.ibb.co/zJMMHVD/image.jpg",
+        "name": "그랜드 하얏트 호텔",
+        "summary": "간단한 설명",
+        "detail": "자세한 설명..."
+      }
+    }
+  },
+  "users": [
+    {
+      "userId": "tlscksdn963",
+      "password": "123",
+      "passwordCheck": "123",
+      "username": "123",
+      "nickname": "123",
+      "birthday": "123123-12-23",
+      "phoneNum": "123",
+      "gender": "MALE",
+      "email": "tlscksnd963@naver.com",
+      "id": 3,
+      "plan": [
+        {
+          "id": 1,
+          "planForm": {},
+          "conceptForm": {},
+          "selectedLocationForm": {},
+          "dayForm": {}
+        }
+      ]
+    },
+    {
+      "userId": "tlscksdn",
+      "password": "123",
+      "passwordCheck": "123",
+      "username": "123",
+      "nickname": "123",
+      "birthday": "123123-12-23",
+      "phoneNum": "123",
+      "gender": "MALE",
+      "email": "tlscksnd963@naver.com",
+      "id": 2,
+      "plan": [
+        {
+          "id": 1,
+          "planForm": {
+            "depart": "2022/01/16",
+            "periods": 2
+          },
+          "conceptForm": {},
+          "selectedLocationForm": {},
+          "dayForm": {}
+        }
+      ]
+    }
+  ],
+  "memberLocations": [
+    {
+      "data": {
+        "location": {
+          "name": "한경대학교",
+          "type": "Attractions",
+          "coords": {
+            "lat": "37.01183670770416",
+            "lng": "127.26378919389889"
+          },
+          "address1": "경기 안성시 석정동 63-1",
+          "address2": "",
+          "image": "",
+          "information": {
+            "summary": "12",
+            "detail": ""
+          },
+          "isMember": true
+        },
+        "member_location": {
+          "memberId": 1,
+          "isPublic": true
+        },
+        "Attractions": {
+          "parking": true,
+          "restDate": "",
+          "useTime": ""
+        }
+      },
+      "id": 1
+    },
+    {
+      "data": {
+        "location": {
+          "name": "우리집",
+          "type": "Lodge",
+          "coords": {
+            "lat": "37.006802340740215",
+            "lng": "127.2642133503599"
+          },
+          "address1": "경기 안성시 아양동 300",
+          "address2": "103동 408호",
+          "image": "",
+          "information": {
+            "summary": "찬우집",
+            "detail": "가는 길이 살짝 무서울 수 있음."
+          },
+          "isMember": true
+        },
+        "member_location": {
+          "memberId": 1,
+          "isPublic": false
+        },
+        "Lodge": {
+          "checkInTime": "18:00",
+          "checkOutTime": "13:00",
+          "cooking": true,
+          "parking": true,
+          "reservationUrl": "https://github.com/ShinChanU",
+          "subfacility": "베란다(빨래 널기 가능)"
+        }
+      },
+      "id": 2
+    },
+    {
+      "data": {
+        "location": {
+          "name": "한경대학교 나래관",
+          "type": "Attractions",
+          "coords": {
+            "lat": "37.0127324119188",
+            "lng": "127.261739413379"
+          },
+          "address1": "경기 안성시 석정동 63-1",
+          "address2": "",
+          "image": "",
+          "information": {
+            "summary": "12",
+            "detail": "11"
+          },
+          "isMember": true
+        },
+        "member_location": {
+          "memberId": 1,
+          "isPublic": true
+        },
+        "Attractions": {
+          "parking": "",
+          "restDate": "",
+          "useTime": ""
+        }
+      },
+      "id": 3
+    }
+  ]
+}
