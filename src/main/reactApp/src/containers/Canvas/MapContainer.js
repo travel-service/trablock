@@ -1,22 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import lodgeMarker from '../../lib/images/marker 아이콘_25x25 숙소마크.png';
-import lodgePicker from '../../lib/images/25x25 숙소마크 사본.png';
 import attractionMarker from '../../lib/images/marker 아이콘_25x25 관광지마크.png';
-import attractionPicker from '../../lib/images/25x25 관광지마크 사본.png';
 import cultureMarker from '../../lib/images/marker 아이콘_25x25 문화시설 마크.png';
-import culturePicker from '../../lib/images/25x25 문화시설 마크 사본.png';
 import leportsMarker from '../../lib/images/marker 아이콘_25x25 레포츠 마크.png';
-import leportsPicker from '../../lib/images/25x25 레포츠 마크 사본.png';
 import restaurantMarker from '../../lib/images/marker 아이콘_25x25 식당마크.png';
-import restaurantPicker from '../../lib/images/25x25 식당마크 사본.png';
 import festivalMarker from '../../lib/images/marker 아이콘_25x25 축제마크.png';
-import festivalPicker from '../../lib/images/25x25 축제마크 사본.png';
 import ModalModule from 'components/common/modal/ModalModule';
 import 'lib/styles/Modal.css';
 import '../../lib/styles/test.css';
 import styled from 'styled-components';
 import BlockInfo from 'components/Canvas/BlockInfo/BlockInfo';
 import { sysLocStore } from 'lib/zustand/planStore';
+// import attractionPicker from '../../lib/images/25x25 관광지마크 사본.png';
+// import lodgePicker from '../../lib/images/25x25 숙소마크 사본.png';
+// import culturePicker from '../../lib/images/25x25 문화시설 마크 사본.png';
+// import leportsPicker from '../../lib/images/25x25 레포츠 마크 사본.png';
+// import restaurantPicker from '../../lib/images/25x25 식당마크 사본.png';
+// import festivalPicker from '../../lib/images/25x25 축제마크 사본.png';
 
 const Div = styled.div`
   z-index: 0;
@@ -60,8 +60,8 @@ const MapContainer = ({ coords }) => {
       return;
     }
 
-    var positions = [],
-      selectedMarker = null;
+    var positions = [];
+    // selectedMarker = null;
 
     if (coords) {
       for (let key in coords) {
@@ -78,26 +78,26 @@ const MapContainer = ({ coords }) => {
         }
       }
 
-      var markerSize = new kakao.maps.Size(25, 25),
-        pickerSize = new kakao.maps.Size(40, 40);
+      var markerSize = new kakao.maps.Size(25, 25);
+      // pickerSize = new kakao.maps.Size(40, 40);
 
-      for (var i = 0; i < positions.length; i++) {
-        addMarker(positions[i]);
+      for (let j = 0; j < positions.length; j++) {
+        addMarker(positions[j]);
       }
 
       function addMarker(position) {
         var attMarker = createMarkerImg(attractionMarker, markerSize),
-          attPicker = createMarkerImg(attractionPicker, pickerSize),
+          // attPicker = createMarkerImg(attractionPicker, pickerSize),
           lodMarker = createMarkerImg(lodgeMarker, markerSize),
-          lodPicker = createMarkerImg(lodgePicker, pickerSize),
+          // lodPicker = createMarkerImg(lodgePicker, pickerSize),
           culMarker = createMarkerImg(cultureMarker, markerSize),
-          culPicker = createMarkerImg(culturePicker, pickerSize),
+          // culPicker = createMarkerImg(culturePicker, pickerSize),
           lepMarker = createMarkerImg(leportsMarker, markerSize),
-          lepPicker = createMarkerImg(leportsPicker, pickerSize),
+          // lepPicker = createMarkerImg(leportsPicker, pickerSize),
           resMarker = createMarkerImg(restaurantMarker, markerSize),
-          resPicker = createMarkerImg(restaurantPicker, pickerSize),
-          fesMarker = createMarkerImg(festivalMarker, markerSize),
-          fesPicker = createMarkerImg(festivalPicker, pickerSize);
+          // resPicker = createMarkerImg(restaurantPicker, pickerSize),
+          fesMarker = createMarkerImg(festivalMarker, markerSize);
+        // fesPicker = createMarkerImg(festivalPicker, pickerSize);
 
         var marker = new kakao.maps.Marker({
           map: kakaoMap,
@@ -172,14 +172,16 @@ const MapContainer = ({ coords }) => {
           titleArea.setAttribute('class', 'title');
 
           const title = document.createElement('div');
+          // eslint-disable-next-line no-sequences
           title.onclick = () => (setInfo(position), openModal());
           title.innerHTML = position.title;
 
           const close = document.createElement('div');
           close.setAttribute('class', 'close');
-          close.onclick = () => (
-            customOverlay.setMap(null)/**, setMarker(), (selectedMarker = null) 피커생성 함수에 사용*/
-          );
+          close.onclick = () =>
+            customOverlay.setMap(
+              null,
+            ) /**, setMarker(), (selectedMarker = null) 피커생성 함수에 사용*/;
 
           content.appendChild(titleArea);
           titleArea.append(title, close);

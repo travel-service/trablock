@@ -34,6 +34,7 @@ export const useStore = create(
           },
         });
       }
+      // console.log(res);
     },
     getEditP: async () => {
       const res = await myAPI.getEditPage();
@@ -80,25 +81,21 @@ export const useStore = create(
         gender,
         email,
       };
-      const res = await myAPI.postMyinfo(profile);
-      console.log(res);
+      await myAPI.postMyinfo(profile);
     },
     postNick: async () => {
       const nickName = get().profile.nickname;
-      const res = await myAPI.postMyNick(nickName);
-      console.log(res);
+      await myAPI.postMyNick(nickName);
     },
     postBio: async () => {
       const bio = get().profile.bio;
-      const res = await myAPI.postMyBio({ bio });
-      console.log(res);
+      await myAPI.postMyBio({ bio });
     },
     checkgetNick: async () => {
       const nick = get().sendnick.nickname;
       const prenick = get().profile.nickname;
-      console.log(nick, prenick);
+      // console.log(nick, prenick);
       const res = await myAPI.getCheckNick(nick, prenick);
-      console.log(res);
       set((state) => ({
         checknick: { ...state.checknick, message: res },
       }));
@@ -107,16 +104,13 @@ export const useStore = create(
       set((state) => ({ sendnick: { ...state.sendnick, nickname: input } }));
     },
     postImg: async (frm) => {
-      console.log(frm);
-      const res = await myAPI.postMyImg(frm);
-      console.log(res);
+      await myAPI.postMyImg(frm);
     },
     setImg: (input) => {
       set((state) => ({ profile: { ...state.profile, img: input } }));
     },
     postPasswd: async (pass) => {
-      const res = await myAPI.postPass(pass);
-      console.log(res);
+      await myAPI.postPass(pass);
     },
   })),
 );

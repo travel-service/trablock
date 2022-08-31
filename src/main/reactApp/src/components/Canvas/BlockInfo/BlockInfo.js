@@ -4,7 +4,7 @@ import { infoStore } from '../../../lib/zustand/infoStore';
 
 const ContentsArea = styled.div`
   width: 450px;
-`
+`;
 
 const AddrTel = styled.div`
   font-family: 'Pretendard';
@@ -12,17 +12,17 @@ const AddrTel = styled.div`
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
-`
+`;
 
 const InfoArea = styled.div`
   padding-top: 15px;
-`
+`;
 
 const Info = styled.div`
   display: flex;
   justify-content: space-between;
   padding-bottom: 10px;
-`
+`;
 
 const Tag = styled.div`
   /* float: left; */
@@ -31,7 +31,7 @@ const Tag = styled.div`
   font-weight: 400;
   font-size: 11px;
   line-height: 13px;
-`
+`;
 
 const Text = styled.div`
   /* float: right; */
@@ -41,15 +41,15 @@ const Text = styled.div`
   font-size: 11px;
   line-height: 13px;
   text-align: right;
-`
+`;
 
 const Image = styled.img`
   width: 450px;
   height: auto;
   border-radius: 10px;
-`
+`;
 
-function AttractionInfo({info}) {
+function AttractionInfo({ info }) {
   return (
     <InfoArea>
       <Info>
@@ -70,9 +70,9 @@ function AttractionInfo({info}) {
       </Info>
     </InfoArea>
   );
-};
+}
 
-function CultureInfo({info}) {
+function CultureInfo({ info }) {
   return (
     <InfoArea>
       <Info>
@@ -101,9 +101,9 @@ function CultureInfo({info}) {
       </Info>
     </InfoArea>
   );
-};
+}
 
-function FestivalInfo({info}) {
+function FestivalInfo({ info }) {
   return (
     <InfoArea>
       <Info>
@@ -144,9 +144,9 @@ function FestivalInfo({info}) {
       </Info>
     </InfoArea>
   );
-};
+}
 
-function LeportsInfo({info}) {
+function LeportsInfo({ info }) {
   return (
     <InfoArea>
       <Info>
@@ -179,9 +179,9 @@ function LeportsInfo({info}) {
       </Info>
     </InfoArea>
   );
-};
+}
 
-function LodgeInfo({info}) {
+function LodgeInfo({ info }) {
   return (
     <InfoArea>
       <Info>
@@ -214,9 +214,9 @@ function LodgeInfo({info}) {
       </Info>
     </InfoArea>
   );
-};
+}
 
-function RestaurantInfo({info}) {
+function RestaurantInfo({ info }) {
   return (
     <InfoArea>
       <Info>
@@ -249,7 +249,7 @@ function RestaurantInfo({info}) {
       </Info>
     </InfoArea>
   );
-};
+}
 
 function BlockInfo(typeId) {
   const { type, id } = typeId;
@@ -257,6 +257,7 @@ function BlockInfo(typeId) {
 
   useEffect(() => {
     getInfo(id, type);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getInfo, id]);
 
   if (totalInfo.parking === true) {
@@ -271,14 +272,14 @@ function BlockInfo(typeId) {
         {totalInfo.address1} / {totalInfo.tel}tel
       </AddrTel>
       <br />
-      <Image src = {totalInfo.image}></Image>
+      <Image src={totalInfo.image}></Image>
       <div>
-        { type === 'Attraction' && <AttractionInfo info={totalInfo}/>}
-        { type === 'Culture' && <CultureInfo info={totalInfo}/>}
-        { type === 'Festival' && <FestivalInfo info={totalInfo}/>}
-        { type === 'Leports' && <LeportsInfo info={totalInfo}/>}
-        { type === 'Lodge' && <LodgeInfo info={totalInfo}/>}
-        { type === 'Restaurant' && <RestaurantInfo info={totalInfo}/>}
+        {type === 'Attraction' && <AttractionInfo info={totalInfo} />}
+        {type === 'Culture' && <CultureInfo info={totalInfo} />}
+        {type === 'Festival' && <FestivalInfo info={totalInfo} />}
+        {type === 'Leports' && <LeportsInfo info={totalInfo} />}
+        {type === 'Lodge' && <LodgeInfo info={totalInfo} />}
+        {type === 'Restaurant' && <RestaurantInfo info={totalInfo} />}
       </div>
     </ContentsArea>
   );

@@ -345,7 +345,7 @@ const AuthForm = ({
                     <StyledInput
                       name="birthday"
                       type="text"
-                      placeholder="YYYY/MM/DD"
+                      placeholder="YYYY-MM-DD"
                       onChange={onChange}
                       value={form.birthday}
                       onBlur={onBlur}

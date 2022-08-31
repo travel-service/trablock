@@ -5,12 +5,12 @@ import { sysLocStore, useStore } from '../../lib/zustand/planStore';
 const Block = ({ idx }) => {
   const { sysCateLoc, sysCateLocCoords, getSysLoc, getSysLocCoords } =
     sysLocStore();
-  const { selCateLoc, postPlan } = useStore();
+  const { selCateLoc, postPlan, getSelectedLocations } = useStore();
 
   useEffect(() => {
     getSysLoc();
     getSysLocCoords();
-    // 0816 selectedLocation GET
+    getSelectedLocations();
 
     return () => {
       // 0816 selectedLocation Post

@@ -75,17 +75,14 @@ export const ImageSetting = ({ userPlan, setThumbnail, Question }) => {
 
     reader.onloadend = () => {
       const previewImgBase64 = reader.result;
-      console.log(previewImgBase64);
 
       if (previewImgBase64) {
         const formData = new FormData();
         formData.append('file', e.target.files[0].name);
-        //console.log(formData.getAll('file'));
         setThumbnail(formData);
         setImgData(previewImgBase64);
       }
     };
-    console.log(userPlan.thumbnail);
   };
   /*const insertImg = (e) => {
     let reader = new FileReader();

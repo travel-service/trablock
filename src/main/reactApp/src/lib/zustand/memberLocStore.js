@@ -41,12 +41,11 @@ export const memLocStore = create(
         else if (share === undefined) return '공유 가능 여부를 선택해주세요.';
         else if (summary === undefined)
           return '여행지에 대한 간단한 설명을 작성해주세요.';
-        //   // 여기 인식을 못함
         let isShare = false;
         if (share === 'true') isShare = true;
         let loc = {
           memberLocation: {
-            memberId: 1, // 프론트에서 멤버아이디를 알 수 있나..?
+            memberId: 1,
             isPublic: isShare,
           },
           location: {
