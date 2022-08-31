@@ -118,9 +118,9 @@ public class JwtTokenProvider {
     //RefreshToken response
     public void setHeaderRefreshToken(HttpServletResponse response, String refreshToken) {
         ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
-                .secure(true)
+//                .secure(true)
                 .httpOnly(true)
-                .sameSite("None")
+//                .sameSite("None")
                 .path("/")
                 .maxAge(7 * 24 * 60 * 60)
                 .build();
@@ -131,7 +131,7 @@ public class JwtTokenProvider {
     //RefreshToken logout response
     public void setHeaderLogoutRefreshToken(HttpServletResponse response, String refreshToken) {
         Cookie cookie = new Cookie("refreshToken", refreshToken);
-        cookie.setSecure(true);
+//        cookie.setSecure(true);
         cookie.setHttpOnly(true);
         cookie.setPath("/"); //쿠키의 유효범위 추후 서비스 발전시 쿠키의 범위 설정 필요
         cookie.setMaxAge(60);

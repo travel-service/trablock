@@ -39,3 +39,5 @@ out/
 ### frontend ###
 node_modules
 *.log
+**/src/main/reactApp/build
+**/src/main/resources/static
