@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Profile from '../img/profile2.jpg';
 import { FaRegBookmark, FaRegHeart, FaPen } from 'react-icons/fa';
 import { HiOutlineFolderOpen } from 'react-icons/hi';
 import { useStore } from 'lib/zustand/myStore';
+
+const DEFAULT_IMAGE = process.env.PUBLIC_URL + '/images/face1.png';
 
 const MyInfoBox = styled.div`
   display: flex;
@@ -192,26 +193,26 @@ const UserInfoBox = () => {
     checkgetNick,
     checknick,
     sendnick,
-    setImg,
     postImg,
   } = useStore();
 
   useEffect(() => {
     getBasic();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    console.log(profile);
+    // console.log(profile);
   }, [profile]);
 
   // Test function
   const onEdit = () => {
     setVisible(!visible);
     if (visible) {
-      console.log('edit click');
+      // console.log('edit click');
       setImage('');
     } else {
-      console.log('처리중');
+      // console.log('처리중');
       PostEdit();
       setImage('');
     }
@@ -285,10 +286,14 @@ const UserInfoBox = () => {
     e.preventDefault();
     if (e.target.files) {
       const file = e.target.files[0];
-      console.log(file);
+      // console.log(file);
       preview(file);
       setForm({ form_file: e.target.files[0] });
     }
+  };
+
+  const handleImgError = (e) => {
+    e.target.src = DEFAULT_IMAGE;
   };
 
   return (
@@ -301,6 +306,7 @@ const UserInfoBox = () => {
                 src={profile.img}
                 alt="profileImg"
                 className="profile-user-img"
+                onError={(e) => handleImgError(e)}
               />
             </div>
           </MyInfoProfile>

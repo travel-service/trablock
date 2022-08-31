@@ -17,7 +17,6 @@ export const apiStore = create((set, get) => ({
 
   postDayForm: async (id) => {
     const response = await axios.get(`${LOCAL_BASE_URL}/users/3`);
-    console.log(response.data);
   },
 
   getDayForm: async (id) => {
@@ -28,6 +27,5 @@ export const apiStore = create((set, get) => ({
         dayForm: storeDayForm,
       },
     );
-    console.log(response);
   },
 }));

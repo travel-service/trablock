@@ -105,7 +105,6 @@ export const DestSetting = () => {
     setActiveTab(tabIdx);
   };
   const onClickDestination = (destination /*, destIdx*/) => {
-    console.log(destination);
     //setActiveDest(destIdx);
     setDestination(destination);
   };

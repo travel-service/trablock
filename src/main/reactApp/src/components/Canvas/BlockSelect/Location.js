@@ -90,7 +90,6 @@ const Location = ({ location, onClick, idx, isSelect }) => {
 
   const OpenModal = () => {
     setModalOpen(true);
-    console.log(modalOpen);
   };
 
   const closeModal = () => {

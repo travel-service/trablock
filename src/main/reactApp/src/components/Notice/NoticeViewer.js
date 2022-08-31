@@ -70,11 +70,9 @@ const NoticeViewer = () => {
   if (!test) return null;
 
   const viewList = test.filter((t) => t.numId === Number(numId));
-  console.log(viewList);
   if (!viewList[0]) {
     return (
       <>
-        {test && console.log(test)}
         <PostViewerBlock>
           <PageHeader>
             <h1>공지사항</h1>

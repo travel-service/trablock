@@ -40,13 +40,22 @@ export const signup = async ({
 
 // accessToken으로 user 정보 업데이트
 export const userCheck = async () => {
-  const response = await axios.get('/auth/status');
-  return response;
+  try {
+    const response = await axios.get('/auth/status');
+    return response;
+  } catch (e) {
+    return e.response;
+  }
 };
 
 // refreshToken으로 accessToken 업데이트
 export const refresh = async () => {
-  const response = await axios.get('/auth/refresh');
+  const response = await axios.get('/auth/refresh', {
+    validateStatus: function (status) {
+      // 상태 코드가 500 이상일 경우 거부. 나머지(500보다 작은)는 허용.
+      return status < 500;
+    },
+  });
   return response;
 };
 

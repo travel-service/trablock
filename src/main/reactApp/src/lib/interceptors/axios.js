@@ -8,7 +8,6 @@ axios.interceptors.response.use(
   (resp) => resp,
   async (error) => {
     if (!refresh) {
-      console.log(error);
       if (
         error.response.data.message.includes('AccessToken') ||
         error.response.status === 500

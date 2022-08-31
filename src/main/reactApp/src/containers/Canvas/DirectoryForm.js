@@ -4,7 +4,7 @@ import DirectoryList from 'components/Canvas/DirectoryPage/DirectoryList';
 import PageTemplate from 'components/common/PageTemplate';
 import styled from 'styled-components';
 import { dirStore } from 'lib/zustand/dirStore';
-import { useStore } from 'lib/zustand/planStore';
+import { useStore, sysLocStore } from 'lib/zustand/planStore';
 import { useSelector } from 'react-redux';
 
 //디렉토리 목록 데이터 get
@@ -26,6 +26,7 @@ const DirectoryForm = () => {
     userState: user.userState,
   }));
 
+  const { initializeSysCateLocForm } = sysLocStore();
   const { initializePlanForm } = useStore();
   const {
     mainPlans,
@@ -57,6 +58,7 @@ const DirectoryForm = () => {
   } = dirStore();
 
   useEffect(() => {
+    initializeSysCateLocForm();
     initializePlanForm();
     setCurrentDir('m');
     setCheckedPlans([]);
@@ -68,6 +70,7 @@ const DirectoryForm = () => {
       getUserDirs();
       getTrashPlans();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getMainPlans, getTrashPlans, userState]);
 
   return (

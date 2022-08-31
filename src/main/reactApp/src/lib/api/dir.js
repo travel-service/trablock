@@ -17,8 +17,6 @@ export const createDir = async (dirName) => {
 export const getAllPlans = async () => {
   try {
     const response = await axios.get('/directories/main');
-
-    console.log('여행보관함: ', response);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -30,8 +28,6 @@ export const getAllPlans = async () => {
 export const getUserDirs = async () => {
   try {
     const response = await axios.get(`/directories/members`);
-
-    console.log('보관함목록: ', response);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -43,8 +39,6 @@ export const getUserDirs = async () => {
 export const getTrashPlans = async () => {
   try {
     const response = await axios.get(`/directories/trash`);
-
-    console.log('휴지통: ', response);
     return response.data;
   } catch (err) {
     console.log(err);

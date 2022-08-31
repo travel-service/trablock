@@ -67,7 +67,6 @@ const Time = ({ title, day, index, flag, type, check }) => {
   const onChangeStayTime = (e) => {
     const { name, value } = e.target;
     if (value.length > 2) {
-      console.log(name);
       setStayTime({
         ...stayTime,
         [name]: value.substr(0, 2),

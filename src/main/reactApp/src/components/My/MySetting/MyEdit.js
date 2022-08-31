@@ -161,10 +161,11 @@ const UserEditForm = () => {
   } = useStore();
   useEffect(() => {
     getEditP();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    console.log(profile, info);
+    // console.log(profile, info);
   }, [profile, info]);
 
   // 프로필 사진 미리보기
@@ -185,7 +186,6 @@ const UserEditForm = () => {
     e.preventDefault();
     if (e.target.files) {
       const file = e.target.files[0];
-      console.log(file);
       preview(file);
       setForm({ form_file: e.target.files[0] });
     }
@@ -212,34 +212,33 @@ const UserEditForm = () => {
       const result = e.target.value
         .replace(/[^0-9]/g, '')
         .replace(/^(\d{0,4})(\d{0,2})(\d{0,2})$/g, '$1-$2-$3')
+        // eslint-disable-next-line no-useless-escape
         .replace(/(\-{1,2})$/g, '');
       setVal(result);
     }
   };
-  // 기본 입력 bio는 지워도 nul이 아닌 입력된 값으로 변경되는 문제->
-  // e.target.value로 값을 주는 것은 어떤가.. 사용자가 지울수있또록..?
 
   // radiobutton 값 변경
   const [select, setSelect] = useState(info.gender);
   const onSelectChange = (e) => {
     const value = e.target.value;
     setSelect(value);
-    console.log(value);
+    // console.log(value);
   };
 
   // 정보 변경
   const onEdit = () => {
     if (/\d{4}-\d{2}-\d{2}/g.test(inputfield.birthday)) {
       setBirthday(inputfield.birthday);
-      console.log('생일 확인');
+      // console.log('생일 확인');
     } else if (inputfield.birthday === '') {
-      console.log('생일 입력 안한 사람들');
+      // console.log('생일 입력 안한 사람들');
     } else {
       alert('생일 입력 형식을 다시 확인하세요.');
     }
     if (select !== null) {
       setGender(select);
-      console.log('성별 확인');
+      // console.log('성별 확인');
     }
     if (checknick.message === '사용 가능한 닉네임 입니다') {
       setNick(inputfield.nickname);
@@ -255,7 +254,7 @@ const UserEditForm = () => {
       postImg(formData);
     }
     postInfo();
-    console.log('정보변경');
+    // console.log('정보변경');
   };
 
   return (

@@ -43,12 +43,14 @@ const TravelSettingForm = () => {
         id && getPlan(id);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useEffect(() => {
     return () => {
       userPlan.name !== '' && postPlan(0);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userPlan.name]);
 
   return (
