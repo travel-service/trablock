@@ -148,6 +148,7 @@ const PlanList = ({
           return p.name.toLowerCase().includes(searchT);
         }),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchT]);
 
   const Searching = (e) => {

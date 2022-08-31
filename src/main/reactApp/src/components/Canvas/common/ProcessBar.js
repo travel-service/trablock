@@ -128,7 +128,7 @@ const ProcessBar = ({ type, siteMap }) => {
 
   const save = async () => {
     let res = await postPlan(Object.keys(siteMap).indexOf(type));
-    if (res) {
+    if (res && type !== 'check') {
       alert(res);
       return 0;
     } else {
@@ -143,8 +143,6 @@ const ProcessBar = ({ type, siteMap }) => {
       navigate(process.env.PUBLIC_URL + '/');
     }
   };
-
-  console.log(type);
 
   return (
     <Container>

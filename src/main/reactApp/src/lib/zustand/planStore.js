@@ -152,8 +152,41 @@ export const useStore = create(
         set({ conceptForm: { concept: con.conceptForm } });
       },
 
+      // GET selectedLocations
+      getSelectedLocations: async () => {
+        const planId = get().id;
+        const res = await locationAPI.getSelectedLocations(planId);
+        if (res.status === 200) {
+          let data = res.data.blockLocations;
+          let tmpSysCateLoc = sysLocStore.getState().sysCateLoc;
+          for (const key in data) {
+            for (let loc of data[key]) {
+              loc.isSelect = true;
+              tmpSysCateLoc[key].some((location, idx) => {
+                if (location.locationId === loc.locationId) {
+                  tmpSysCateLoc[key][idx].isSelect = true;
+                  sysLocStore.setState({
+                    sysCateLoc: tmpSysCateLoc,
+                  });
+                  return true;
+                } else return false;
+              });
+            }
+            set((state) => ({
+              selCateLoc: {
+                ...state.selCateLoc,
+                [key]: data[key],
+              },
+            }));
+          }
+        } else {
+          console.log('sel loc get 실패');
+        }
+      },
+
       // GET day
       getPlanDays: async (planId) => {
+        if (get().userTravelDay.status) return;
         if (planId) {
           set({
             userTravelDay: {
@@ -278,67 +311,89 @@ export const useStore = create(
 );
 
 // systemLocation 받아오고, 카테고리 따라서 분류
-export const sysLocStore = create((set, get) => ({
-  sysCateLoc: {
-    Attraction: [],
-    Culture: [],
-    Festival: [],
-    Leports: [],
-    Lodge: [],
-    Restaurant: [],
-  },
-  sysCateLocCoords: {},
-  sysBlockFlag: false,
-  sysMarkFlag: false,
-  lat: 33.280701,
-  lng: 126.570667,
-
-  // 0827
-  // sysLoc, sysLocCoords에서 isSelect없이 작동 가능해서 따로 매핑없이 그대로 받는 것으로 수정 -> 성능 개선
-
-  getSysLoc: async () => {
-    if (!get().sysBlockFlag) {
-      const response = await locationAPI.getBlockLocations();
-      if (response.status === 200) {
-        set({
-          sysCateLoc: response.data,
-          sysBlockFlag: true,
-        });
-      }
-    }
-  },
-
-  getSysLocCoords: async () => {
-    if (!get().sysMarkFlag) {
-      const response = await locationAPI.getMarkLocations();
-      if (response.status === 200) {
-        set({
-          sysCateLocCoords: response.data,
-          sysMarkFlag: true,
-        });
-      }
-    }
-  },
-
-  setLatLng: (id, type) => {
-    const coordsList = get().sysCateLocCoords[type];
-    const found = coordsList.find((loc) => loc.locationId === id);
-    set({ lat: found.coords.latitude });
-    set({ lng: found.coords.longitude });
-  },
-
-  setLocIsSelect: (type, idx, flag) => {
-    let tmpLocArr = get().sysCateLoc[type];
-    if (flag) {
-      tmpLocArr[idx].isSelect = true;
-    } else {
-      tmpLocArr[idx].isSelect = false;
-    }
-    set((state) => ({
+export const sysLocStore = create(
+  persist(
+    (set, get) => ({
       sysCateLoc: {
-        ...state.sysCateLoc,
-        [type]: tmpLocArr,
+        Attraction: [],
+        Culture: [],
+        Festival: [],
+        Leports: [],
+        Lodge: [],
+        Restaurant: [],
       },
-    }));
-  },
-}));
+      sysCateLocCoords: {},
+      sysBlockFlag: false,
+      sysMarkFlag: false,
+      lat: 33.280701,
+      lng: 126.570667,
+
+      initializeSysCateLocForm: () => {
+        set(() => ({
+          sysCateLoc: {
+            Attraction: [],
+            Culture: [],
+            Festival: [],
+            Leports: [],
+            Lodge: [],
+            Restaurant: [],
+          },
+          sysBlockFlag: false,
+        }));
+      },
+
+      // 0827
+      // sysLoc, sysLocCoords에서 isSelect없이 작동 가능해서 따로 매핑없이 그대로 받는 것으로 수정 -> 성능 개선
+
+      getSysLoc: async () => {
+        if (!get().sysBlockFlag) {
+          const response = await locationAPI.getBlockLocations();
+          if (response.status === 200) {
+            set({
+              sysCateLoc: response.data,
+              sysBlockFlag: true,
+            });
+          }
+        }
+      },
+
+      getSysLocCoords: async () => {
+        if (!get().sysMarkFlag) {
+          const response = await locationAPI.getMarkLocations();
+          if (response.status === 200) {
+            set({
+              sysCateLocCoords: response.data,
+              sysMarkFlag: true,
+            });
+          }
+        }
+      },
+
+      setLatLng: (id, type) => {
+        const coordsList = get().sysCateLocCoords[type];
+        const found = coordsList.find((loc) => loc.locationId === id);
+        set({ lat: found.coords.latitude });
+        set({ lng: found.coords.longitude });
+      },
+
+      setLocIsSelect: (type, idx, flag) => {
+        let tmpLocArr = get().sysCateLoc[type];
+        if (flag) {
+          tmpLocArr[idx].isSelect = true;
+        } else {
+          tmpLocArr[idx].isSelect = false;
+        }
+        set((state) => ({
+          sysCateLoc: {
+            ...state.sysCateLoc,
+            [type]: tmpLocArr,
+          },
+        }));
+      },
+    }),
+    {
+      name: 'sysLoc-storage',
+      getStorage: () => sessionStorage,
+    },
+  ),
+);

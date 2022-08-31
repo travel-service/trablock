@@ -1,5 +1,4 @@
-import { green } from '@mui/material/colors';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useStore } from 'lib/zustand/myStore';
 
@@ -102,7 +101,6 @@ const UserPassForm = () => {
         originPwd: inputfield.prepass,
         newPwd: inputfield.newpass,
       };
-      console.log(pass);
       postPasswd(pass);
     }
   };

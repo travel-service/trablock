@@ -83,6 +83,7 @@ compileQuerydsl {
 //querydsl 추가 끝
 
 // 리액트 프로젝트 install, build 시작
+
 def frontendDir = "$projectDir/src/main/reactApp"
 
 sourceSets {

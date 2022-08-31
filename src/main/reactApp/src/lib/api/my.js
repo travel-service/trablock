@@ -16,14 +16,13 @@ export const getMyinfo = async () => {
       bio: nickbio.data.result.bio,
     };
   } catch (e) {
-    console.log(e);
+    console.log(e.response);
   }
 };
 
 // 회원 개인정보 수정 "요청"
 export const postMyinfo = async (profile) => {
   try {
-    console.log(profile);
     const response = await axios.post('/members/profile/edit', profile);
     return response.data;
   } catch (e) {
@@ -34,7 +33,6 @@ export const postMyinfo = async (profile) => {
 // 회원 개인페이지 닉네임 수정 "요청"
 export const postMyNick = async (nickName) => {
   try {
-    console.log(nickName);
     const response = await axios.post(`/members/profile/${nickName}`);
     return response;
   } catch (e) {
@@ -45,7 +43,6 @@ export const postMyNick = async (nickName) => {
 // 회원 개인페이지 닉네임 수정 "요청"
 export const postMyBio = async (bio) => {
   try {
-    console.log(bio);
     const response = await axios.post('/members/profile/bio', bio);
     return response;
   } catch (e) {
@@ -83,8 +80,8 @@ export const getCheckNick = async (nick, prenick) => {
     const response = await axios.get(`/api/nickname/${nick}`, {
       validateStatus: (status) => status < 500,
     });
-    console.log(response.status);
-    console.log(response.data);
+    // console.log(response.status);
+    // console.log(response.data);
     if (nick === prenick && response.status === 409) {
       const setmessage = '현재 사용자가 설정한 닉네임 입니다.';
       return setmessage;
@@ -99,7 +96,6 @@ export const getCheckNick = async (nick, prenick) => {
 export const getEditPage = async () => {
   try {
     const response = await axios.get('/members/profile/edit');
-    console.log(response);
     let infoBirthday = '';
     // birthday format
     if (
@@ -113,10 +109,10 @@ export const getEditPage = async () => {
       } else {
         yy = '19' + yy;
       }
-      console.log(yy);
+      // console.log(yy);
       infoBirthday =
         yy + '-' + birthdays.slice(2, 4) + '-' + birthdays.slice(4, 6);
-      console.log(infoBirthday);
+      // console.log(infoBirthday);
     } else {
       infoBirthday = response.data.result.info.birthday;
     }
@@ -135,7 +131,6 @@ export const getEditPage = async () => {
 // 비밀번호 수정
 export const postPass = async (pass) => {
   try {
-    console.log(pass);
     const response = await axios.post('/members/profile/password', pass, {
       validateStatus: (status) => status < 401,
     });
@@ -144,7 +139,6 @@ export const postPass = async (pass) => {
     } else if (response.status === 201) {
       return alert('성공적으로 변경되었습니다.');
     }
-    console.log(response);
     return response;
   } catch (e) {
     console.log(e);

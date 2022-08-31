@@ -178,8 +178,6 @@ const SignupForm = () => {
       return;
     }
     if (auth) {
-      console.log('회원가입 성공');
-
       dispatch(tempSetAuth()); // 회원가입후 auth 제거
       alert('회원가입이 완료되었습니다!');
       navigate(process.env.PUBLIC_URL + '/');

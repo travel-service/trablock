@@ -104,7 +104,7 @@ const DirPopUp = styled.li`
   background: #ffffff;
   color: #000000;
   border-radius: 5px;
-  decoration: none;
+  /* decoration: none; */
   text-align: center;
 
   font-weight: 400;
@@ -146,6 +146,7 @@ const DirectoryList = ({
           return plan.userDirectoryIds.includes(currentDirId);
         }),
       );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDirId, mainPlans]);
 
   useEffect(() => {
