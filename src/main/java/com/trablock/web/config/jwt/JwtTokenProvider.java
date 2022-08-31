@@ -8,6 +8,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -116,13 +117,15 @@ public class JwtTokenProvider {
 
     //RefreshToken response
     public void setHeaderRefreshToken(HttpServletResponse response, String refreshToken) {
-        Cookie cookie = new Cookie("refreshToken", refreshToken);
-        cookie.setSecure(true);
-        cookie.setHttpOnly(true);
-        cookie.setPath("/"); //쿠키의 유효범위 추후 서비스 발전시 쿠키의 범위 설정 필요
-        cookie.setMaxAge(7 * 24 * 60 * 60);
+        ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
+                .secure(true)
+                .httpOnly(true)
+                .sameSite("None")
+                .path("/")
+                .maxAge(7 * 24 * 60 * 60)
+                .build();
 
-        response.addCookie(cookie);
+        response.setHeader("Set-Cookie", cookie.toString());
     }
 
     //RefreshToken logout response

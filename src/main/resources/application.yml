@@ -1,16 +1,16 @@
 spring:
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/trablock?serverTimezone=Asia/Seoul
-#    username: root
-#    password: 1234
-#    driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource:
+    url: jdbc:mysql://localhost:3306/trablock?serverTimezone=Asia/Seoul
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   #    하위 datasource 는 cafe24 용
-  datasource:
-    url: jdbc:mysql://localhost:3306/mmnm3
-    username: mmnm3
-    password: gbsb2022@
-    driver-class-name: com.mysql.cj.jdbc.Driver
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/mmnm3
+#    username: mmnm3
+#    password: gbsb2022@
+#    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     #    show-sql: true
