@@ -41,3 +41,9 @@ node_modules
 *.log
 **/src/main/reactApp/build
 **/src/main/resources/static
+
+### yml ###
+application.yml
+
+### build ###
+build.gradle

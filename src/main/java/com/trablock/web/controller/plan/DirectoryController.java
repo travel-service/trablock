@@ -28,14 +28,15 @@ import static java.util.stream.Collectors.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/directories")
 public class DirectoryController {
 
     private final PlanService planService;
     private final UserDirectoryService userDirectoryService;
     private final PlanItemService planItemService;
 
-    @GetMapping("/directories/main")
-    public MainDirectory test2(HttpServletRequest request) {
+    @GetMapping("main")
+    public MainDirectory getMainDirectories(HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);
 
         int planCount = planService.countPlan(member); // 플랜 갯수 반환
@@ -44,8 +45,7 @@ public class DirectoryController {
     }
 
 
-    //main-user directory get
-    @GetMapping("/directories/members")
+    @GetMapping("members")
     public MainUserDirectory usersPlans(HttpServletRequest request) {
 
         Member member = planService.getMemberFromPayload(request);
@@ -66,8 +66,7 @@ public class DirectoryController {
     }
 
 
-    //trash directory get
-    @GetMapping("/directories/trash")
+    @GetMapping("trash")
     public TrashDirectory trashPlans(HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);
 
@@ -82,8 +81,7 @@ public class DirectoryController {
     }
 
 
-    // user directory get
-    @GetMapping("/directories/{directoryId}")
+    @GetMapping("{directoryId}")
     public ShowUserDirectory usersDirectoryPlans(@PathVariable("directoryId") UserDirectory userDirectoryId,
                                                            HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);
@@ -93,7 +91,7 @@ public class DirectoryController {
         if (member.getId() != null) {
             List<Plan> userPlanDirectoryUser = planItemService.findUserPlanDirectoryUser(userDirectoryId);
             List<PlanDirectoryDto> collect = userPlanDirectoryUser.stream()
-                    .map(m -> new PlanDirectoryDto(m.getId(), m.getName(), m.getPeriods(), m.getCreatedDate().toString().substring(0, 10), m.getPlanComplete()))
+                    .map(m -> new PlanDirectoryDto(m.getId(), m.getName(), m.getPeriods(), m.getCreatedDate().toString().substring(0, 10), m.getPlanComplete(), m.getThumbnail()))
                     .collect(toList());
 
             return new ShowUserDirectory(HTTPStatus.OK.getCode(), message, collect);
@@ -102,9 +100,7 @@ public class DirectoryController {
         }
     }
 
-
-    //플랜 삭제(main -> trash)
-    @PostMapping("/directories/trash")
+    @PostMapping("trash")
     public PlanMoveMainToTrash cancelPlan(@RequestBody StateChangeForm stateChangeForm, HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);
 
@@ -116,8 +112,7 @@ public class DirectoryController {
     }
 
 
-    //플랜 복구(trash -> main)
-    @PostMapping("/directories/main")
+    @PostMapping("main")
     public PlanMoveTrashToMain revertPlan(@RequestBody StateChangeForm stateChangeForm, HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);
 
@@ -128,9 +123,7 @@ public class DirectoryController {
         return new PlanMoveTrashToMain(HTTPStatus.Created.getCode(), message);
     }
 
-
-    //플랜 영구 삭제(trash -> delete)
-    @DeleteMapping("/directories/plans")
+    @DeleteMapping("plans")
     public PlanDelete deletePlan(@RequestBody StateChangeForm stateChangeForm, HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);
 
@@ -141,9 +134,7 @@ public class DirectoryController {
         return new PlanDelete(HTTPStatus.NoContent.getCode(), message);
     }
 
-
-    //user directory 생성
-    @PostMapping("/directories")
+    @PostMapping("")
     public CreateUserDirectory createUserDirectory(HttpServletRequest request,
                                       @RequestBody UserDirectoryForm userDirectoryForm) {
         Member member = planService.getMemberFromPayload(request);
@@ -151,9 +142,7 @@ public class DirectoryController {
         return userDirectoryService.createUserDirectory(member.getId(), userDirectoryForm);
     }
 
-
-    //user directory 삭제(undelete -> delete)
-    @DeleteMapping("/directories/members")
+    @DeleteMapping("members")
     public DeleteUserDirectory deleteUserDirectory(@RequestBody UserDirectoryForm userDirectoryForm, HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);
 
@@ -166,18 +155,14 @@ public class DirectoryController {
         return new DeleteUserDirectory(HTTPStatus.NoContent.getCode(), message);
     }
 
-
-    //plan 이동(main 디렉터리 -> user 디렉터리)
-    @PostMapping("/directories/directory/plans")
+    @PostMapping("directory/plans")
     public PlanMoveToUserDirectory moveUserDirectory(@RequestBody MoveDirectoryForm moveDirectoryForm, HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);
 
         return planItemService.moveUserPlan(moveDirectoryForm, member.getId());
     }
 
-
-    // user directory 이름 변경
-    @PostMapping("/directories/{directoryId}/name")
+    @PostMapping("{directoryId}/name")
     public UpdatePlanName updateUserDirectoryName(@PathVariable("directoryId") Long id,
                                         @RequestBody DirectoryNameUpdateDto directoryNameUpdateDto,
                                         HttpServletRequest request) {
@@ -187,12 +172,11 @@ public class DirectoryController {
         return userDirectoryService.updateDirectoryName(id, directoryNameUpdateDto, member.getId());
     }
 
-    // user directory 플랜 삭제
-    @DeleteMapping("directories/{directoryId}/plans")
+    @DeleteMapping("{directoryId}/plans")
     public DeletePlans deletePlans(@PathVariable("directoryId") Long userDirectoryId,
                                    @RequestBody PlansDeleteDto plansDeleteDto,
                                    HttpServletRequest request) {
-        Member member = planService.getMemberFromPayload(request);
+        planService.getMemberFromPayload(request);
 
         return planItemService.deletePlans(userDirectoryId, plansDeleteDto);
     }
@@ -200,7 +184,7 @@ public class DirectoryController {
 
     private List<PlanDirectoryDto> getPlanDirectoryDtos(List<Plan> planDirectoryMain) {
         return planDirectoryMain.stream()
-                .map(m -> new PlanDirectoryDto(m.getId(), m.getName(), m.getPeriods(), m.getCreatedDate().toString().substring(0, 10), m.getPlanComplete()))
+                .map(m -> new PlanDirectoryDto(m.getId(), m.getName(), m.getPeriods(), m.getCreatedDate().toString().substring(0, 10), m.getPlanComplete(), m.getThumbnail()))
                 .collect(toList());
     }
 }
