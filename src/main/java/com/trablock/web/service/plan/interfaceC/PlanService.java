@@ -21,7 +21,7 @@ public interface PlanService {
 
     Member getMemberFromPayload(HttpServletRequest request);
 
-    Plan createPlan(Form form, Member member);
+    Plan createPlan(Form form, Member member, String planThumbnail);
 
     List<Plan> findMainPlanDirectoryMain(Member member);
 

@@ -1,7 +1,6 @@
 package com.trablock.web.controller.plan;
 
 import com.trablock.web.controller.form.Form;
-import com.trablock.web.converter.Converter;
 import com.trablock.web.dto.plan.DayDto;
 import com.trablock.web.dto.plan.PlanDto;
 import com.trablock.web.dto.plan.UserPlanUpdateDto;
@@ -9,6 +8,10 @@ import com.trablock.web.entity.member.Member;
 import com.trablock.web.entity.plan.Day;
 import com.trablock.web.entity.plan.Plan;
 import com.trablock.web.global.HTTPStatus;
+//import com.trablock.web.service.img.AuthService;
+import com.trablock.web.service.img.ImageService;
+//import com.trablock.web.service.img.ObjectService;
+//import com.trablock.web.service.img.ImageTest;
 import com.trablock.web.service.location.LocationService;
 import com.trablock.web.service.plan.interfaceC.ConceptService;
 import com.trablock.web.service.plan.interfaceC.DayService;
@@ -17,12 +20,14 @@ import com.trablock.web.service.plan.interfaceC.SelectedLocationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import static com.trablock.web.converter.Converter.*;
 import static com.trablock.web.converter.Converter.UserDay;
@@ -33,18 +38,72 @@ import static java.util.stream.Collectors.*;
 @RequiredArgsConstructor
 public class PlanController {
 
+//    @Value("{spring.img.authUrl}")
+//    private String authUrl;
+//
+//    @Value("{spring.img.tenantId}")
+//    private String tenantId;
+//
+//    @Value("{spring.img.username}")
+//    private String username;
+//
+//    @Value("{spring.img.password}")
+//    private String password;
+
     private final PlanService planService;
     private final DayService dayService;
     private final SelectedLocationService selectedLocationService;
     private final LocationService locationService;
     private final ConceptService conceptService;
+    private final ImageService imageService;
+//    private final ImageTest imageTest;
 
     //Plan 생성
     @PostMapping("/members/plan")
-    public CreatePlan createPlan(@RequestBody Form form, HttpServletRequest request) {
+    public CreatePlan createPlan(
+            @RequestPart(value = "file", required = false) MultipartFile file,
+            @RequestPart(value = "planForm") Form form,
+            HttpServletRequest request
+    ) throws IOException {
         Member member = planService.getMemberFromPayload(request);
 
-        Long planId = planService.createPlan(form, member).getId();
+        System.out.println("form = " + form.getPeriods());
+
+//        tenantId: 92bb02eefaa74ad6a53a63ebc9abba2f
+//        username: heuirr22@naver.com
+//        password: trablock1234
+//        authUrl: https://api-identity.infrastructure.cloud.toast.com/v2.0
+//        storageUrl: https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f
+
+//        AuthService authService = new AuthService(
+//                "https://api-identity.infrastructure.cloud.toast.com/v2.0",
+//                "92bb02eefaa74ad6a53a63ebc9abba2f",
+//                "heuirr22@naver.com",
+//                "1234"
+//        );
+//
+//        String tokenId = authService.requestToken();
+//
+//        ObjectService objectService = new ObjectService(
+//                "https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f",
+//                tokenId
+//        );
+//        String planThumbnail = objectService.uploadObject(
+//                LocalDateTime.now().toString(),
+//                multipartFile.getInputStream());
+//
+
+        String token = imageService.requestToken();
+
+        System.out.println("token = " + token);
+        System.out.println("file = " + file);
+
+        String planThumbnail = imageService.uploadObject(LocalDateTime.now().toString(), file);
+
+//        imageTest.requestToken();
+//        String planThumbnail = imageTest.uploadObject(LocalDateTime.now().toString(), multipartFile);
+
+        Long planId = planService.createPlan(form, member, planThumbnail).getId();
 
         String message = "Plan이 정상적으로 생성되었습니다.";
 
@@ -70,8 +129,8 @@ public class PlanController {
     // TODO TEST
     @PostMapping("/members/plan/{planId}/concept")
     public UpdateConcept updateUserPlanConcept(@PathVariable("planId") Long planId,
-                                      HttpServletRequest request,
-                                      @RequestBody Form form) {
+                                               HttpServletRequest request,
+                                               @RequestBody Form form) {
 
         Member member = planService.getMemberFromPayload(request);
 
@@ -154,8 +213,8 @@ public class PlanController {
     // TODO TEST
     @PutMapping("/members/plan/{planId}/day")
     public GetDay updateUserPlanDay(@PathVariable("planId") Long planId,
-                                  HttpServletRequest request,
-                                  @RequestBody Form form) {
+                                    HttpServletRequest request,
+                                    @RequestBody Form form) {
 
         Member member = planService.getMemberFromPayload(request);
 
@@ -188,8 +247,8 @@ public class PlanController {
     // TODO TEST
     @PostMapping("/members/plan/{planId}")
     public UpdatePlan updateUserPlan(@PathVariable("planId") Long planId,
-                               HttpServletRequest request,
-                               @RequestBody UserPlanUpdateDto userPlanUpdateDto) {
+                                     HttpServletRequest request,
+                                     @RequestBody UserPlanUpdateDto userPlanUpdateDto) {
 
         Member member = planService.getMemberFromPayload(request);
 
@@ -205,8 +264,8 @@ public class PlanController {
     // TODO TEST
     @PostMapping("/members/plan/{planId}/selected-location")
     public UpdateSelectedLocation updateUserPlanSelectedLocation(@PathVariable("planId") Long planId,
-                                               HttpServletRequest request,
-                                               @RequestBody Form form) {
+                                                                 HttpServletRequest request,
+                                                                 @RequestBody Form form) {
         Member member = planService.getMemberFromPayload(request);
 
         if (member.getId() == null) {

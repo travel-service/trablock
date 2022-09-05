@@ -48,16 +48,6 @@ class PlanServiceTest {
     Plan plan;
     Member member;
 
-    @BeforeEach
-    void init() {
-        Member initMember = new Member("username", "1234",
-                new MemberProfile("nickname", "bio"),
-                new MemberInfo("19980102", Gender.MALE, "wkdwoo@kakao.com"),
-                new ArrayList<>(), true);
-
-        member = memberRepository.save(initMember);
-    }
-
 
     @Test
     @DisplayName("Plan 저장 테스트")
@@ -99,13 +89,12 @@ class PlanServiceTest {
                                 .name("test-name")
                                 .planComplete(PlanComplete.UNFINISHED)
                                 .planStatus(PlanStatus.MAIN)
-                                .thumbnail("test-thumbnail")
                                 .periods(1)
                                 .build()
                 ).build();
 
         //when
-        Plan plan = planService.createPlan(form, member);
+        Plan plan = planService.createPlan(form, member, "test");
 
         //then
         assertEquals(plan.getPlanStatus(), PlanStatus.MAIN);
@@ -131,7 +120,7 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member);
+        Plan plan = planService.createPlan(form, member, "test");
 
         //when
         PlanDto onePlanDto = planService.getOnePlanDto(plan.getId(), member);
@@ -141,7 +130,7 @@ class PlanServiceTest {
         assertEquals(onePlanDto.getPeriods(), plan.getPeriods());
         assertEquals(onePlanDto.getDepart(), plan.getDepart());
         assertEquals(onePlanDto.getName(), plan.getName());
-     }
+    }
 
     @Test
     @DisplayName("main 디렉터리 정보 GET test")
@@ -177,9 +166,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        planService.createPlan(form1, member);
-        planService.createPlan(form2, member);
-        planService.createPlan(form3, member);
+        planService.createPlan(form1, member, "test");
+        planService.createPlan(form2, member, "test");
+        planService.createPlan(form3, member, "test");
 
         //when
         List<Plan> mainPlanDirectoryMain = planService.findMainPlanDirectoryMain(member);
@@ -222,9 +211,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member);
-        Plan plan2 = planService.createPlan(form2, member);
-        Plan plan3 = planService.createPlan(form3, member);
+        Plan plan1 = planService.createPlan(form1, member, "test");
+        Plan plan2 = planService.createPlan(form2, member, "test");
+        Plan plan3 = planService.createPlan(form3, member, "test");
 
         List<Long> planIds = new ArrayList<>();
 
@@ -278,9 +267,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member);
-        Plan plan2 = planService.createPlan(form2, member);
-        Plan plan3 = planService.createPlan(form3, member);
+        Plan plan1 = planService.createPlan(form1, member, "test");
+        Plan plan2 = planService.createPlan(form2, member, "test");
+        Plan plan3 = planService.createPlan(form3, member, "test");
 
         List<Long> planIds1 = new ArrayList<>();
 
@@ -313,58 +302,58 @@ class PlanServiceTest {
     @DisplayName("사용자가 플랜을 완전 삭제 시 PlanStatus가 TRASH -> DELETE 로 update 되는지 test")
     public void deletePlanTest() throws Exception {
         //given
-         Form form1 = Form.builder()
-                 .planForm(
-                         PlanForm.builder()
-                                 .depart("test-depart")
-                                 .name("test-name")
-                                 .planStatus(PlanStatus.MAIN)
-                                 .periods(1)
-                                 .build()
-                 ).build();
+        Form form1 = Form.builder()
+                .planForm(
+                        PlanForm.builder()
+                                .depart("test-depart")
+                                .name("test-name")
+                                .planStatus(PlanStatus.MAIN)
+                                .periods(1)
+                                .build()
+                ).build();
 
-         Form form2 = Form.builder()
-                 .planForm(
-                         PlanForm.builder()
-                                 .depart("test-depart")
-                                 .planStatus(PlanStatus.MAIN)
-                                 .name("test-name")
-                                 .periods(1)
-                                 .build()
-                 ).build();
+        Form form2 = Form.builder()
+                .planForm(
+                        PlanForm.builder()
+                                .depart("test-depart")
+                                .planStatus(PlanStatus.MAIN)
+                                .name("test-name")
+                                .periods(1)
+                                .build()
+                ).build();
 
-         Form form3 = Form.builder()
-                 .planForm(
-                         PlanForm.builder()
-                                 .depart("test-depart")
-                                 .name("test-name")
-                                 .planStatus(PlanStatus.MAIN)
-                                 .periods(1)
-                                 .build()
-                 ).build();
+        Form form3 = Form.builder()
+                .planForm(
+                        PlanForm.builder()
+                                .depart("test-depart")
+                                .name("test-name")
+                                .planStatus(PlanStatus.MAIN)
+                                .periods(1)
+                                .build()
+                ).build();
 
-         Plan plan1 = planService.createPlan(form1, member);
-         Plan plan2 = planService.createPlan(form2, member);
-         Plan plan3 = planService.createPlan(form3, member);
+        Plan plan1 = planService.createPlan(form1, member, "test");
+        Plan plan2 = planService.createPlan(form2, member, "test");
+        Plan plan3 = planService.createPlan(form3, member, "test");
 
-         List<Long> planIds = new ArrayList<>();
+        List<Long> planIds = new ArrayList<>();
 
-         planIds.add(plan1.getId());
-         planIds.add(plan2.getId());
+        planIds.add(plan1.getId());
+        planIds.add(plan2.getId());
 
-         StateChangeForm stateChangeForm = StateChangeForm.builder()
-                 .planId(planIds)
-                 .build();
+        StateChangeForm stateChangeForm = StateChangeForm.builder()
+                .planId(planIds)
+                .build();
 
-         //when
-         planService.cancelPlan(stateChangeForm, member);
+        //when
+        planService.cancelPlan(stateChangeForm, member);
 
-         planService.deletePlan(stateChangeForm, member);
+        planService.deletePlan(stateChangeForm, member);
 
-         //then
-         assertEquals(plan1.getPlanStatus(), PlanStatus.DELETE);
-         assertEquals(plan2.getPlanStatus(), PlanStatus.DELETE);
-         assertEquals(plan3.getPlanStatus(), PlanStatus.MAIN);
+        //then
+        assertEquals(plan1.getPlanStatus(), PlanStatus.DELETE);
+        assertEquals(plan2.getPlanStatus(), PlanStatus.DELETE);
+        assertEquals(plan3.getPlanStatus(), PlanStatus.MAIN);
     }
 
 
@@ -402,9 +391,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member);
-        Plan plan2 = planService.createPlan(form2, member);
-        Plan plan3 = planService.createPlan(form3, member);
+        Plan plan1 = planService.createPlan(form1, member, "test");
+        Plan plan2 = planService.createPlan(form2, member, "test");
+        Plan plan3 = planService.createPlan(form3, member, "test");
 
         List<Long> planIds1 = new ArrayList<>();
 
@@ -424,7 +413,6 @@ class PlanServiceTest {
                 .build();
 
 
-
         //when
         IllegalStateException e = assertThrows(IllegalStateException.class, () -> planService.deletePlan(stateChangeForm1, member));
 
@@ -438,68 +426,68 @@ class PlanServiceTest {
     @Test
     @DisplayName("사용자가 플랜을 복구 시 PlanStatus가 TRASH -> MAIN 로 update 되는지 test")
     public void revertPlanTest() throws Exception {
-         //given
-         Form form1 = Form.builder()
-                 .planForm(
-                         PlanForm.builder()
-                                 .depart("test-depart")
-                                 .name("test-name")
-                                 .planStatus(PlanStatus.MAIN)
-                                 .periods(1)
-                                 .build()
-                 ).build();
+        //given
+        Form form1 = Form.builder()
+                .planForm(
+                        PlanForm.builder()
+                                .depart("test-depart")
+                                .name("test-name")
+                                .planStatus(PlanStatus.MAIN)
+                                .periods(1)
+                                .build()
+                ).build();
 
-         Form form2 = Form.builder()
-                 .planForm(
-                         PlanForm.builder()
-                                 .depart("test-depart")
-                                 .planStatus(PlanStatus.MAIN)
-                                 .name("test-name")
-                                 .periods(1)
-                                 .build()
-                 ).build();
+        Form form2 = Form.builder()
+                .planForm(
+                        PlanForm.builder()
+                                .depart("test-depart")
+                                .planStatus(PlanStatus.MAIN)
+                                .name("test-name")
+                                .periods(1)
+                                .build()
+                ).build();
 
-         Form form3 = Form.builder()
-                 .planForm(
-                         PlanForm.builder()
-                                 .depart("test-depart")
-                                 .name("test-name")
-                                 .planStatus(PlanStatus.MAIN)
-                                 .periods(1)
-                                 .build()
-                 ).build();
+        Form form3 = Form.builder()
+                .planForm(
+                        PlanForm.builder()
+                                .depart("test-depart")
+                                .name("test-name")
+                                .planStatus(PlanStatus.MAIN)
+                                .periods(1)
+                                .build()
+                ).build();
 
-         Plan plan1 = planService.createPlan(form1, member);
-         Plan plan2 = planService.createPlan(form2, member);
-         Plan plan3 = planService.createPlan(form3, member);
+        Plan plan1 = planService.createPlan(form1, member, "test");
+        Plan plan2 = planService.createPlan(form2, member, "test");
+        Plan plan3 = planService.createPlan(form3, member, "test");
 
-         List<Long> planIds1 = new ArrayList<>();
-         List<Long> planIds2 = new ArrayList<>();
+        List<Long> planIds1 = new ArrayList<>();
+        List<Long> planIds2 = new ArrayList<>();
 
-         planIds1.add(plan1.getId());
-         planIds1.add(plan2.getId());
-         planIds1.add(plan3.getId());
+        planIds1.add(plan1.getId());
+        planIds1.add(plan2.getId());
+        planIds1.add(plan3.getId());
 
-         StateChangeForm stateChangeForm1 = StateChangeForm.builder()
-                 .planId(planIds1)
-                 .build();
+        StateChangeForm stateChangeForm1 = StateChangeForm.builder()
+                .planId(planIds1)
+                .build();
 
         planIds2.add(plan1.getId());
         planIds2.add(plan2.getId());
 
-         StateChangeForm stateChangeForm2 = StateChangeForm.builder()
-                 .planId(planIds2)
-                 .build();
+        StateChangeForm stateChangeForm2 = StateChangeForm.builder()
+                .planId(planIds2)
+                .build();
 
-         //when
-         planService.cancelPlan(stateChangeForm1, member);
+        //when
+        planService.cancelPlan(stateChangeForm1, member);
 
-         planService.revertPlan(stateChangeForm2, member);
+        planService.revertPlan(stateChangeForm2, member);
 
-         //then
-         assertEquals(plan1.getPlanStatus(), PlanStatus.MAIN);
-         assertEquals(plan2.getPlanStatus(), PlanStatus.MAIN);
-         assertEquals(plan3.getPlanStatus(), PlanStatus.TRASH);
+        //then
+        assertEquals(plan1.getPlanStatus(), PlanStatus.MAIN);
+        assertEquals(plan2.getPlanStatus(), PlanStatus.MAIN);
+        assertEquals(plan3.getPlanStatus(), PlanStatus.TRASH);
     }
 
     @Test
@@ -536,9 +524,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member);
-        Plan plan2 = planService.createPlan(form2, member);
-        Plan plan3 = planService.createPlan(form3, member);
+        Plan plan1 = planService.createPlan(form1, member, "test");
+        Plan plan2 = planService.createPlan(form2, member, "test");
+        Plan plan3 = planService.createPlan(form3, member, "test");
 
         List<Long> planIds1 = new ArrayList<>();
         List<Long> planIds2 = new ArrayList<>();
@@ -583,7 +571,7 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member);
+        Plan plan = planService.createPlan(form, member, "test");
 
         //when
         planService.finishedPlan(plan.getId());
@@ -608,7 +596,7 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member);
+        Plan plan = planService.createPlan(form, member, "test");
 
         planService.finishedPlan(plan.getId());
 
@@ -635,7 +623,7 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member);
+        Plan plan = planService.createPlan(form, member, "test");
 
         //when
         planService.finishedPlan(plan.getId());
@@ -662,7 +650,7 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member);
+        Plan plan = planService.createPlan(form, member, "test");
 
         //when
 
@@ -719,9 +707,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        planService.createPlan(form1, member);
-        planService.createPlan(form2, member);
-        planService.createPlan(form3, member);
+        planService.createPlan(form1, member, "test");
+        planService.createPlan(form2, member, "test");
+        planService.createPlan(form3, member, "test");
 
         //when
         int countPlan = planService.countPlan(member);
@@ -765,9 +753,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member);
-        Plan plan2 = planService.createPlan(form2, member);
-        Plan plan3 = planService.createPlan(form3, member);
+        Plan plan1 = planService.createPlan(form1, member,"test");
+        Plan plan2 = planService.createPlan(form2, member, "test");
+        Plan plan3 = planService.createPlan(form3, member, "test");
 
         List<Long> planIds = new ArrayList<>();
 
@@ -803,7 +791,7 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member);
+        Plan plan = planService.createPlan(form, member, "test");
 
         //when
         Plan returnPlan = planService.returnPlan(plan.getId(), member);

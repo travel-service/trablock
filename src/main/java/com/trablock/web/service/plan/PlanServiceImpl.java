@@ -8,6 +8,7 @@ import com.trablock.web.converter.Converter.MainDirectory;
 import com.trablock.web.dto.plan.*;
 import com.trablock.web.entity.member.Member;
 import com.trablock.web.entity.plan.Plan;
+import com.trablock.web.entity.plan.enumtype.PlanComplete;
 import com.trablock.web.entity.plan.enumtype.PlanItemStatus;
 import com.trablock.web.entity.plan.enumtype.PlanStatus;
 import com.trablock.web.global.HTTPStatus;
@@ -29,7 +30,6 @@ import java.util.stream.Collectors;
 import static java.util.stream.Collectors.toList;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PlanServiceImpl implements PlanService {
 
@@ -46,8 +46,16 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     @Transactional
-    public Plan createPlan(Form form, Member member) {
-        Plan plan = form.getPlanForm().toEntity(member);
+    public Plan createPlan(Form form, Member member, String planThumbnail) {
+        Plan plan = Plan.builder()
+                .depart(form.getPlanForm().getDepart())
+                .member(member)
+                .name(form.getPlanForm().getName())
+                .periods(form.getPlanForm().getPeriods())
+                .planStatus(PlanStatus.MAIN)
+                .thumbnail(planThumbnail)
+                .planComplete(PlanComplete.UNFINISHED)
+                .build();
         savePlan(plan);
         return plan;
     }
