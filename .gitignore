@@ -43,7 +43,7 @@ node_modules
 **/src/main/resources/static
 
 ### yml ###
-*.yml
+application.yml
 
 ### build ###
 build.gradle
