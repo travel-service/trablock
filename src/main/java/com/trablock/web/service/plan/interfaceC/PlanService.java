@@ -21,7 +21,7 @@ public interface PlanService {
 
     Member getMemberFromPayload(HttpServletRequest request);
 
-    Plan createPlan(Form form, Member member, String planThumbnail);
+    Plan createPlan(Form form, Member member);
 
     List<Plan> findMainPlanDirectoryMain(Member member);
 
@@ -46,4 +46,6 @@ public interface PlanService {
     MainDirectory findPlanInfo(Member memberId, int planCount);
 
     void unFinishedPlan(Long planId);
+
+    void uploadImage(String uploadObject, Long planId);
 }

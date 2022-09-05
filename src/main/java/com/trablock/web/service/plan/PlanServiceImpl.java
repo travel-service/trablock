@@ -46,16 +46,8 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     @Transactional
-    public Plan createPlan(Form form, Member member, String planThumbnail) {
-        Plan plan = Plan.builder()
-                .depart(form.getPlanForm().getDepart())
-                .member(member)
-                .name(form.getPlanForm().getName())
-                .periods(form.getPlanForm().getPeriods())
-                .planStatus(PlanStatus.MAIN)
-                .thumbnail(planThumbnail)
-                .planComplete(PlanComplete.UNFINISHED)
-                .build();
+    public Plan createPlan(Form form, Member member) {
+        Plan plan = form.getPlanForm().toEntity(member);
         savePlan(plan);
         return plan;
     }
@@ -127,6 +119,13 @@ public class PlanServiceImpl implements PlanService {
     public void unFinishedPlan(Long planId) {
         Plan plan = planRepository.findPlanById(planId).orElseThrow();
         plan.unFinished();
+    }
+
+    @Override
+    @Transactional
+    public void uploadImage(String uploadObject, Long planId) {
+        Plan plan = planRepository.findById(planId).orElseThrow();
+        plan.uploadImage(uploadObject);
     }
 
     /**

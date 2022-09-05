@@ -11,6 +11,7 @@ spring:
     password: 1234
     authUrl: https://api-identity.infrastructure.cloud.toast.com/v2.0
     storageUrl: https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f
+    containerName: trablock
 
 
   jpa:

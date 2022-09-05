@@ -48,7 +48,6 @@ class PlanServiceTest {
     Plan plan;
     Member member;
 
-
     @Test
     @DisplayName("Plan 저장 테스트")
     public void savePlanTest() throws Exception {
@@ -94,7 +93,7 @@ class PlanServiceTest {
                 ).build();
 
         //when
-        Plan plan = planService.createPlan(form, member, "test");
+        Plan plan = planService.createPlan(form, member);
 
         //then
         assertEquals(plan.getPlanStatus(), PlanStatus.MAIN);
@@ -120,7 +119,7 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member, "test");
+        Plan plan = planService.createPlan(form, member);
 
         //when
         PlanDto onePlanDto = planService.getOnePlanDto(plan.getId(), member);
@@ -166,9 +165,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        planService.createPlan(form1, member, "test");
-        planService.createPlan(form2, member, "test");
-        planService.createPlan(form3, member, "test");
+        planService.createPlan(form1, member);
+        planService.createPlan(form2, member);
+        planService.createPlan(form3, member);
 
         //when
         List<Plan> mainPlanDirectoryMain = planService.findMainPlanDirectoryMain(member);
@@ -211,9 +210,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member, "test");
-        Plan plan2 = planService.createPlan(form2, member, "test");
-        Plan plan3 = planService.createPlan(form3, member, "test");
+        Plan plan1 = planService.createPlan(form1, member);
+        Plan plan2 = planService.createPlan(form2, member);
+        Plan plan3 = planService.createPlan(form3, member);
 
         List<Long> planIds = new ArrayList<>();
 
@@ -267,9 +266,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member, "test");
-        Plan plan2 = planService.createPlan(form2, member, "test");
-        Plan plan3 = planService.createPlan(form3, member, "test");
+        Plan plan1 = planService.createPlan(form1, member);
+        Plan plan2 = planService.createPlan(form2, member);
+        Plan plan3 = planService.createPlan(form3, member);
 
         List<Long> planIds1 = new ArrayList<>();
 
@@ -332,9 +331,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member, "test");
-        Plan plan2 = planService.createPlan(form2, member, "test");
-        Plan plan3 = planService.createPlan(form3, member, "test");
+        Plan plan1 = planService.createPlan(form1, member);
+        Plan plan2 = planService.createPlan(form2, member);
+        Plan plan3 = planService.createPlan(form3, member);
 
         List<Long> planIds = new ArrayList<>();
 
@@ -391,9 +390,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member, "test");
-        Plan plan2 = planService.createPlan(form2, member, "test");
-        Plan plan3 = planService.createPlan(form3, member, "test");
+        Plan plan1 = planService.createPlan(form1, member);
+        Plan plan2 = planService.createPlan(form2, member);
+        Plan plan3 = planService.createPlan(form3, member);
 
         List<Long> planIds1 = new ArrayList<>();
 
@@ -411,6 +410,7 @@ class PlanServiceTest {
         StateChangeForm stateChangeForm2 = StateChangeForm.builder()
                 .planId(planIds2)
                 .build();
+
 
 
         //when
@@ -457,9 +457,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member, "test");
-        Plan plan2 = planService.createPlan(form2, member, "test");
-        Plan plan3 = planService.createPlan(form3, member, "test");
+        Plan plan1 = planService.createPlan(form1, member);
+        Plan plan2 = planService.createPlan(form2, member);
+        Plan plan3 = planService.createPlan(form3, member);
 
         List<Long> planIds1 = new ArrayList<>();
         List<Long> planIds2 = new ArrayList<>();
@@ -524,9 +524,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member, "test");
-        Plan plan2 = planService.createPlan(form2, member, "test");
-        Plan plan3 = planService.createPlan(form3, member, "test");
+        Plan plan1 = planService.createPlan(form1, member);
+        Plan plan2 = planService.createPlan(form2, member);
+        Plan plan3 = planService.createPlan(form3, member);
 
         List<Long> planIds1 = new ArrayList<>();
         List<Long> planIds2 = new ArrayList<>();
@@ -566,12 +566,11 @@ class PlanServiceTest {
                                 .name("test-name")
                                 .planComplete(PlanComplete.UNFINISHED)
                                 .planStatus(PlanStatus.MAIN)
-                                .thumbnail("test-thumbnail")
                                 .periods(1)
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member, "test");
+        Plan plan = planService.createPlan(form, member);
 
         //when
         planService.finishedPlan(plan.getId());
@@ -591,12 +590,11 @@ class PlanServiceTest {
                                 .name("test-name")
                                 .planComplete(PlanComplete.UNFINISHED)
                                 .planStatus(PlanStatus.MAIN)
-                                .thumbnail("test-thumbnail")
                                 .periods(1)
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member, "test");
+        Plan plan = planService.createPlan(form, member);
 
         planService.finishedPlan(plan.getId());
 
@@ -618,12 +616,11 @@ class PlanServiceTest {
                                 .name("test-name")
                                 .planComplete(PlanComplete.UNFINISHED)
                                 .planStatus(PlanStatus.MAIN)
-                                .thumbnail("test-thumbnail")
                                 .periods(1)
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member, "test");
+        Plan plan = planService.createPlan(form, member);
 
         //when
         planService.finishedPlan(plan.getId());
@@ -645,12 +642,11 @@ class PlanServiceTest {
                                 .name("test-name")
                                 .planComplete(PlanComplete.UNFINISHED)
                                 .planStatus(PlanStatus.MAIN)
-                                .thumbnail("test-thumbnail")
                                 .periods(1)
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member, "test");
+        Plan plan = planService.createPlan(form, member);
 
         //when
 
@@ -707,9 +703,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        planService.createPlan(form1, member, "test");
-        planService.createPlan(form2, member, "test");
-        planService.createPlan(form3, member, "test");
+        planService.createPlan(form1, member);
+        planService.createPlan(form2, member);
+        planService.createPlan(form3, member);
 
         //when
         int countPlan = planService.countPlan(member);
@@ -753,9 +749,9 @@ class PlanServiceTest {
                                 .build()
                 ).build();
 
-        Plan plan1 = planService.createPlan(form1, member,"test");
-        Plan plan2 = planService.createPlan(form2, member, "test");
-        Plan plan3 = planService.createPlan(form3, member, "test");
+        Plan plan1 = planService.createPlan(form1, member);
+        Plan plan2 = planService.createPlan(form2, member);
+        Plan plan3 = planService.createPlan(form3, member);
 
         List<Long> planIds = new ArrayList<>();
 
@@ -786,12 +782,11 @@ class PlanServiceTest {
                                 .name("test-name")
                                 .planComplete(PlanComplete.UNFINISHED)
                                 .planStatus(PlanStatus.MAIN)
-                                .thumbnail("test-thumbnail")
                                 .periods(1)
                                 .build()
                 ).build();
 
-        Plan plan = planService.createPlan(form, member, "test");
+        Plan plan = planService.createPlan(form, member);
 
         //when
         Plan returnPlan = planService.returnPlan(plan.getId(), member);

@@ -8,16 +8,15 @@ import com.trablock.web.entity.member.Member;
 import com.trablock.web.entity.plan.Day;
 import com.trablock.web.entity.plan.Plan;
 import com.trablock.web.global.HTTPStatus;
-//import com.trablock.web.service.img.AuthService;
+import com.trablock.web.service.img.AuthService;
 import com.trablock.web.service.img.ImageService;
-//import com.trablock.web.service.img.ObjectService;
-//import com.trablock.web.service.img.ImageTest;
 import com.trablock.web.service.location.LocationService;
 import com.trablock.web.service.plan.interfaceC.ConceptService;
 import com.trablock.web.service.plan.interfaceC.DayService;
 import com.trablock.web.service.plan.interfaceC.PlanService;
 import com.trablock.web.service.plan.interfaceC.SelectedLocationService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,81 +37,47 @@ import static java.util.stream.Collectors.*;
 @RequiredArgsConstructor
 public class PlanController {
 
-//    @Value("{spring.img.authUrl}")
-//    private String authUrl;
-//
-//    @Value("{spring.img.tenantId}")
-//    private String tenantId;
-//
-//    @Value("{spring.img.username}")
-//    private String username;
-//
-//    @Value("{spring.img.password}")
-//    private String password;
-
     private final PlanService planService;
     private final DayService dayService;
     private final SelectedLocationService selectedLocationService;
     private final LocationService locationService;
     private final ConceptService conceptService;
-    private final ImageService imageService;
-//    private final ImageTest imageTest;
+    private final AuthService authService;
+
+    @Value("{spring.img.containerName}")
+    private String containerName;
 
     //Plan 생성
     @PostMapping("/members/plan")
-    public CreatePlan createPlan(
-            @RequestPart(value = "file", required = false) MultipartFile file,
-            @RequestPart(value = "planForm") Form form,
-            HttpServletRequest request
-    ) throws IOException {
+    public CreatePlan createPlan(@RequestBody Form form, HttpServletRequest request){
         Member member = planService.getMemberFromPayload(request);
 
-        System.out.println("form = " + form.getPeriods());
-
-//        tenantId: 92bb02eefaa74ad6a53a63ebc9abba2f
-//        username: heuirr22@naver.com
-//        password: trablock1234
-//        authUrl: https://api-identity.infrastructure.cloud.toast.com/v2.0
-//        storageUrl: https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f
-
-//        AuthService authService = new AuthService(
-//                "https://api-identity.infrastructure.cloud.toast.com/v2.0",
-//                "92bb02eefaa74ad6a53a63ebc9abba2f",
-//                "heuirr22@naver.com",
-//                "1234"
-//        );
-//
-//        String tokenId = authService.requestToken();
-//
-//        ObjectService objectService = new ObjectService(
-//                "https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f",
-//                tokenId
-//        );
-//        String planThumbnail = objectService.uploadObject(
-//                LocalDateTime.now().toString(),
-//                multipartFile.getInputStream());
-//
-
-        String token = imageService.requestToken();
-
-        System.out.println("token = " + token);
-        System.out.println("file = " + file);
-
-        String planThumbnail = imageService.uploadObject(LocalDateTime.now().toString(), file);
-
-//        imageTest.requestToken();
-//        String planThumbnail = imageTest.uploadObject(LocalDateTime.now().toString(), multipartFile);
-
-        Long planId = planService.createPlan(form, member, planThumbnail).getId();
+        Long planId = planService.createPlan(form, member).getId();
 
         String message = "Plan이 정상적으로 생성되었습니다.";
 
         return new CreatePlan(HTTPStatus.Created.getCode(), message, planId);
     }
 
+    @PostMapping("/members/{planId}/thumbnail")
+    public Result uploadImage(
+            @RequestPart(value = "file", required = false) MultipartFile file,
+            @PathVariable("planId") Long planId
+    ) throws IOException {
+
+        Object token = authService.requestToken();
+
+        ImageService imgTest = new ImageService(authService.getStorageUrl(), token.toString());
+
+        String thumbnail = imgTest.uploadObject(authService.getContainerName(), LocalDateTime.now().toString(), file.getInputStream());
+
+        planService.uploadImage(thumbnail, planId);
+
+        return new Result(HTTPStatus.Created.getCode(), "사진이 정상적으로 등록되었습니다.");
+    }
+
 
     //plan 정보 불러오기 - PlanForm
-    // TODO TEST
     @GetMapping("/members/plan/{planId}")
     public UserPlan getUserPlans(@PathVariable("planId") Long planId, HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);

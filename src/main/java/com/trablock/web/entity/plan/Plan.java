@@ -131,4 +131,8 @@ public class Plan extends BaseTimeEntity {
                 .periods(periods)
                 .build();
     }
+
+    public void uploadImage(String uploadObject) {
+        this.thumbnail = uploadObject;
+    }
 }
