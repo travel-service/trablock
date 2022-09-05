@@ -23,11 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
 
 @Service
 @RequiredArgsConstructor
@@ -126,6 +123,11 @@ public class PlanServiceImpl implements PlanService {
     public void uploadImage(String uploadObject, Long planId) {
         Plan plan = planRepository.findById(planId).orElseThrow();
         plan.uploadImage(uploadObject);
+    }
+
+    @Override
+    public Plan findPlan(Long planId) {
+        return planRepository.findById(planId).orElseThrow();
     }
 
     /**

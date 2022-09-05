@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,13 +66,28 @@ public class PlanController {
             @PathVariable("planId") Long planId
     ) throws IOException {
 
+        Plan plan = planService.findPlan(planId);
+
         Object token = authService.requestToken();
 
         ImageService imgTest = new ImageService(authService.getStorageUrl(), token.toString());
 
-        String thumbnail = imgTest.uploadObject(authService.getContainerName(), LocalDateTime.now().toString(), file.getInputStream());
+        String imageDefault = "https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f/trablock/defaultImage.png";
 
-        planService.uploadImage(thumbnail, planId);
+        if (file.isEmpty()) {
+            planService.uploadImage(imageDefault, planId);
+
+        } else {
+            if (plan.getThumbnail() != null && !plan.getThumbnail().equals(imageDefault)) {
+                List<String> objectName = Arrays.asList(plan.getThumbnail().split("/"));
+
+                imgTest.deleteObject(authService.getContainerName(), objectName.get(objectName.size() - 1));
+            }
+
+            String thumbnail = imgTest.uploadObject(authService.getContainerName(), LocalDateTime.now().toString(), file.getInputStream());
+
+            planService.uploadImage(thumbnail, planId);
+        }
 
         return new Result(HTTPStatus.Created.getCode(), "사진이 정상적으로 등록되었습니다.");
     }
