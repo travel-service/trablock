@@ -20,6 +20,7 @@ import { sysLocStore } from 'lib/zustand/planStore';
 
 const Div = styled.div`
   z-index: 0;
+  height: 100%;
 `;
 
 const { kakao } = window;
@@ -226,7 +227,6 @@ const MapContainer = ({ coords }) => {
         id="myMap"
         ref={container}
         style={{
-          height: '553px',
           borderRadius: '10px',
           border: '1px solid #E5E7E8',
         }}

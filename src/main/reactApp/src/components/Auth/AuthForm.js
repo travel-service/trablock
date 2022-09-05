@@ -375,7 +375,15 @@ const AuthForm = ({
                     onChange={onChange}
                     value={form.email}
                   />
+                  <button name="email" onClick={(e) => checkValue(e)}>
+                    중복 확인
+                  </button>
                 </InputDiv>
+                {detailErr.email.message && (
+                  <SpanRed detail={detailErr.email.status === 1}>
+                    *{detailErr.email.message}
+                  </SpanRed>
+                )}
               </StyledDiv>
             </>
           )}

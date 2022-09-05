@@ -36,14 +36,15 @@ public class MailServiceImpl implements MailService {
     }
 
     public MailDto emailAuthMail(String email, String uuid) {
-        String title = "TRABLOCK 회원기입 이메일 인증 안내";
+        String title = "TRABLOCK 회원가입 이메일 인증 안내";
         String message = "안녕하세요. TRABLOCK 이메일 인증 안내 메일입니다.\n 하단의 링크를 클릭하여 인증을 해주시길 바랍니다. \n";
         String fromAddress = "Trablock2022@gmail.com";
 
         MailDto mailDto = MailDto.builder()
                 .toAddress(email)
                 .title(title)
-                .message(message + "http://localhost:8080/auth/email?email="+email+"&uuid="+uuid)
+                .message(message + "http://localhost:8080/member/"+email+"/"+uuid)
+                // .message(message + "http://tra-block/auth/"+email+"/"+uuid)
                 .fromAddress(fromAddress)
                 .build();
 
