@@ -36,6 +36,7 @@ import static java.util.stream.Collectors.*;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/members")
 public class PlanController {
 
     private final PlanService planService;
@@ -45,11 +46,7 @@ public class PlanController {
     private final ConceptService conceptService;
     private final AuthService authService;
 
-    @Value("{spring.img.containerName}")
-    private String containerName;
-
-    //Plan 생성
-    @PostMapping("/members/plan")
+    @PostMapping("plans")
     public CreatePlan createPlan(@RequestBody Form form, HttpServletRequest request){
         Member member = planService.getMemberFromPayload(request);
 
@@ -60,7 +57,7 @@ public class PlanController {
         return new CreatePlan(HTTPStatus.Created.getCode(), message, planId);
     }
 
-    @PostMapping("/members/{planId}/thumbnail")
+    @PostMapping("{planId}/thumbnail")
     public Result uploadImage(
             @RequestPart(value = "file", required = false) MultipartFile file,
             @PathVariable("planId") Long planId
@@ -93,8 +90,7 @@ public class PlanController {
     }
 
 
-    //plan 정보 불러오기 - PlanForm
-    @GetMapping("/members/plan/{planId}")
+    @GetMapping("plan/{planId}")
     public UserPlan getUserPlans(@PathVariable("planId") Long planId, HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);
 
@@ -102,13 +98,11 @@ public class PlanController {
 
         String message = "Plan이 정상적으로 불러와졌습니다.";
 
-        return new UserPlan(HTTPStatus.Created.getCode(), message, planDto);
+        return new UserPlan(HTTPStatus.OK.getCode(), message, planDto);
     }
 
 
-    // concept 업데이트
-    // TODO TEST
-    @PostMapping("/members/plan/{planId}/concept")
+    @PostMapping("plan/{planId}/concept")
     public UpdateConcept updateUserPlanConcept(@PathVariable("planId") Long planId,
                                                HttpServletRequest request,
                                                @RequestBody Form form) {
@@ -130,9 +124,7 @@ public class PlanController {
     }
 
 
-    // concept 정보 불러오기 - ConceptForm
-    @GetMapping("/members/plan/{planId}/concept")
-    // TODO TEST
+    @GetMapping("plan/{planId}/concept")
     public ResponseEntity<?> usersConcepts(@PathVariable("planId") Long planId, HttpServletRequest request) {
         Member memberFromPayload = planService.getMemberFromPayload(request);
 
@@ -148,10 +140,7 @@ public class PlanController {
         }
     }
 
-
-    //Day 생성
-    // TODO TEST
-    @PostMapping("/members/plan/{planId}/day")
+    @PostMapping("plan/{planId}/day")
     public CreateDay createDay(@RequestBody Form form, HttpServletRequest request, @PathVariable("planId") Long planId) {
 
         Member member = planService.getMemberFromPayload(request);
@@ -170,9 +159,7 @@ public class PlanController {
     }
 
 
-    //Day 정보 불러오기 - dayForm
-    // TODO TEST
-    @GetMapping("/members/plan/{planId}/day")
+    @GetMapping("plan/{planId}/day")
     public UserDay getDaysInPlan(@PathVariable("planId") Long planId, HttpServletRequest request) {
         Member memberFromPayload = planService.getMemberFromPayload(request);
 
@@ -190,9 +177,7 @@ public class PlanController {
     }
 
 
-    // Day 수정
-    // TODO TEST
-    @PutMapping("/members/plan/{planId}/day")
+    @PutMapping("plan/{planId}/day")
     public GetDay updateUserPlanDay(@PathVariable("planId") Long planId,
                                     HttpServletRequest request,
                                     @RequestBody Form form) {
@@ -213,9 +198,7 @@ public class PlanController {
     }
 
 
-    // SelectedLocation 정보 불러오기
-    // TODO TEST
-    @GetMapping("/members/plan/{planId}/selected-location")
+    @GetMapping("plan/{planId}/selected-location")
     public ResponseEntity usersSelectedLocation(@PathVariable("planId") Long planId, HttpServletRequest request) {
         Member member = planService.getMemberFromPayload(request);
         Plan plan = planService.returnPlan(planId, member); // 토큰 검증과 PathVariable id를 통해 Plan 객체 반환
@@ -224,9 +207,7 @@ public class PlanController {
     }
 
 
-    // Plan update
-    // TODO TEST
-    @PostMapping("/members/plan/{planId}")
+    @PostMapping("plan/{planId}")
     public UpdatePlan updateUserPlan(@PathVariable("planId") Long planId,
                                      HttpServletRequest request,
                                      @RequestBody UserPlanUpdateDto userPlanUpdateDto) {
@@ -241,9 +222,7 @@ public class PlanController {
     }
 
 
-    // SelectedLocation 수정
-    // TODO TEST
-    @PostMapping("/members/plan/{planId}/selected-location")
+    @PostMapping("plan/{planId}/selected-location")
     public UpdateSelectedLocation updateUserPlanSelectedLocation(@PathVariable("planId") Long planId,
                                                                  HttpServletRequest request,
                                                                  @RequestBody Form form) {

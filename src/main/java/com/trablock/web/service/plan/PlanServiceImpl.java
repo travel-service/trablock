@@ -51,7 +51,7 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public PlanDto getOnePlanDto(Long planId, Member member) {
-        return planRepository.findPlanByMember(planId, member).orElseThrow().toDto();
+        return planRepository.getPlanDTOByMember(planId, member).orElseThrow();
     }
 
     @Override
@@ -198,7 +198,9 @@ public class PlanServiceImpl implements PlanService {
                     planInfo.get(i).getPeriods(),
                     planInfo.get(i).getCreatedDate().substring(0, 10),
                     planInfo.get(i).getPlanComplete(),
-                    userDirectoriesIds));
+                    userDirectoriesIds,
+                    planInfo.get(i).getThumbnail()
+            ));
         }
 
         String message = "메인 디렉터리를 정상적으로 불러왔습니다.";
