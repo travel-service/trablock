@@ -77,6 +77,14 @@ public class Converter {
         private String message;
     }
 
+
+    @Data
+    @AllArgsConstructor
+    public static class Result<T> {
+        private int httpStatus;
+        private String message;
+    }
+
     // SelectedLocation 수정 후 상태코드와 메시지를 반환하기 위한 클래스
     @Data
     @AllArgsConstructor

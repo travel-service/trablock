@@ -1,9 +1,9 @@
 package com.trablock.web.controller.form;
 
 import lombok.Builder;
-import lombok.Getter;
+import lombok.Data;
 
-@Getter
+@Data
 @Builder
 public class Form {
 

@@ -186,6 +186,7 @@ export const useStore = create(
 
       // GET day
       getPlanDays: async (planId) => {
+        if (get().userTravelDay.status) return;
         if (planId) {
           set({
             userTravelDay: {
