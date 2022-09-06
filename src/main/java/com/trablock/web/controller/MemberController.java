@@ -39,6 +39,14 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> confirmEmail(@ModelAttribute EmailAuthDto requestDto) {
         return memberService.confirmEmail(requestDto);
     }
+
+    //TODO
+    //이메일 재인증
+    @GetMapping("/auth/email/retry")
+    public String confirmEmailRetry() {
+        return "OK";
+    }
+
     // 비회원 - 중복 ID 체크
     @GetMapping("/api/username/{username}")
     public ResponseEntity<MemberResponseDto> checkId(@PathVariable("username") String userName) {
