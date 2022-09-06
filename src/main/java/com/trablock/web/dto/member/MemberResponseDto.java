@@ -203,6 +203,18 @@ public class MemberResponseDto {
         return res;
     }
 
+    public MemberResponseDto successGetMemberImg(String memberImg) {
+        MemberResponseDto res = new MemberResponseDto();
+        res.setStatus(HttpStatus.OK.value());
+        res.setMessage("정상적으로 회원의 사진을 조회했습니다.");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberImg", memberImg);
+        res.setResult(map);
+
+        return res;
+    }
+
     public MemberResponseDto successChangeMemberImg() {
         MemberResponseDto res = new MemberResponseDto();
         res.setStatus(HttpStatus.CREATED.value());

@@ -16,6 +16,7 @@ import com.trablock.web.repository.member.EmailAuthRepository;
 import com.trablock.web.repository.member.MemberRepository;
 import com.trablock.web.repository.member.TokenRepository;
 import com.trablock.web.service.file.FileService;
+import com.trablock.web.service.img.AuthService;
 import com.trablock.web.service.mail.MailServiceImpl;
 //import io.swagger.models.Response;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +52,8 @@ public class MemberServiceImpl implements MemberService{
 
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-    private final FileService fileService;
+
+    private final AuthService authService;
     private final JwtTokenService jwtTokenService;
     private final MailServiceImpl mailService;
     private final MemberResponseDto responseDto;
@@ -162,29 +164,14 @@ public class MemberServiceImpl implements MemberService{
      * 회원 프로필 사진
      * @param request
      * @return MemberImg
-     * @throws FileNotFoundException
      */
     @Override
-    public ResponseEntity<Object> getMemberImg(HttpServletRequest request) throws FileNotFoundException {
-//        String fileName = jwtTokenService.TokenToUserName(request) + ".png"; # 현재 이미지 처리 규칙이 없기에 잠궈놓겠습니다 (22-06-23)
-        String fileName = "default_profile.png";
-        Resource fileResource = fileService.loadFile(fileName);
-        String contentType = null;
+    public ResponseEntity<Object> getMemberImg(HttpServletRequest request) {
+        String userName = jwtTokenService.tokenToUserName(request);
+        Optional<Member> member = memberRepository.findByUserName(userName);
 
-        try {
-            contentType = request.getServletContext().getMimeType(fileResource.getFile().getAbsolutePath());
-        } catch (IOException e) {
-            log.error("Could not determine file type.");
-        }
-
-        if (contentType == null) {
-            contentType = "application/octet-stream";
-        }
-
-        return ResponseEntity.ok()
-                .contentType(parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileResource.getFilename() + "\"")
-                .body(fileResource);
+        String memberImg = member.get().getMemberProfile().getMemberImg();
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto.successGetMemberImg(memberImg));
     }
 
     /**

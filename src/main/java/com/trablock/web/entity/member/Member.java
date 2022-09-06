@@ -57,7 +57,7 @@ public class Member implements UserDetails{
         this.userName = memberSaveDto.getUserName();
         this.password = pwd;
         this.emailAuth = false;
-        this.memberProfile = new MemberProfile(memberSaveDto.getNickName(), null);
+        this.memberProfile = new MemberProfile(memberSaveDto.getNickName(), "member_default_img", null);
         this.memberInfo = new MemberInfo(memberSaveDto.getBirthday(), Gender.valueOf(memberSaveDto.getGender()),
                 memberSaveDto.getEmail());
         this.roles = Collections.singletonList("ROLE_USER");

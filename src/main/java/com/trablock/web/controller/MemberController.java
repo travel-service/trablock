@@ -39,6 +39,9 @@ public class MemberController {
     public ResponseEntity<MemberResponseDto> confirmEmail(@ModelAttribute EmailAuthDto requestDto) {
         return memberService.confirmEmail(requestDto);
     }
+
+    // 이메일 중복 체크 22.09.08 까지 구현예정
+
     // 비회원 - 중복 ID 체크
     @GetMapping("/api/username/{username}")
     public ResponseEntity<MemberResponseDto> checkId(@PathVariable("username") String userName) {
@@ -81,7 +84,7 @@ public class MemberController {
         return memberService.memberLogout(request, response);
     }
 
-    // 회원 - 회원 개인페이지 필요 DATA + (여행 디렉토리도 추가 예정)
+    // 회원 - 회원 개인페이지 필요 DATA
     @GetMapping("/members/my-page")
     public ResponseEntity<MemberResponseDto> getMemberPage(HttpServletRequest request) {
         return memberService.getMemberPage(request);
@@ -89,7 +92,7 @@ public class MemberController {
 
     // 회원 - 회원 개인페이지 프로필 사진
     @GetMapping("/members/my-page/img")
-    public ResponseEntity<Object> getMemberImg(HttpServletRequest request) throws FileNotFoundException {
+    public ResponseEntity<Object> getMemberImg(HttpServletRequest request) {
         return memberService.getMemberImg(request);
     }
 
