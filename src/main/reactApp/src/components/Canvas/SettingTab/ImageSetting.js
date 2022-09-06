@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactTooltip from 'react-tooltip';
 import styled from 'styled-components';
 import { AiOutlinePicture } from 'react-icons/ai';
@@ -8,12 +8,6 @@ const ThumbnailSettingDiv = styled.div`
   margin-bottom: 25px;
   font-family: 'Pretendard';
   font-style: normal;
-  // @media only screen and (min-width: 800px) {
-  //   margin-left: 10%;
-  //   margin-top: 10px;
-  //   margin-bottom: 10px;
-  //   height: 180px;
-  // }
 `;
 const TitleSpan = styled.span`
   font-weight: 600;
@@ -33,7 +27,6 @@ const ThumbnailboxDiv = styled.div`
   display: flex;
   align-items: flex-end;
   margin-top: 15px;
-  height: 150px;
 `;
 const PreviewboxDiv = styled.div`
   display: flex;
@@ -42,11 +35,10 @@ const PreviewboxDiv = styled.div`
   background: #e5e7e8;
   border-radius: 10px;
   width: 216px;
-  height: 150px;
+  height: 162px;
   margin-right: 10px;
 `;
 const StyledFile = styled.label`
-  //height: 46px;
   margin: 0;
   padding: 15px 25px 15px 25px;
   margin-right: 10px;
@@ -65,48 +57,39 @@ const StyledFile = styled.label`
 `;
 
 export const ImageSetting = ({ userPlan, setThumbnail, Question }) => {
-  const [imgData, setImgData] = useState(null);
+  const [imgData, setImgData] = useState(null); // preview
+  const [fileName, setFileName] = useState(null); // 파일 이름
+
+  useEffect(() => {
+    if (userPlan.thumbnail) {
+      setImgData(userPlan.thumbnail);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const insertImg = (e) => {
     let reader = new FileReader();
+    let formData = new FormData();
     if (e.target.files[0]) {
+      setFileName(e.target.files[0].name);
       reader.readAsDataURL(e.target.files[0]);
-    }
-
-    reader.onloadend = () => {
-      const previewImgBase64 = reader.result;
-
-      if (previewImgBase64) {
-        const formData = new FormData();
-        formData.append('file', e.target.files[0].name);
-        setThumbnail(formData);
-        setImgData(previewImgBase64);
-      }
-    };
-  };
-  /*const insertImg = (e) => {
-    let reader = new FileReader();
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
+      formData.append('file', e.target.files[0]);
+      //for (const keyValue of formData) console.log(keyValue);
     }
 
     reader.onloadend = () => {
       const previewImgUrl = reader.result;
-      console.log(e.target.files[0].name);
-
       if (previewImgUrl) {
-        const formData = new FormData();
-        formData.append('file', e.target.files[0]);
-        //formData.append('file', previewImgUrl);
         setThumbnail(formData);
         setImgData(previewImgUrl);
       }
-      console.log(userPlan.thumbnail);
     };
-  };*/
+  };
+
   const deleteImg = () => {
     setImgData(null);
     setThumbnail('');
+    setFileName(null);
   };
 
   return (
@@ -127,37 +110,52 @@ export const ImageSetting = ({ userPlan, setThumbnail, Question }) => {
         <PreviewboxDiv uploading={false}>
           {imgData ? (
             <img
-              src={userPlan.thumbnail ? userPlan.thumbnail : imgData}
+              src={imgData}
               alt="미리보기"
-              height="130"
+              style={{ maxWidth: '216px', maxHeight: '162px' }}
             />
           ) : (
             <AiOutlinePicture size="30" />
           )}
         </PreviewboxDiv>
-        <form encType="multipart/form-data" style={{ height: '35px' }}>
-          {userPlan.thumbnail ? (
-            <>
-              <StyledFile htmlFor="delete-file">파일 삭제</StyledFile>
-              <button
-                id="delete-file"
-                onClick={() => deleteImg()}
-                style={{ display: 'none' }}
-              />
-            </>
-          ) : (
-            <>
-              <StyledFile htmlFor="input-file">파일 찾기</StyledFile>
-              <input
-                type="file"
-                id="input-file"
-                accept="image/*"
-                onChange={(e) => insertImg(e)}
-                style={{ display: 'none' }}
-              />
-            </>
-          )}
-        </form>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '25px',
+            color: '#7e7e7e',
+            fontSize: '13px',
+          }}
+        >
+          <div>
+            {fileName && fileName.length > 20
+              ? fileName.substr(0, 20) + '...'
+              : fileName}
+          </div>
+          <form encType="multipart/form-data" style={{ height: '35px' }}>
+            {userPlan.thumbnail ? (
+              <>
+                <StyledFile htmlFor="delete-file">파일 삭제</StyledFile>
+                <button
+                  id="delete-file"
+                  onClick={() => deleteImg()}
+                  style={{ display: 'none' }}
+                />
+              </>
+            ) : (
+              <>
+                <StyledFile htmlFor="input-file">파일 찾기</StyledFile>
+                <input
+                  type="file"
+                  id="input-file"
+                  accept="image/*"
+                  onChange={(e) => insertImg(e)}
+                  style={{ display: 'none' }}
+                />
+              </>
+            )}
+          </form>
+        </div>
       </ThumbnailboxDiv>
     </ThumbnailSettingDiv>
   );
