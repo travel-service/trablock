@@ -69,6 +69,10 @@ const SignupForm = () => {
   const onChange = useCallback(
     (e) => {
       const { value, name } = e.target;
+      //  submit error 메시지 초기화
+      setError(null);
+
+      // 중복 검증 error 메시지 초기화
       if (name === 'userName' || name === 'nickName' || name === 'email') {
         setDetailErr({
           ...detailErr,

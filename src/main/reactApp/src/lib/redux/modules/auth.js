@@ -130,7 +130,7 @@ const auth = handleActions(
       } else {
         return {
           ...state,
-          authError: action.payload.response.data.me,
+          authError: action.payload.response.data.message,
         };
       }
     },
@@ -150,11 +150,10 @@ const auth = handleActions(
       };
     },
     // 로그인 실패
-    [LOGIN_FAILURE]: (state, { payload: error }) => {
-      console.log(error);
+    [LOGIN_FAILURE]: (state) => {
       return {
         ...state,
-        authError: error,
+        authError: true,
       };
     },
     // 회원가입후 auth 제거

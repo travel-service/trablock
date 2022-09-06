@@ -56,11 +56,11 @@ const AuthEmailPage = () => {
       });
     }
     setLoading(true);
-    console.log(res, email, uuid);
   };
 
   useEffect(() => {
     getAuthEmailInfo(email, uuid);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, uuid]);
 
   return (

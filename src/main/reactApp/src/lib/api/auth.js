@@ -2,10 +2,14 @@ import axios from 'axios';
 
 // 로그인
 export const login = async ({ userName, password }) => {
-  const response = await axios.post('/api/login', { userName, password });
-  axios.defaults.headers.common['authorization'] =
-    response.headers.authorization;
-  return response;
+  try {
+    const response = await axios.post('/api/login', { userName, password });
+    axios.defaults.headers.common['authorization'] =
+      response.headers.authorization;
+    return response;
+  } catch (e) {
+    return e.response;
+  }
 };
 
 // 회원가입
