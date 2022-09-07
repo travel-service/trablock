@@ -282,6 +282,16 @@ const SignupForm = () => {
   const checkValue = (e) => {
     const { name } = e.target;
     const { userName, nickName, email } = form;
+    if (name === 'email' && !/@/i.test(form[name])) {
+      setDetailErr({
+        ...detailErr,
+        [name]: {
+          status: 1,
+          message: `올바르지 않은 ${authKor[name]} 형식 입니다.`,
+        },
+      });
+      return;
+    }
     if (checkSpace(form[name]) || form[name] === '') {
       setDetailErr({
         ...detailErr,
