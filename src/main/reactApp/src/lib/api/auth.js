@@ -93,7 +93,7 @@ export const checkNickName = async ({ nickName }) => {
   return response;
 };
 
-// 이메일 중복 체크(개발X)
+// 이메일 중복 체크
 export const checkEmail = async ({ email }) => {
   const response = await axios.get(`/api/email/${email}`);
   return response;
