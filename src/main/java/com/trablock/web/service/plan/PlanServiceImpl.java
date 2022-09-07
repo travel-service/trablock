@@ -8,6 +8,7 @@ import com.trablock.web.converter.Converter.MainDirectory;
 import com.trablock.web.dto.plan.*;
 import com.trablock.web.entity.member.Member;
 import com.trablock.web.entity.plan.Plan;
+import com.trablock.web.entity.plan.enumtype.PlanComplete;
 import com.trablock.web.entity.plan.enumtype.PlanItemStatus;
 import com.trablock.web.entity.plan.enumtype.PlanStatus;
 import com.trablock.web.global.HTTPStatus;
@@ -22,14 +23,10 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toList;
 
 @Service
-@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class PlanServiceImpl implements PlanService {
 
@@ -54,7 +51,7 @@ public class PlanServiceImpl implements PlanService {
 
     @Override
     public PlanDto getOnePlanDto(Long planId, Member member) {
-        return planRepository.findPlanByMember(planId, member).orElseThrow().toDto();
+        return planRepository.getPlanDTOByMember(planId, member).orElseThrow();
     }
 
     @Override
@@ -119,6 +116,18 @@ public class PlanServiceImpl implements PlanService {
     public void unFinishedPlan(Long planId) {
         Plan plan = planRepository.findPlanById(planId).orElseThrow();
         plan.unFinished();
+    }
+
+    @Override
+    @Transactional
+    public void uploadImage(String uploadObject, Long planId) {
+        Plan plan = planRepository.findById(planId).orElseThrow();
+        plan.uploadImage(uploadObject);
+    }
+
+    @Override
+    public Plan findPlan(Long planId) {
+        return planRepository.findById(planId).orElseThrow();
     }
 
     /**
@@ -189,7 +198,9 @@ public class PlanServiceImpl implements PlanService {
                     planInfo.get(i).getPeriods(),
                     planInfo.get(i).getCreatedDate().substring(0, 10),
                     planInfo.get(i).getPlanComplete(),
-                    userDirectoriesIds));
+                    userDirectoriesIds,
+                    planInfo.get(i).getThumbnail()
+            ));
         }
 
         String message = "메인 디렉터리를 정상적으로 불러왔습니다.";

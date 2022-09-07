@@ -46,4 +46,8 @@ public interface PlanService {
     MainDirectory findPlanInfo(Member memberId, int planCount);
 
     void unFinishedPlan(Long planId);
+
+    void uploadImage(String uploadObject, Long planId);
+
+    Plan findPlan(Long planId);
 }

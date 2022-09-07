@@ -77,6 +77,7 @@ const TravelSettingForm = () => {
         />
         <ImageSetting
           userPlan={userPlan}
+          id={id}
           setThumbnail={setThumbnail}
           Question={Question}
         />

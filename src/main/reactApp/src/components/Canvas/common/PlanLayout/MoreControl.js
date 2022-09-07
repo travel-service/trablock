@@ -11,7 +11,7 @@ const PlanTitleDiv = styled.div`
 const MoreDiv = styled.div`
   text-align: right;
   position: absolute;
-  z-index: 2;
+  z-index: 4;
 `;
 // 설정 버튼
 const MoreButton = styled.button`
@@ -59,7 +59,7 @@ const SubUl = styled.ul`
   width: 148px;
   margin-left: -150px;
   margin-top: -52px;
-  z-index: 2;
+  z-index: 4;
 `;
 const MoveLi = styled.li`
   font-weight: 400;
