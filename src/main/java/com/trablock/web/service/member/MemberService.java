@@ -22,6 +22,8 @@ public interface MemberService {
 
     ResponseEntity<MemberResponseDto> confirmEmail(EmailAuthDto requestDto);
 
+    ResponseEntity<MemberResponseDto> emailValidation(String email);
+
     ResponseEntity<MemberResponseDto> memberLogin(LoginForm loginForm, HttpServletResponse response);
 
     ResponseEntity<MemberResponseDto> memberLogout(HttpServletRequest request, HttpServletResponse response);

@@ -40,8 +40,11 @@ public class MemberController {
         return memberService.confirmEmail(requestDto);
     }
 
-    // 이메일 중복 체크 22.09.08 까지 구현예정
-
+    // 비회원 - 이메일 중복 체크
+    @GetMapping("/api/email/{email}")
+    public ResponseEntity<MemberResponseDto> checkEmail(@PathVariable("email") String email) {
+        return memberService.emailValidation(email);
+    }
     // 비회원 - 중복 ID 체크
     @GetMapping("/api/username/{username}")
     public ResponseEntity<MemberResponseDto> checkId(@PathVariable("username") String userName) {

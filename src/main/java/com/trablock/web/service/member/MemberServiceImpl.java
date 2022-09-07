@@ -366,6 +366,23 @@ public class MemberServiceImpl implements MemberService{
     }
 
     /**
+     * 이메일 중복 검사
+     * @param email
+     * @return
+     */
+    @Override
+    public ResponseEntity<MemberResponseDto> emailValidation(String email) {
+        boolean isvalid = memberRepository.existsByEmail(email);
+
+        if (isvalid) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(responseDto.duplicateEmail());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto.canUseEmail());
+    }
+
+
+    /**
      * 중복 아이디 검증
      * @param userName
      * @return boolean

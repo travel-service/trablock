@@ -5,6 +5,7 @@ import com.trablock.web.entity.member.MemberProfile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.aspectj.weaver.Member;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.parameters.P;
@@ -270,4 +271,19 @@ public class MemberResponseDto {
         return res;
     }
 
+    public MemberResponseDto duplicateEmail() {
+        MemberResponseDto res = new MemberResponseDto();
+        res.setStatus(HttpStatus.CONFLICT.value());
+        res.setMessage("중복된 이메일 입니다.");
+
+        return res;
+    }
+
+    public MemberResponseDto canUseEmail() {
+        MemberResponseDto res = new MemberResponseDto();
+        res.setStatus(HttpStatus.OK.value());
+        res.setMessage("사용 가능한 이메일 입니다.");
+
+        return res;
+    }
 }
