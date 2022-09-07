@@ -56,16 +56,16 @@ const StyledFile = styled.label`
   }
 `;
 
-export const ImageSetting = ({ userPlan, setThumbnail, Question }) => {
+export const ImageSetting = ({ id, userPlan, setThumbnail, Question }) => {
   const [imgData, setImgData] = useState(null); // preview
   const [fileName, setFileName] = useState(null); // 파일 이름
 
   useEffect(() => {
-    if (userPlan.thumbnail) {
+    if (userPlan.thumbnail !== '' && id) {
       setImgData(userPlan.thumbnail);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userPlan.thumbnail, id]);
 
   const insertImg = (e) => {
     let reader = new FileReader();
@@ -74,7 +74,9 @@ export const ImageSetting = ({ userPlan, setThumbnail, Question }) => {
       setFileName(e.target.files[0].name);
       reader.readAsDataURL(e.target.files[0]);
       formData.append('file', e.target.files[0]);
-      //for (const keyValue of formData) console.log(keyValue);
+    } else {
+      let formd = new FormData();
+      formData.append('file', formd);
     }
 
     reader.onloadend = () => {
@@ -88,7 +90,7 @@ export const ImageSetting = ({ userPlan, setThumbnail, Question }) => {
 
   const deleteImg = () => {
     setImgData(null);
-    setThumbnail('');
+    setThumbnail(null);
     setFileName(null);
   };
 
@@ -112,7 +114,11 @@ export const ImageSetting = ({ userPlan, setThumbnail, Question }) => {
             <img
               src={imgData}
               alt="미리보기"
-              style={{ maxWidth: '216px', maxHeight: '162px' }}
+              style={{
+                maxWidth: '216px',
+                maxHeight: '162px',
+                borderRadius: '10px',
+              }}
             />
           ) : (
             <AiOutlinePicture size="30" />

@@ -88,6 +88,7 @@ const PlanLayout = ({
   name,
   periods,
   createdDate,
+  thumbnail,
 
   currentDirId = 'm',
   userDirs,
@@ -124,15 +125,14 @@ const PlanLayout = ({
       >
         {/* 썸네일 수정*/}
         <img
-          src={
-            `${process.env.PUBLIC_URL}/images/down_arrow_ico.png` /*userPlan.thumbnail */
-          } // thumbnail 없으면 기본 이미지로 대체?
+          src={thumbnail}
           alt="썸네일"
           style={{
             position: 'absolute',
             zIndex: 1,
             maxWidth: '216px',
             maxHeight: '162px',
+            borderRadius: '10px',
           }}
         />
         {isOver && currentDirId !== 't' && (
