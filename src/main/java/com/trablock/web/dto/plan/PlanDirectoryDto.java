@@ -14,5 +14,5 @@ public class PlanDirectoryDto {
     private int periods;
     private String createdDate;
     private PlanComplete planComplete;
-
+    private String thumbnail;
 }
