@@ -69,9 +69,9 @@ public class PlanController {
 
         ImageService imgTest = new ImageService(authService.getStorageUrl(), token.toString());
 
-        String imageDefault = "https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f/trablock/defaultImage.png";
+        String imageDefault = "https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f/trablock/%EC%8B%9C%EC%95%882.jpg";
 
-        if (file.isEmpty()) {
+        if (file==null) {
             planService.uploadImage(imageDefault, planId);
 
         } else {

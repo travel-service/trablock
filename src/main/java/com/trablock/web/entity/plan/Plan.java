@@ -120,7 +120,7 @@ public class Plan extends BaseTimeEntity {
         this.depart = userPlanUpdateDto.getDepart();
         this.name = userPlanUpdateDto.getName();
         this.periods = userPlanUpdateDto.getPeriods();
-        this.thumbnail = userPlanUpdateDto.getThumbnail();
+//        this.thumbnail = userPlanUpdateDto.getThumbnail();
     }
 
     public void uploadImage(String uploadObject) {
