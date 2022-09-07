@@ -226,7 +226,7 @@ public class MemberResponseDto {
     public MemberResponseDto failChangeMemberImg() {
         MemberResponseDto res = new MemberResponseDto();
         res.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        res.setMessage("사진 변경 실패.");
+        res.setMessage("사진 변경에 실패했습니다. 파일이 존재하지 않거나 오류입니다.");
 
         return res;
     }

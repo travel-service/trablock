@@ -1,6 +1,7 @@
 package com.trablock.web.service.member;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.trablock.web.config.jwt.JwtTokenProvider;
 import com.trablock.web.config.jwt.JwtTokenService;
 import com.trablock.web.controller.exception.MemberException;
@@ -17,6 +18,7 @@ import com.trablock.web.repository.member.MemberRepository;
 import com.trablock.web.repository.member.TokenRepository;
 import com.trablock.web.service.file.FileService;
 import com.trablock.web.service.img.AuthService;
+import com.trablock.web.service.img.ImageService;
 import com.trablock.web.service.mail.MailServiceImpl;
 //import io.swagger.models.Response;
 import lombok.RequiredArgsConstructor;
@@ -30,6 +32,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -166,7 +169,7 @@ public class MemberServiceImpl implements MemberService{
      * @return MemberImg
      */
     @Override
-    public ResponseEntity<Object> getMemberImg(HttpServletRequest request) {
+    public ResponseEntity<MemberResponseDto> getMemberImg(HttpServletRequest request) {
         String userName = jwtTokenService.tokenToUserName(request);
         Optional<Member> member = memberRepository.findByUserName(userName);
 
@@ -174,6 +177,33 @@ public class MemberServiceImpl implements MemberService{
         return ResponseEntity.status(HttpStatus.OK).body(responseDto.successGetMemberImg(memberImg));
     }
 
+    @Override
+    public ResponseEntity<MemberResponseDto> updateMemberImg(MultipartFile file, String userName) throws IOException {
+        Object token = authService.requestToken();
+        ImageService imgService = new ImageService(authService.getStorageUrl(), token.toString());
+        String imgDefault = "https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f/trablock/member_default_img.png";
+        Member member = memberRepository.findByUserName(userName).get();
+
+        if (file.isEmpty()) {
+            member.getMemberProfile().setMemberImg(imgDefault);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDto.failChangeMemberImg());
+
+        } else {
+
+            String memberImg = member.getMemberProfile().getMemberImg();
+            if (memberImg != null && !memberImg.equals(imgDefault)) {
+                List<String> object = Arrays.asList(memberImg.split("/"));
+
+                imgService.deleteObject(authService.getContainerName(), object.get(object.size()-1));
+            }
+
+            String newMemberImg = imgService.uploadObject(authService.getContainerName(), userName + ".png", file.getInputStream());
+            member.getMemberProfile().setMemberImg(newMemberImg);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto.successChangeMemberImg());
+
+    }
     /**
      * 회원의 개인정보 수정 페이지
      * @param request

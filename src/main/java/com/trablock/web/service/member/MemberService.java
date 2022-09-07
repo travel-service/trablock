@@ -1,5 +1,6 @@
 package com.trablock.web.service.member;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.trablock.web.dto.mail.EmailAuthDto;
 import com.trablock.web.dto.member.MemberPwdDto;
 import com.trablock.web.dto.member.MemberResponseDto;
@@ -8,10 +9,12 @@ import com.trablock.web.dto.member.MemberUpdateDto;
 import com.trablock.web.entity.member.LoginForm;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
 
 public interface MemberService {
@@ -25,7 +28,9 @@ public interface MemberService {
 
     ResponseEntity<MemberResponseDto> getMemberPage(HttpServletRequest request);
 
-    ResponseEntity<Object> getMemberImg(HttpServletRequest request);
+    ResponseEntity<MemberResponseDto> getMemberImg(HttpServletRequest request);
+
+    ResponseEntity<MemberResponseDto> updateMemberImg(MultipartFile multipartFile, String userName) throws IOException;
 
     ResponseEntity<MemberResponseDto> memberEditPage(HttpServletRequest request);
 

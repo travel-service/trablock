@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -25,7 +26,6 @@ import java.util.Map;
 public class MemberController {
 
     private final MemberService memberService;
-    private final FileService fileService;
     private final JwtTokenService jwtTokenService;
 
     // 비회원 - 회원가입
@@ -92,7 +92,7 @@ public class MemberController {
 
     // 회원 - 회원 개인페이지 프로필 사진
     @GetMapping("/members/my-page/img")
-    public ResponseEntity<Object> getMemberImg(HttpServletRequest request) {
+    public ResponseEntity<MemberResponseDto> getMemberImg(HttpServletRequest request) {
         return memberService.getMemberImg(request);
     }
 
@@ -104,8 +104,8 @@ public class MemberController {
 
     // 회원 - 프로필 사진 업데이트
     @PostMapping("/members/profile/img")
-    public ResponseEntity<MemberResponseDto> updateProfileImg(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
-        return fileService.saveProfileImg(multipartFile, jwtTokenService.tokenToUserName(request));
+    public ResponseEntity<MemberResponseDto> updateProfileImg(@RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) throws IOException {
+        return memberService.updateMemberImg(multipartFile, jwtTokenService.tokenToUserName(request));
     }
 
     // 회원 - 개인정보 수정
