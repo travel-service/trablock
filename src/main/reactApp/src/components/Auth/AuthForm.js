@@ -410,7 +410,7 @@ const AuthForm = ({
 
           {/* 로그인, 회원가입 버튼 */}
           <ButtonWidthMarginTop fullWidth>
-            {text === '로그인' ? `${text}` : '이메일 본인인증 후 회원가입'}
+            {text === '로그인' ? `${text}` : '회원가입'}
           </ButtonWidthMarginTop>
         </Form>
 
