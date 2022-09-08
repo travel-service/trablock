@@ -5,6 +5,7 @@ import com.trablock.web.entity.member.MemberProfile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.aspectj.weaver.Member;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.parameters.P;
@@ -203,6 +204,18 @@ public class MemberResponseDto {
         return res;
     }
 
+    public MemberResponseDto successGetMemberImg(String memberImg) {
+        MemberResponseDto res = new MemberResponseDto();
+        res.setStatus(HttpStatus.OK.value());
+        res.setMessage("정상적으로 회원의 사진을 조회했습니다.");
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberImg", memberImg);
+        res.setResult(map);
+
+        return res;
+    }
+
     public MemberResponseDto successChangeMemberImg() {
         MemberResponseDto res = new MemberResponseDto();
         res.setStatus(HttpStatus.CREATED.value());
@@ -214,7 +227,7 @@ public class MemberResponseDto {
     public MemberResponseDto failChangeMemberImg() {
         MemberResponseDto res = new MemberResponseDto();
         res.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        res.setMessage("사진 변경 실패.");
+        res.setMessage("사진 변경에 실패했습니다. 파일이 존재하지 않거나 오류입니다.");
 
         return res;
     }
@@ -258,4 +271,19 @@ public class MemberResponseDto {
         return res;
     }
 
+    public MemberResponseDto duplicateEmail() {
+        MemberResponseDto res = new MemberResponseDto();
+        res.setStatus(HttpStatus.CONFLICT.value());
+        res.setMessage("중복된 이메일 입니다.");
+
+        return res;
+    }
+
+    public MemberResponseDto canUseEmail() {
+        MemberResponseDto res = new MemberResponseDto();
+        res.setStatus(HttpStatus.OK.value());
+        res.setMessage("사용 가능한 이메일 입니다.");
+
+        return res;
+    }
 }

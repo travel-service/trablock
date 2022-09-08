@@ -1,6 +1,7 @@
 package com.trablock.web.service.member;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.trablock.web.config.jwt.JwtTokenProvider;
 import com.trablock.web.config.jwt.JwtTokenService;
 import com.trablock.web.controller.exception.MemberException;
@@ -16,6 +17,8 @@ import com.trablock.web.repository.member.EmailAuthRepository;
 import com.trablock.web.repository.member.MemberRepository;
 import com.trablock.web.repository.member.TokenRepository;
 import com.trablock.web.service.file.FileService;
+import com.trablock.web.service.img.AuthService;
+import com.trablock.web.service.img.ImageService;
 import com.trablock.web.service.mail.MailServiceImpl;
 //import io.swagger.models.Response;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +32,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,7 +55,8 @@ public class MemberServiceImpl implements MemberService{
 
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
-    private final FileService fileService;
+
+    private final AuthService authService;
     private final JwtTokenService jwtTokenService;
     private final MailServiceImpl mailService;
     private final MemberResponseDto responseDto;
@@ -162,31 +167,43 @@ public class MemberServiceImpl implements MemberService{
      * 회원 프로필 사진
      * @param request
      * @return MemberImg
-     * @throws FileNotFoundException
      */
     @Override
-    public ResponseEntity<Object> getMemberImg(HttpServletRequest request) throws FileNotFoundException {
-//        String fileName = jwtTokenService.TokenToUserName(request) + ".png"; # 현재 이미지 처리 규칙이 없기에 잠궈놓겠습니다 (22-06-23)
-        String fileName = "default_profile.png";
-        Resource fileResource = fileService.loadFile(fileName);
-        String contentType = null;
+    public ResponseEntity<MemberResponseDto> getMemberImg(HttpServletRequest request) {
+        String userName = jwtTokenService.tokenToUserName(request);
+        Optional<Member> member = memberRepository.findByUserName(userName);
 
-        try {
-            contentType = request.getServletContext().getMimeType(fileResource.getFile().getAbsolutePath());
-        } catch (IOException e) {
-            log.error("Could not determine file type.");
-        }
-
-        if (contentType == null) {
-            contentType = "application/octet-stream";
-        }
-
-        return ResponseEntity.ok()
-                .contentType(parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileResource.getFilename() + "\"")
-                .body(fileResource);
+        String memberImg = member.get().getMemberProfile().getMemberImg();
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto.successGetMemberImg(memberImg));
     }
 
+    @Override
+    public ResponseEntity<MemberResponseDto> updateMemberImg(MultipartFile file, String userName) throws IOException {
+        Object token = authService.requestToken();
+        ImageService imgService = new ImageService(authService.getStorageUrl(), token.toString());
+        String imgDefault = "https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f/trablock/member_default_img.png";
+        Member member = memberRepository.findByUserName(userName).get();
+
+        if (file.isEmpty()) {
+            member.getMemberProfile().setMemberImg(imgDefault);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseDto.failChangeMemberImg());
+
+        } else {
+
+            String memberImg = member.getMemberProfile().getMemberImg();
+            if (memberImg != null && !memberImg.equals(imgDefault)) {
+                List<String> object = Arrays.asList(memberImg.split("/"));
+
+                imgService.deleteObject(authService.getContainerName(), object.get(object.size()-1));
+            }
+
+            String newMemberImg = imgService.uploadObject(authService.getContainerName(), userName, file.getInputStream());
+            member.getMemberProfile().setMemberImg(newMemberImg);
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto.successChangeMemberImg());
+
+    }
     /**
      * 회원의 개인정보 수정 페이지
      * @param request
@@ -347,6 +364,23 @@ public class MemberServiceImpl implements MemberService{
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto.failEditMemberPwd());
     }
+
+    /**
+     * 이메일 중복 검사
+     * @param email
+     * @return
+     */
+    @Override
+    public ResponseEntity<MemberResponseDto> emailValidation(String email) {
+        boolean isvalid = memberRepository.existsByEmail(email);
+
+        if (isvalid) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(responseDto.duplicateEmail());
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(responseDto.canUseEmail());
+    }
+
 
     /**
      * 중복 아이디 검증
