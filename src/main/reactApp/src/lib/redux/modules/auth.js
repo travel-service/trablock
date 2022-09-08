@@ -21,6 +21,8 @@ const [USERNAME, USERNAME_SUCCESS, USERNAME_FAILURE] =
   createRequestActionTypes('auth/USERNAME'); // 아이디 중복 검증
 const [NICKNAME, NICKNAME_SUCCESS, NICKNAME_FAILURE] =
   createRequestActionTypes('auth/NICKNAME'); // 닉네임 중복 검증
+const [EMAIL, EMAIL_SUCCESS, EMAIL_FAILURE] =
+  createRequestActionTypes('auth/EMAIL'); // 이메일 중복 검증
 
 // createAction(타입, 현재 상태)
 export const changeField = createAction(
@@ -54,6 +56,9 @@ export const checkUserName = createAction(USERNAME, ({ userName }) => ({
 export const checkNickName = createAction(NICKNAME, ({ nickName }) => ({
   nickName,
 }));
+export const checkEmail = createAction(EMAIL, ({ email }) => ({
+  email,
+}));
 
 // 사가 생성
 // yield 비동기 통신
@@ -61,11 +66,13 @@ const signupSaga = createRequestSaga(SIGNUP, authAPI.signup);
 const loginSaga = createRequestSaga(LOGIN, authAPI.login);
 const checkUserNameSaga = createRequestSaga(USERNAME, authAPI.checkUserName);
 const checkNickNameSaga = createRequestSaga(NICKNAME, authAPI.checkNickName);
+const checkEmailSaga = createRequestSaga(EMAIL, authAPI.checkEmail);
 export function* authSaga() {
   yield takeLatest(SIGNUP, signupSaga);
   yield takeLatest(LOGIN, loginSaga);
   yield takeLatest(USERNAME, checkUserNameSaga);
   yield takeLatest(NICKNAME, checkNickNameSaga);
+  yield takeLatest(EMAIL, checkEmailSaga);
 }
 
 // 초기값
@@ -88,6 +95,7 @@ const initialState = {
   authError: null,
   userNameValid: [-1, null], // [검증여부, 에러메시지]
   nickNameValid: [-1, null],
+  emailValid: [-1, null],
 };
 
 const auth = handleActions(
@@ -122,7 +130,7 @@ const auth = handleActions(
       } else {
         return {
           ...state,
-          authError: action.payload.response.data.me,
+          authError: action.payload.response.data.message,
         };
       }
     },
@@ -142,11 +150,10 @@ const auth = handleActions(
       };
     },
     // 로그인 실패
-    [LOGIN_FAILURE]: (state, { payload: error }) => {
-      console.log(error);
+    [LOGIN_FAILURE]: (state) => {
       return {
         ...state,
-        authError: error,
+        authError: true,
       };
     },
     // 회원가입후 auth 제거
@@ -175,6 +182,7 @@ const auth = handleActions(
     [USERNAME_FAILURE]: (state) => {
       return {
         ...state,
+        userNameValid: [1, '시스템 오류'],
       };
     },
     [NICKNAME_SUCCESS]: (state, { payload: data }) => {
@@ -196,6 +204,29 @@ const auth = handleActions(
     [NICKNAME_FAILURE]: (state) => {
       return {
         ...state,
+        nickNameValid: [1, '시스템 오류'],
+      };
+    },
+    [EMAIL_SUCCESS]: (state, { payload: data }) => {
+      if (data.status === 200) {
+        return {
+          ...state,
+          emailValid: [0, null],
+        };
+      } else if (data.response.status === 409) {
+        return {
+          ...state,
+          emailValid: [1, data.response.data.message],
+        };
+      } else {
+        console.log('시스템 오류');
+        return;
+      }
+    },
+    [EMAIL_FAILURE]: (state) => {
+      return {
+        ...state,
+        emailValid: [1, '시스템 오류'],
       };
     },
   },

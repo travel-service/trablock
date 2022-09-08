@@ -6,8 +6,9 @@ import { filterStore } from 'lib/filterStore';
 import Map from 'containers/Canvas/MapContainer';
 
 const ContentsArea = styled.div`
-  overflow: auto;
-  position: static;
+  /* overflow: auto; */
+  display: flex;
+  width: 100%;
 `;
 
 const FilterArea = styled.div``;
@@ -35,12 +36,19 @@ const BlockListArea = styled.div`
   width: 57.5%;
   float: left;
   padding-right: 25px;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    padding-right: 0px;
+  }
 `;
 
 const MapArea = styled.div`
   width: 42.5%;
   float: right;
   padding-left: 25px;
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 `;
 
 const SelectArea = ({ location, selLocs, coords }) => {

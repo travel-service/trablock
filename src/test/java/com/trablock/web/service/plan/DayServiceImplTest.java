@@ -63,13 +63,6 @@ class DayServiceImplTest {
 
     @BeforeEach
     void init() {
-        Member initMember = new Member("username", "1234",
-                new MemberProfile("nickname", "bio"),
-                new MemberInfo("19980102", Gender.MALE, "wkdwoo@kakao.com"),
-                new ArrayList<>(), true);
-
-        member = memberRepository.save(initMember);
-
         Plan plan1 = Plan.builder()
                 .depart("test-depart-1")
                 .name("test-name-1")

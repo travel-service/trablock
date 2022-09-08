@@ -5,12 +5,19 @@ spring:
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  img:
+    tenantId: 92bb02eefaa74ad6a53a63ebc9abba2f
+    username: heuirr22@naver.com
+    password: 1234
+    authUrl: https://api-identity.infrastructure.cloud.toast.com/v2.0
+    storageUrl: https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f
+
   #    하위 datasource 는 cafe24 용
-#  datasource:
-#    url: jdbc:mysql://localhost:3306/mmnm3
-#    username: mmnm3
-#    password: gbsb2022@
-#    driver-class-name: com.mysql.cj.jdbc.Driver
+  #  datasource:
+  #    url: jdbc:mysql://localhost:3306/mmnm3
+  #    username: mmnm3
+  #    password: gbsb2022@
+  #    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     #    show-sql: true
@@ -20,12 +27,12 @@ spring:
       hibernate:
         #        show_sql: true
         format_sql: true
-#    database-platform: org.hibernate.dialect.H2Dialect
+    #    database-platform: org.hibernate.dialect.H2Dialect
     generate-ddl: true
     defer-datasource-initialization: true
-#  h2:
-#    console:
-#      enabled: true
+  #  h2:
+  #    console:
+  #      enabled: true
   security:
     user:
       name: user
@@ -34,10 +41,11 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: trablock2022@gmail.com
-    password: mdoayaxlsjvbizpc
+    password: iyvzkejouwcwzuhx
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
+      mail.smtp.starttls.required: true
 
 #server:
 #  port: 8080
@@ -45,7 +53,6 @@ spring:
 # 하위 설정값은 파일(이미지) 저장 경로
 file:
   upload-dir: ./image
-
 #logging:
 #  level:
 #    root: debug

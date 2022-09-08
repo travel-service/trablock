@@ -198,8 +198,9 @@ export const useStore = create(
         planId = planId ? planId : get().id;
         const resDay = await planAPI.getPlanDay(planId);
         const resPlan = await planAPI.getPlan(planId);
+
         let planLen;
-        if (resPlan && resPlan.httpStatus === 201) {
+        if (resPlan && resPlan.httpStatus === 200) {
           planLen = resPlan.planForm.periods;
         } else {
           console.log('get plan 실패');
@@ -263,6 +264,7 @@ export const useStore = create(
         // 여행 설정 페이지
         if (idx === 0 && cP) {
           // plan 생성
+          delete userPlan.thumbnail;
           const res = await planAPI.createPlan(userPlan);
           if (res && res.planId) {
             // 정상적 id 반환
@@ -272,11 +274,12 @@ export const useStore = create(
           }
         } else if (idx === 0 && id > 0) {
           // plan 수정
-          delete userPlan.planId;
-          if (!userPlan.thumbnail) {
-            userPlan.thumbnail = '';
-          }
-          await planAPI.postPlan(id, userPlan);
+          const plan2 = { ...userPlan };
+          typeof plan2.thumbnail !== 'string' &&
+            (await planAPI.postThumbnail(id, plan2.thumbnail));
+          delete plan2.planId;
+          delete plan2.thumbnail;
+          await planAPI.postPlan(id, plan2);
           await planAPI.postConcept(id, conceptForm);
         } else if (idx === 0 && !id) {
           return '여행 이름을 설정해주세요';

@@ -6,8 +6,8 @@ import MoreControl from './MoreControl';
 
 // 플랜 레이아웃(이름, 기간, 날짜, 썸네일(호버 시 정보), 이동/복사/담기 버튼)
 const PlanContainer = styled.div`
-  width: 246px;
-  height: 260px;
+  //width: 246px;
+  height: 272px;
   background: #ffffff;
   border: 1px solid #e5e7e8;
   border-radius: 10px;
@@ -26,6 +26,7 @@ const PeriodsContainer = styled.div`
   position: absolute;
   margin-top: 15px;
   margin-left: 145px;
+  z-index: 2;
 `;
 const PeriodsDiv = styled.div`
   background: #000000;
@@ -39,8 +40,11 @@ const PeriodsDiv = styled.div`
 `;
 const ThumbnailContainer = styled.div`
   width: 216px;
-  height: 150px;
+  height: 162px;
   border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #efefef;
 `;
 const LinkContainer = styled.div`
@@ -51,10 +55,10 @@ const LinkContainer = styled.div`
   align-items: center;
   justify-content: center;
   width: 216px;
-  height: 150px;
+  height: 162px;
   background: rgba(0, 0, 0, 0.7);
   border-radius: 10px;
-  z-index: 1;
+  z-index: 3;
 `;
 const LinkButton = styled(Link)`
   text-align: center;
@@ -84,6 +88,7 @@ const PlanLayout = ({
   name,
   periods,
   createdDate,
+  thumbnail,
 
   currentDirId = 'm',
   userDirs,
@@ -118,6 +123,18 @@ const PlanLayout = ({
           setIsOver(!isOver);
         }}
       >
+        {/* 썸네일 수정*/}
+        <img
+          src={thumbnail}
+          alt="썸네일"
+          style={{
+            position: 'absolute',
+            zIndex: 1,
+            maxWidth: '216px',
+            maxHeight: '162px',
+            borderRadius: '10px',
+          }}
+        />
         {isOver && currentDirId !== 't' && (
           <LinkContainer>
             <LinkButton to={process.env.PUBLIC_URL + `/canvas/check/${planId}`}>

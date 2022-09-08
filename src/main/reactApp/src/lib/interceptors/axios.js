@@ -9,7 +9,8 @@ axios.interceptors.response.use(
   async (error) => {
     if (!refresh) {
       if (
-        error.response.data.message.includes('AccessToken') ||
+        (error.response &&
+          error.response.data.message.includes('AccessToken')) ||
         error.response.status === 500
       ) {
         refresh = true;

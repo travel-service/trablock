@@ -126,6 +126,6 @@ task copyReactBuildFiles(type: Copy) {
 }
 // 리액트 프로젝트 install, build 끝
 
-tasks.named('test') {
-    useJUnitPlatform()
-}
+//tasks.named('test') {
+//    useJUnitPlatform()
+//}

@@ -242,8 +242,8 @@ const DirectoryList = ({
                             onBlurDir();
                           }}
                         />
-                      ) : item.directoryName.length > 5 ? (
-                        item.directoryName.substr(0, 5) + '...'
+                      ) : item.directoryName.length > 10 ? (
+                        item.directoryName.substr(0, 10) + '...'
                       ) : (
                         item.directoryName
                       )
