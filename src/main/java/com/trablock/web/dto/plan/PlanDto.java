@@ -13,4 +13,5 @@ public class PlanDto {
     private String depart;
     private String name;
     private int periods;
+    private String thumbnail;
 }

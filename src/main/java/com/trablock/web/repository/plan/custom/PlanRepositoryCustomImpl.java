@@ -15,7 +15,7 @@ public class PlanRepositoryCustomImpl implements PlanRepositoryCustom {
     @Override
     public List<PlanInfoDto> findPlanInfoCustom(Long memberId) {
         return em.createQuery(
-                "select new com.trablock.web.dto.plan.PlanInfoDto(p.id, p.name, p.periods, p.createdDate, p.planComplete)" +
+                "select new com.trablock.web.dto.plan.PlanInfoDto(p.id, p.name, p.periods, p.createdDate, p.planComplete, p.thumbnail)" +
                         " from Plan p" +
                         " where p.member.id = :memberId and p.planStatus = 'MAIN'", PlanInfoDto.class)
                 .setParameter("memberId", memberId)
