@@ -22,6 +22,8 @@ const LoginForm = () => {
   const onChange = useCallback(
     (e) => {
       const { value, name } = e.target;
+      //  submit error 메시지 초기화
+      setError(null);
       dispatch(
         changeField({
           form: 'login',

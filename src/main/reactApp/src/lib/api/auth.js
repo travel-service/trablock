@@ -2,10 +2,14 @@ import axios from 'axios';
 
 // 로그인
 export const login = async ({ userName, password }) => {
-  const response = await axios.post('/api/login', { userName, password });
-  axios.defaults.headers.common['authorization'] =
-    response.headers.authorization;
-  return response;
+  try {
+    const response = await axios.post('/api/login', { userName, password });
+    axios.defaults.headers.common['authorization'] =
+      response.headers.authorization;
+    return response;
+  } catch (e) {
+    return e.response;
+  }
 };
 
 // 회원가입
@@ -67,12 +71,30 @@ export const logout = async () => {
   return response;
 };
 
+// 이메일 인증
+export const emailCheck = async (email, uuid) => {
+  const response = await axios.get(`/auth/email?email=${email}&uuid=${uuid}`, {
+    validateStatus: function (status) {
+      return status <= 500;
+    },
+  });
+  return response;
+};
+
+// 아이디 중복 체크
 export const checkUserName = async ({ userName }) => {
   const response = await axios.get(`/api/username/${userName}`);
   return response;
 };
 
+// 닉네임 중복 체크
 export const checkNickName = async ({ nickName }) => {
   const response = await axios.get(`/api/nickname/${nickName}`);
+  return response;
+};
+
+// 이메일 중복 체크
+export const checkEmail = async ({ email }) => {
+  const response = await axios.get(`/api/email/${email}`);
   return response;
 };
