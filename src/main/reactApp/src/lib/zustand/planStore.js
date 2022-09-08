@@ -198,8 +198,9 @@ export const useStore = create(
         planId = planId ? planId : get().id;
         const resDay = await planAPI.getPlanDay(planId);
         const resPlan = await planAPI.getPlan(planId);
+
         let planLen;
-        if (resPlan && resPlan.httpStatus === 201) {
+        if (resPlan && resPlan.httpStatus === 200) {
           planLen = resPlan.planForm.periods;
         } else {
           console.log('get plan 실패');

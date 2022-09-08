@@ -5,6 +5,13 @@ spring:
     password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  img:
+    tenantId: 92bb02eefaa74ad6a53a63ebc9abba2f
+    username: heuirr22@naver.com
+    password: 1234
+    authUrl: https://api-identity.infrastructure.cloud.toast.com/v2.0
+    storageUrl: https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f
+
   #    하위 datasource 는 cafe24 용
   #  datasource:
   #    url: jdbc:mysql://localhost:3306/mmnm3
