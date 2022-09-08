@@ -5,6 +5,7 @@ import { createGlobalStyle, css } from 'styled-components';
 import Modal from 'react-modal';
 import ProtectedRoute from 'lib/router/ProtectedRoute';
 import Spinner from 'lib/custom/Spinner';
+import AuthEmailPage from 'pages/AuthPages/AuthEmailPage';
 
 // router lazy 적용
 
@@ -61,6 +62,10 @@ function App() {
           {
             path: process.env.PUBLIC_URL + '/search',
             element: <SearchPage />,
+          },
+          {
+            path: process.env.PUBLIC_URL + '/member/:email/:uuid',
+            element: <AuthEmailPage />,
           },
           {
             path: process.env.PUBLIC_URL + '*',

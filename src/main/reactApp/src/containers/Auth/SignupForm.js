@@ -7,9 +7,16 @@ import {
   tempSetAuth,
   checkUserName,
   checkNickName,
+  checkEmail,
 } from 'lib/redux/modules/auth';
 import AuthForm from 'components/Auth/AuthForm';
 import { useNavigate } from 'react-router-dom';
+
+const authKor = {
+  userName: '아이디',
+  nickName: '닉네임',
+  email: '이메일',
+};
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -25,23 +32,35 @@ const SignupForm = () => {
       status: null,
       message: null,
     },
+    email: {
+      status: null,
+      message: null,
+    },
   });
   const dispatch = useDispatch();
-  const { form, auth, authError, userState, userNameValid, nickNameValid } =
-    useSelector(({ auth, user }) => ({
-      // state.auth, state.user
-      form: auth.signup, // store이름 auth, auth.signup에(회원 정보 목록 있음)
-      auth: auth.auth,
-      authError: auth.authError,
-      userNameValid: auth.userNameValid,
-      nickNameValid: auth.nickNameValid,
-      userState: user.userState,
-    }));
+  const {
+    form,
+    auth,
+    authError,
+    userState,
+    userNameValid,
+    nickNameValid,
+    emailValid,
+  } = useSelector(({ auth, user }) => ({
+    // state.auth, state.user
+    form: auth.signup, // store이름 auth, auth.signup에(회원 정보 목록 있음)
+    auth: auth.auth,
+    authError: auth.authError,
+    userNameValid: auth.userNameValid,
+    nickNameValid: auth.nickNameValid,
+    emailValid: auth.emailValid,
+    userState: user.userState,
+  }));
 
   const checkSpace = (value) => {
     const reg = /\s/g;
     // eslint-disable-next-line no-useless-escape
-    const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+    const regExp = /[\{\}\[\]\/?,;:|\)*~`!^\-_+<>\#$%&\\\=\(\'\"]/g;
     if (value.match(reg) || value.match(regExp)) return 1;
     else return 0;
   };
@@ -50,7 +69,11 @@ const SignupForm = () => {
   const onChange = useCallback(
     (e) => {
       const { value, name } = e.target;
-      if (name === 'userName' || name === 'nickName') {
+      //  submit error 메시지 초기화
+      setError(null);
+
+      // 중복 검증 error 메시지 초기화
+      if (name === 'userName' || name === 'nickName' || name === 'email') {
         setDetailErr({
           ...detailErr,
           [name]: {
@@ -90,6 +113,11 @@ const SignupForm = () => {
 
     if (detailErr.nickName.status !== 2) {
       setError('닉네임 중복 검사를 해주세요');
+      return;
+    }
+
+    if (detailErr.email.status !== 2) {
+      setError('이메일 중복 검사를 해주세요');
       return;
     }
 
@@ -170,6 +198,28 @@ const SignupForm = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nickNameValid]);
 
+  useEffect(() => {
+    if (emailValid[0] === 1) {
+      setDetailErr({
+        ...detailErr,
+        email: {
+          status: 1,
+          message: emailValid[1],
+        },
+      });
+    }
+    if (emailValid[0] === 0) {
+      setDetailErr({
+        ...detailErr,
+        email: {
+          status: 2,
+          message: '사용 가능한 이메일 입니다.',
+        },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [emailValid]);
+
   // 회원가입 성공/실패 처리
   useEffect(() => {
     if (authError) {
@@ -231,15 +281,23 @@ const SignupForm = () => {
 
   const checkValue = (e) => {
     const { name } = e.target;
-    const { userName, nickName } = form;
+    const { userName, nickName, email } = form;
+    if (name === 'email' && !/@/i.test(form[name])) {
+      setDetailErr({
+        ...detailErr,
+        [name]: {
+          status: 1,
+          message: `올바르지 않은 ${authKor[name]} 형식 입니다.`,
+        },
+      });
+      return;
+    }
     if (checkSpace(form[name]) || form[name] === '') {
       setDetailErr({
         ...detailErr,
         [name]: {
           status: 1,
-          message: `올바르지 않은 ${
-            name === 'userName' ? '아이디' : '닉네임'
-          } 형식 입니다.`,
+          message: `올바르지 않은 ${authKor[name]} 형식 입니다.`,
         },
       });
       return;
@@ -248,6 +306,8 @@ const SignupForm = () => {
       dispatch(checkUserName({ userName }));
     } else if (name === 'nickName') {
       dispatch(checkNickName({ nickName }));
+    } else if (name === 'email') {
+      dispatch(checkEmail({ email }));
     } else return;
   };
 

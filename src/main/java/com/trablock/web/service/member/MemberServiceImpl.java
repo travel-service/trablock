@@ -98,6 +98,7 @@ public class MemberServiceImpl implements MemberService{
         Member member = memberRepository.findByEmail(requestDto.getEmail()).orElseThrow(MemberException::new);
         emailAuth.useToken();
         member.emailVerifiedSuccess();
+        log.info("member = {}", member);
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(responseDto.successEmailAuth());
     }

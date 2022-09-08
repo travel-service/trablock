@@ -27,9 +27,6 @@ const LoginInputContainer = styled.div`
   border-radius: 10px;
   height: 120px;
   display: grid;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* grid-template-rows: 1fr 1fr; */
   div:last-child {
     border-top: 2px solid ${palette.back2};
   }
@@ -47,22 +44,16 @@ const SpanRed = styled.span`
     props.detail &&
     css`
       color: red;
-      /* font-size: 0.95rem; */
     `}
 `;
 
 const StyledDiv = styled.div`
-  /* display: flex; */
-  /* align-items: center; */
   position: relative;
-  /* justify-content: space-between; */
   margin-bottom: 18px;
   width: 100%;
 `;
 
 const InputHeader = styled.div`
-  /* display: flex;
-  align-items: center; */
   font-weight: 600;
   font-size: 15px;
   line-height: 18px;
@@ -72,24 +63,21 @@ const InputHeader = styled.div`
 const InputDiv = styled.div`
   height: 100%;
   width: 100%;
-  /* height: 35px; */
   display: flex;
   align-items: center;
-  /* border: 1px solid blue; */
+`;
 
-  button {
-    height: 35px;
-    margin-left: 10px;
-    width: 90px;
-    /* width: 100px; */
-    border-radius: 10px;
-    background: ${palette.red1};
-    border: none;
-    color: white;
-    font-weight: 550;
-    font-size: 15px;
-    cursor: pointer;
-  }
+const CheckButton = styled.input`
+  height: 35px;
+  margin-left: 10px;
+  width: 90px;
+  border-radius: 10px;
+  background: ${palette.red1};
+  border: none;
+  color: white;
+  font-weight: 550;
+  font-size: 15px;
+  cursor: pointer;
 `;
 
 const StyledInput = styled.input`
@@ -98,7 +86,6 @@ const StyledInput = styled.input`
   border: 1px solid ${palette.gray[5]};
   border-radius: 8px;
   outline: none;
-  /* width: 100%; */
   flex: 1;
   height: 35px;
   float: right;
@@ -114,7 +101,6 @@ const StyledInput = styled.input`
     margin-top: 1rem;
   }
   @media screen and (max-width: 767px) {
-    /* height: 40px; */
     padding-left: 10px;
     font-size: 0.9rem;
   }
@@ -159,16 +145,14 @@ const Links = styled.div`
 `;
 
 const ButtonWidthMarginTop = styled(Button)`
-  margin-top: 30px;
+  margin-top: 20px;
 `;
 
 const Input = styled.input`
   height: 100%;
   width: 100%;
   border: none;
-  /* border-bottom: 1px solid #1890ff; */
   outline: none;
-  /* height: 60%; */
   border-radius: 5px;
   padding: 0px 10px;
   font-size: 15px;
@@ -211,7 +195,6 @@ const FlexBox = styled.div`
   }
 
   @media screen and (max-width: 450px) {
-    /* flex-direction: column; */
     display: block;
   }
 `;
@@ -220,16 +203,14 @@ const textMap = {
   login: '로그인',
   signup: '회원가입',
 };
-/**
- * 에러를 보여 줍니다.
- */
+
 const ErrorMessage = styled.div`
   color: red;
   text-align: center;
   font-weight: 700;
   font-size: 15px;
   line-height: 18px;
-  margin-bottom: 10px;
+  margin: 20px 0px;
 `;
 
 const AuthForm = ({
@@ -249,7 +230,6 @@ const AuthForm = ({
       <AuthFormBlock>
         <H2>{text}</H2>
         {/* submit 에러 */}
-        {error && <ErrorMessage>*{error}</ErrorMessage>}
 
         {/* 데이터 입력 폼(로그인, 회원가입) */}
         <Form onSubmit={onSubmit}>
@@ -269,9 +249,12 @@ const AuthForm = ({
                     maxLength="20"
                     minLength="4"
                   />
-                  <button name="userName" onClick={(e) => checkValue(e)}>
-                    중복 확인
-                  </button>
+                  <CheckButton
+                    type="button"
+                    value="중복 확인"
+                    name="userName"
+                    onClick={(e) => checkValue(e)}
+                  />
                 </InputDiv>
                 {detailErr.userName.message && (
                   <SpanRed detail={detailErr.userName.status === 1}>
@@ -328,9 +311,12 @@ const AuthForm = ({
                     onBlur={onBlur}
                     maxLength="8"
                   />
-                  <button name="nickName" onClick={(e) => checkValue(e)}>
-                    중복 확인
-                  </button>
+                  <CheckButton
+                    type="button"
+                    value="중복 확인"
+                    name="nickName"
+                    onClick={(e) => checkValue(e)}
+                  />
                 </InputDiv>
                 {detailErr.nickName.message && (
                   <SpanRed detail={detailErr.nickName.status === 1}>
@@ -345,7 +331,7 @@ const AuthForm = ({
                     <StyledInput
                       name="birthday"
                       type="text"
-                      placeholder="YYYY-MM-DD"
+                      placeholder="YYYYMMDD"
                       onChange={onChange}
                       value={form.birthday}
                       onBlur={onBlur}
@@ -375,7 +361,18 @@ const AuthForm = ({
                     onChange={onChange}
                     value={form.email}
                   />
+                  <CheckButton
+                    type="button"
+                    value="중복 확인"
+                    name="email"
+                    onClick={(e) => checkValue(e)}
+                  />
                 </InputDiv>
+                {detailErr.email.message && (
+                  <SpanRed detail={detailErr.email.status === 1}>
+                    *{detailErr.email.message}
+                  </SpanRed>
+                )}
               </StyledDiv>
             </>
           )}
@@ -409,9 +406,11 @@ const AuthForm = ({
             </>
           )}
 
+          {error && <ErrorMessage>{error}</ErrorMessage>}
+
           {/* 로그인, 회원가입 버튼 */}
           <ButtonWidthMarginTop fullWidth>
-            {text === '로그인' ? `${text}` : '이메일 본인인증 후 회원가입'}
+            {text === '로그인' ? `${text}` : '회원가입'}
           </ButtonWidthMarginTop>
         </Form>
 

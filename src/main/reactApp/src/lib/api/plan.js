@@ -3,10 +3,9 @@ import axios from 'axios';
 // 여행 설정 페이지, 여행 생성
 export const createPlan = async (userPlan) => {
   try {
-    const response = await axios.post('/members/plan', {
+    const response = await axios.post('/members/plans', {
       planForm: userPlan,
     });
-    console.log('생성', response);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -40,7 +39,6 @@ export const getConcpet = async (id) => {
 export const postPlan = async (id, userPlan) => {
   try {
     const response = await axios.post(`/members/plan/${id}`, userPlan);
-    console.log(`${id} 플랜수정: `, response);
     return response.data;
   } catch (err) {
     console.log(err);
@@ -54,7 +52,21 @@ export const postConcept = async (id, conceptForm) => {
     const response = await axios.post(`/members/plan/${id}/concept`, {
       conceptForm: conceptForm,
     });
-    console.log(`${id} 컨셉수정: `, response);
+    return response.data;
+  } catch (err) {
+    console.log(err);
+    return 0;
+  }
+};
+
+// 썸네일 수정
+export const postThumbnail = async (id, file) => {
+  try {
+    const response = await axios({
+      method: 'post',
+      url: `/members/${id}/thumbnail`,
+      data: file,
+    });
     return response.data;
   } catch (err) {
     console.log(err);

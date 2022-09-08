@@ -16,8 +16,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EmailAuth {
-    private static final Long MAX_EXPIRE_TIME = 5L; // 이메일 인증 유효시간
-
+//    private static final Long MAX_EXPIRE_TIME = 5L; // 이메일 인증 유효시간
+    private static final Long MAX_EXPIRE_TIME = 30L; // 이메일 인증 유효시간
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
