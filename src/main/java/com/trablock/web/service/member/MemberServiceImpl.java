@@ -197,7 +197,7 @@ public class MemberServiceImpl implements MemberService{
                 imgService.deleteObject(authService.getContainerName(), object.get(object.size()-1));
             }
 
-            String newMemberImg = imgService.uploadObject(authService.getContainerName(), userName + ".png", file.getInputStream());
+            String newMemberImg = imgService.uploadObject(authService.getContainerName(), userName, file.getInputStream());
             member.getMemberProfile().setMemberImg(newMemberImg);
         }
 
