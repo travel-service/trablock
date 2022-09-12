@@ -113,7 +113,7 @@ const Location = ({ location, index, day, dayLocDel, isDragging, check }) => {
   const { movingData } = location;
 
   const onClick = () => {
-    dayLocDel(day, index); // 함수수정,
+    dayLocDel(day, index);
   };
 
   const handleImgError = (e) => {

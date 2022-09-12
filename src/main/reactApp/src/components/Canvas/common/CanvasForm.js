@@ -32,6 +32,7 @@ const Canvas = styled.div`
   display: flex;
   flex: 1;
   height: 100%;
+  width: 100%;
 
   @media screen and (max-width: 767px) {
     display: block;
@@ -51,7 +52,8 @@ const Main = styled.div`
   margin-left: 30px;
   margin-right: 30px;
   padding: 25px;
-  max-height: 900px; // 이렇게 하면 될지?
+  max-height: 900px;
+  overflow: auto;
 
   @media screen and (max-width: 767px) {
     padding: 20px;
