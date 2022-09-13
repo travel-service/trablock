@@ -82,7 +82,9 @@ export const DateSetting = ({ userPlan, setDepart, setPeriods, Question }) => {
         setPeriods(userPlan.periods);
       }
     }
-  }, [userPlan.depart, userPlan.periods, setPeriods]);
+    // depart 변경시에만 작동 ? 0912 찬우
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [userPlan.depart]);
 
   const onChangeStartDate = (date) => {
     setStartDate(date);

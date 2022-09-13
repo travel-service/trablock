@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { Mobile } from 'lib/custom/responsive';
 import { MdOutlineClose, MdOutlineFolderOpen } from 'react-icons/md';
 import palette from 'lib/styles/palette';
@@ -8,25 +8,15 @@ import Days from 'components/Canvas/BuildTab/Dnd/Days';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
-  flex-grow: 0;
   background: ${palette.back2};
   border-radius: 10px;
-  padding: 20px;
   height: 100%;
   overflow: auto;
 
   @media screen and (max-width: 767px) {
-    justify-content: center;
     align-items: center;
     height: 100%;
   }
-
-  ${(props) =>
-    props.check &&
-    css`
-      /* max-height: 55vh; */
-    `}
 `;
 
 const CarouselBtns = styled.div`
@@ -51,7 +41,6 @@ const CarBtn = styled.button`
 
 const ToggleArea = styled.div`
   position: absolute;
-
   svg {
     color: white;
   }
@@ -86,7 +75,7 @@ const Toggle = styled.div`
   border-radius: 50%;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.15);
   @media screen and (max-width: 767px) {
-    top: -280px;
+    top: -80px;
     width: 40px;
     height: 40px;
     left: 50%;

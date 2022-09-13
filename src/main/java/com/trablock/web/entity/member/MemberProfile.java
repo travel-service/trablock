@@ -15,7 +15,7 @@ public class MemberProfile {
 
     @NotNull
     private String nickName;
-//    private String memberImg; // DB에 저장할 때 해제
+    private String memberImg;
     private String bio;
 
     protected MemberProfile() {}

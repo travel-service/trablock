@@ -12,18 +12,32 @@ const Day = styled.div`
   border: 1px solid ${palette.back2};
   border-radius: 10px;
   background: white;
-  min-height: 300px;
-  max-height: 500px;
+  min-height: 400px;
+  overflow: auto;
   min-width: 325px;
   max-width: 325px;
   padding: 20px;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  ${(props) =>
+    props.idx === 0 &&
+    css`
+      margin-left: auto;
+    `}
+
+  ${(props) =>
+    props.idx + 1 === props.length &&
+    css`
+      margin-right: auto;
+    `}
 
   @media screen and (max-width: 767px) {
     min-width: 70vw;
     max-width: 70vw;
     flex-shrink: 0;
     display: none;
+    margin: auto;
     ${(props) =>
       props.idx === props.dayIdx &&
       css`
@@ -33,19 +47,17 @@ const Day = styled.div`
 `;
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 325px);
-  justify-content: space-around;
-  grid-gap: 20px;
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
   ${(props) =>
     !props.len &&
     css`
-      height: 100%;
       display: flex;
       align-items: center;
     `}
-
   @media screen and (max-width: 767px) {
+    margin: 15px 0px;
     display: flex;
     height: 100%;
     width: 100%;
@@ -73,10 +85,8 @@ const FontDiv = styled.div`
 `;
 
 const LocationsList = styled.div`
-  min-height: 180px;
-  max-height: 420px;
-
-  overflow: auto;
+  flex: 1;
+  overflow: hidden;
   transition: background-color ease 0.2s;
   ${(props) =>
     props.isDraggingOver &&
@@ -107,6 +117,7 @@ const InitForm = styled.div`
   height: 45px;
   width: 100%;
   padding: 8px;
+  margin: auto;
 `;
 
 const EmptyBlock = styled.div`
@@ -121,20 +132,8 @@ const LocationContainer = styled.div`
 
 const Div = styled.div`
   width: 100%;
-
-  ${(props) =>
-    props.idx === 0 &&
-    css`
-      padding-bottom: 1px;
-      > li {
-        box-shadow: 0px 0px 0px 0px;
-      }
-    `}
-`;
-
-const Clone = styled(LocationContainer)`
-  ~ li {
-    transform: none !important;
+  div[data-rbd-placeholder-context-id] {
+    display: none !important;
   }
 `;
 
@@ -169,10 +168,15 @@ const Days = ({
           travelDay.map((day, index) => (
             // 각 day
             <React.Fragment key={index}>
-              <Day idx={index} dayIdx={dayIdx} mobile={mobile}>
+              <Day
+                idx={index}
+                dayIdx={dayIdx}
+                mobile={mobile}
+                length={travelDay.length}
+              >
                 <DayHeader index={index} firLoc={day[0]} check={check} />
                 {/* day 영역 */}
-                <Droppable droppableId={`day${index}`}>
+                <Droppable able droppableId={`day${index}`}>
                   {(provided, snapshot) => (
                     <LocationsList
                       ref={provided.innerRef}
@@ -181,7 +185,7 @@ const Days = ({
                       empty={day[0] === undefined}
                     >
                       {/* day에 location 존재하지 않을 때 */}
-                      {day[0] === undefined && (
+                      {day[0] === undefined && !snapshot.isDraggingOver && (
                         <InitForm>
                           <EmptyBlock>
                             {check
@@ -202,50 +206,39 @@ const Days = ({
                             >
                               {(provided, snapshot) => {
                                 return (
-                                  <React.Fragment>
-                                    <LocationContainer
-                                      ref={provided.innerRef}
-                                      {...provided.dragHandleProps}
-                                      {...provided.draggableProps}
+                                  <LocationContainer
+                                    ref={provided.innerRef}
+                                    {...provided.dragHandleProps}
+                                    {...provided.draggableProps}
+                                    isDragging={snapshot.isDragging}
+                                    style={provided.draggableProps.style}
+                                    index={index}
+                                    day={day}
+                                  >
+                                    <Location
+                                      location={loc}
+                                      index={idx}
+                                      day={index}
+                                      dayLocDel={dayLocDel}
                                       isDragging={snapshot.isDragging}
-                                      style={provided.draggableProps.style}
-                                      index={index}
-                                      day={day}
-                                    >
-                                      <Location
-                                        location={loc}
-                                        index={idx}
-                                        day={index}
-                                        dayLocDel={dayLocDel}
-                                        isDragging={snapshot.isDragging}
-                                        check={check}
-                                      />
-                                    </LocationContainer>
-                                    {snapshot.isDragging && day === undefined && (
-                                      <Clone>
-                                        <Location
-                                          key={idx}
-                                          location={loc}
-                                          id={loc.copyLocationId}
-                                          index={idx}
-                                        />
-                                      </Clone>
-                                    )}
-                                  </React.Fragment>
+                                      check={check}
+                                    />
+                                  </LocationContainer>
                                 );
                               }}
                             </Draggable>
-                            {day[idx + 1] !== undefined && (
-                              <MoveDataDiv
-                                day={index}
-                                index={idx}
-                                travelDay={travelDay}
-                                setTimeData={setTimeData}
-                                setViewTime={setViewTime}
-                                splitTime={splitTime}
-                                check={check}
-                              />
-                            )}
+                            {day[idx + 1] !== undefined &&
+                              !snapshot.isDraggingOver && (
+                                <MoveDataDiv
+                                  day={index}
+                                  index={idx}
+                                  travelDay={travelDay}
+                                  setTimeData={setTimeData}
+                                  setViewTime={setViewTime}
+                                  splitTime={splitTime}
+                                  check={check}
+                                />
+                              )}
                             {provided.placeholder}
                           </Div>
                         );
