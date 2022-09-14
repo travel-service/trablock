@@ -1,27 +1,28 @@
-import React from "react";
+import React from 'react';
 import styled from 'styled-components';
-import palette from "lib/styles/palette";
+import palette from 'lib/styles/palette';
 
 const StyledButton = styled.button`
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    font-weight: bold;
-    padding: 0.25rem 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.25rem 1rem;
+  color: white;
+  outline: none;
+  cursor: pointer;
+  margin-top: 30px;
+
+  a:visited {
     color: white;
-    outline: none;
-    cursor: pointer;
-    
-    a:visited {
-        color: white;
-    }
-    
-    background:${palette.gray[8]};
-        &:hover{
-            background:${palette.gray[6]};
-        }
+  }
+
+  background: ${palette.gray[8]};
+  &:hover {
+    background: ${palette.gray[6]};
+  }
 `;
 
-const Button = props => <StyledButton {...props}/>;
+const Button = (props) => <StyledButton {...props} />;
 
 export default Button;
