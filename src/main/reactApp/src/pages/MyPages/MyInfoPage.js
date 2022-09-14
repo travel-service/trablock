@@ -11,8 +11,12 @@ const MyInfoPage = () => {
 
   return (
     <MyTemplate>
-      {userState && <MyInfo />}
-      <MyTravel />
+      {userState && (
+        <>
+          <MyInfo />
+          <MyTravel />
+        </>
+      )}
     </MyTemplate>
   );
 };

@@ -4,7 +4,8 @@ import palette from 'lib/styles/palette';
 import Responsive from 'components/common/Responsive';
 import Button from 'components/common/NoticeButton';
 import { Link, useParams } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
+import Notices from '../../notices.json';
 
 const PostViewerBlock = styled(Responsive)`
   margin-top: 4rem;
@@ -51,8 +52,9 @@ const NoticeViewer = () => {
   const getData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:4000/notices');
-      setTest(response.data);
+      // const response = await axios.get('http://localhost:4000/notices');
+      // setTest(response.data);
+      setTest(Notices.notices);
     } catch (e) {
       console.log(e);
     }
@@ -92,14 +94,12 @@ const NoticeViewer = () => {
               __html: '<p>존재하지 <b>않는</b> 공지사항입니다.</p>',
             }}
           />
-          <Button>
-            <Link
-              style={{ textDecoration: 'none', color: 'white' }}
-              to={process.env.PUBLIC_URL + '/notice'}
-            >
-              목록으로 돌아가기
-            </Link>
-          </Button>
+          <Link
+            style={{ textDecoration: 'none', color: 'white' }}
+            to={process.env.PUBLIC_URL + '/notice'}
+          >
+            <Button>목록으로 돌아가기</Button>
+          </Link>
         </PostViewerBlock>
       </>
     );
@@ -124,15 +124,12 @@ const NoticeViewer = () => {
             </SubInfo>
           </PostHead>
           <PostContent dangerouslySetInnerHTML={{ __html: body }} />
-
-          <Button>
-            <Link
-              style={{ textDecoration: 'none', color: 'white' }}
-              to={process.env.PUBLIC_URL + '/notice'}
-            >
-              목록
-            </Link>
-          </Button>
+          <Link
+            style={{ textDecoration: 'none', color: 'white' }}
+            to={process.env.PUBLIC_URL + '/notice'}
+          >
+            <Button>목록</Button>
+          </Link>
         </PostViewerBlock>
       </>
     );
