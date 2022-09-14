@@ -102,7 +102,7 @@ const EddScrap = styled.div`
 `;
 
 const MyTravel = () => {
-  const { getMainPlans, mainPlans } = useStore();
+  const { getMainPlans, mainPlans, planCount } = useStore();
   const [plansList, setPlan] = useState([]);
   useEffect(() => {
     getMainPlans();
@@ -116,42 +116,44 @@ const MyTravel = () => {
   }, [mainPlans.mainDirectory]);
 
   const RecentPlan = () => {
-    if (plansList > 0) {
-      plansList.sort((a, b) => {
-        let n = a.createdDate.toLowerCase();
-        let m = b.createdDate.toLowerCase();
-        return n < m ? 1 : n === m ? 0 : -1;
-      });
+    if (plansList > 0 && parseInt(planCount) > 5) {
+      setPlan(plansList.slice(0, 4));
+    } else if (plansList > 0 && parseInt(planCount) < 4) {
+      setPlan(plansList.slice(0, parseInt(planCount)));
     }
   };
 
-  console.log(plansList);
+  // console.log(plansList);
 
   const Plan = () => {
     return (
-      <Box>
-        {plansList > 0 ? (
+      <>
+        {plansList > 0 &&
+          plansList.map((item) => {
+            return (
+              <PlanLayout
+                myP={true}
+                planId={item.planId}
+                name={item.name}
+                periods={item.periods}
+                createdDate={item.createdDate}
+                thumbnail={item.thumbnail}
+              />
+            );
+          })}
+        {plansList === 0 && (
           <>
-            <PlanLayout
-              myP={true}
-              planId={plansList.planId}
-              name={plansList.name}
-              periods={plansList.periods}
-              createdDate={plansList.createdDate}
-              thumbnail={plansList.thumbnail}
-            />
-          </>
-        ) : (
-          <>
-            <div className="travelbox">
-              <div className="travelitem"></div>
-              <div className="travelitem"></div>
-              <div className="travelitem"></div>
-              <div className="travelitem"></div>
-            </div>
+            <Box>
+              <div className="travelbox">
+                <div className="travelitem"></div>
+                <div className="travelitem"></div>
+                <div className="travelitem"></div>
+                <div className="travelitem"></div>
+              </div>
+            </Box>
           </>
         )}
-      </Box>
+      </>
     );
   };
 
