@@ -149,32 +149,78 @@ const GoDirBtn = styled(Link)`
   align-items: center;
 `;
 
-const Banner = styled.div`
-  position: relative;
-  display: flex;
-  border-style: solid;
-  border-width: 1px;
-  border-color: rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
-  width: 700px;
-  max-width: 1200px;
-  height: 300px;
-  background-color: white;
-  box-shadow: 4px 4px 4px grey;
-  font-size: 40px;
-  font-weight: 520;
-  justify-content: center;
-  align-items: center;
-  top: -160px;
+const BannerMain = styled.div`
+  white-space: pre-line;
+  font-weight: 700;
+  font-size: 45px;
+  line-height: 54px;
+  margin-bottom: 25px;
+
+  > div {
+    color: rgb(251, 229, 118);
+  }
+
   @media screen and (max-width: 1023px) {
-    width: 600px;
-    height: 200px;
+    font-size: 32px;
+    line-height: 40px;
+  }
+  @media screen and (max-width: 767px) {
+    font-size: 22px;
+    line-height: 27px;
+    margin-bottom: 10px;
+  }
+`;
+
+const BannerSub = styled.div`
+  white-space: pre-wrap;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 500;
+  > div {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    color: #ffe3e3;
+  }
+
+  @media screen and (max-width: 1023px) {
+    font-size: 16px;
+    line-height: 20px;
+    > div {
+      font-size: 14px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    font-size: 12px;
+    line-height: 16px;
+    > div {
+      font-size: 11px;
+    }
+  }
+`;
+
+const Banner = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 1000px;
+  height: 315px;
+  border-radius: 23px;
+  background: #f16b6c;
+  color: white;
+  text-align: center;
+  box-shadow: 0px 14px 10px rgba(0, 0, 0, 0.11);
+  position: relative;
+  top: -200px;
+  @media screen and (max-width: 1023px) {
+    width: 750px;
+    height: 220px;
     top: -100px;
   }
   @media screen and (max-width: 767px) {
-    width: 80%;
+    width: 90%;
     height: 150px;
-    top: -30px;
+    top: -80px;
   }
 `;
 
@@ -210,16 +256,18 @@ const LandingMainContents = () => {
           </MainContents>
         </Contents>
       </FlexBox>
-      <Banner>배너</Banner>
+      <Banner>
+        <BannerMain>
+          트래블럭 베타서비스<div>OPEN!</div>
+        </BannerMain>
+        <BannerSub>
+          트래블럭 베타서비스에 대한 의견을 남겨주세요.
+          <div>heuirr22@naver.com</div>
+        </BannerSub>
+      </Banner>
       <UseWays />
     </Container>
   );
 };
 
 export default LandingMainContents;
-// 랜딩 디자인(피그마)
-// https://www.figma.com/file/hfE6NPBRZb4eWXvYbGDztU/%ED%8A%B8%EB%9E%98%EB%B8%94%EB%9F%AD-%EC%9B%B9%EB%94%94%EC%9E%90%EC%9D%B8-%3A-%EC%88%98%EC%A0%95-_-220512?node-id=0%3A1
-
-// 0616
-// 배너에서 사용할 수 있을 라이브러리
-// https://velog.io/@cookncoding/React-slick%EC%97%90-styled-components-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0

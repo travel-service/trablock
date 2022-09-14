@@ -3,8 +3,9 @@ import styled from 'styled-components';
 import Responsive from 'components/common/Responsive';
 import palette from 'lib/styles/palette';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 import Pagination from 'components/Notice/Pagination';
+import Notices from '../../notices.json';
 
 const PostListBlock = styled(Responsive)`
   margin-top: 3rem;
@@ -75,8 +76,8 @@ const PageN = styled.div`
     list-style: none;
     padding: 10px;
     margin: 1px;
-    border-radius: 30px;
-    border: 1px solid #dedede;
+    border-radius: 10px;
+    border: 1px solid #f6f6f6;
   }
   .pagination li {
     display: inline-block;
@@ -106,8 +107,9 @@ const PostDate = () => {
   const getData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:4000/notices');
-      setTest(response.data.reverse());
+      // const response = await axios.get('http://localhost:4000/notices');
+      // setTest(response.data.reverse());
+      setTest(Notices.notices);
     } catch (e) {
       console.log(e);
     }

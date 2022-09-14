@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Optional<Member> findByUserName(String username);
 
@@ -17,6 +18,9 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select (count(m) > 0) from Member m where m.memberProfile.nickName= :nickName")
     boolean existsByNickName(@Param("nickName") String nickName);
+
+    @Query("select (count(m) > 0) from Member m where m.memberInfo.email= :email")
+    boolean existsByEmail(@Param("email") String email);
 
     @Query("select m from Member as m where m.id= :id")
     Optional<Member> findMemberId(@Param("id") Long id);

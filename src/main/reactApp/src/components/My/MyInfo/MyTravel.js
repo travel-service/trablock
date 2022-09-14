@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import PlanLayout from 'components/Canvas/common/PlanLayout/PlanLayout.js';
+import { useStore } from 'lib/zustand/myStore';
 
 const Main = styled.div`
   margin: 25px 10px 25px 10px;
@@ -100,6 +102,59 @@ const EddScrap = styled.div`
 `;
 
 const MyTravel = () => {
+  const { getMainPlans, mainPlans } = useStore();
+  const [plansList, setPlan] = useState([]);
+  useEffect(() => {
+    getMainPlans();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    setPlan(mainPlans.mainDirectory);
+    RecentPlan(plansList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mainPlans.mainDirectory]);
+
+  const RecentPlan = () => {
+    if (plansList > 0) {
+      plansList.sort((a, b) => {
+        let n = a.createdDate.toLowerCase();
+        let m = b.createdDate.toLowerCase();
+        return n < m ? 1 : n === m ? 0 : -1;
+      });
+    }
+  };
+
+  console.log(plansList);
+
+  const Plan = () => {
+    return (
+      <Box>
+        {plansList > 0 ? (
+          <>
+            <PlanLayout
+              myP={true}
+              planId={plansList.planId}
+              name={plansList.name}
+              periods={plansList.periods}
+              createdDate={plansList.createdDate}
+              thumbnail={plansList.thumbnail}
+            />
+          </>
+        ) : (
+          <>
+            <div className="travelbox">
+              <div className="travelitem"></div>
+              <div className="travelitem"></div>
+              <div className="travelitem"></div>
+              <div className="travelitem"></div>
+            </div>
+          </>
+        )}
+      </Box>
+    );
+  };
+
   return (
     <Main>
       <Displaybox>
@@ -110,14 +165,7 @@ const MyTravel = () => {
           </Link>
         </div>
       </Displaybox>
-      <Box>
-        <div className="travelbox">
-          <div className="travelitem"></div>
-          <div className="travelitem"></div>
-          <div className="travelitem"></div>
-          <div className="travelitem"></div>
-        </div>
-      </Box>
+      <Plan />
       <EddPlan>
         <Link to={process.env.PUBLIC_URL + '/canvas/setting'}>
           <div className="text">+ 플랜 짜러 가기</div>

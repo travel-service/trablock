@@ -168,6 +168,10 @@ const UserEditForm = () => {
     // console.log(profile, info);
   }, [profile, info]);
 
+  useEffect(() => {
+    setSelect(info.gender);
+  }, [info.gender]);
+
   // 프로필 사진 미리보기
   const [image, setImage] = useState('');
   const preview = (fileBlob) => {
@@ -186,8 +190,10 @@ const UserEditForm = () => {
     e.preventDefault();
     if (e.target.files) {
       const file = e.target.files[0];
-      preview(file);
-      setForm({ form_file: e.target.files[0] });
+      if (file !== undefined) {
+        preview(file);
+        setForm({ form_file: e.target.files[0] });
+      }
     }
   };
 
@@ -204,7 +210,10 @@ const UserEditForm = () => {
       [e.target.name]: e.target.value,
     });
     if (e.target.name === 'nickname') {
-      sendnick.nickname = inputfield.nickname;
+      sendnick.nickname = e.target.value;
+      if (e.target.value === '') {
+        sendnick.nickname = profile.nickname;
+      }
       checkgetNick();
     }
     if (e.target.name === 'birthday') {
@@ -223,38 +232,56 @@ const UserEditForm = () => {
   const onSelectChange = (e) => {
     const value = e.target.value;
     setSelect(value);
-    // console.log(value);
   };
 
   // 정보 변경
   const onEdit = () => {
-    if (/\d{4}-\d{2}-\d{2}/g.test(inputfield.birthday)) {
-      setBirthday(inputfield.birthday);
-      // console.log('생일 확인');
-    } else if (inputfield.birthday === '') {
-      // console.log('생일 입력 안한 사람들');
-    } else {
-      alert('생일 입력 형식을 다시 확인하세요.');
-    }
-    if (select !== null) {
-      setGender(select);
-      // console.log('성별 확인');
-    }
-    if (checknick.message === '사용 가능한 닉네임 입니다') {
+    // if (/\d{4}-\d{2}-\d{2}/g.test(inputfield.birthday)) {
+    //   setBirthday(inputfield.birthday);
+    //   // console.log('생일 확인');
+    // } else if (inputfield.birthday === '') {
+    //   // console.log('생일 입력 안한 사람들');
+    // } else {
+    //   alert('생일 입력 형식을 다시 확인하세요.');
+    // }
+    // if (select !== null) {
+    //   setGender(select);
+    //   // console.log('성별 확인');
+    // }
+
+    // 1-중복닉네임 확인 (2-생일 입력 포맷 확인 3-성별확인 4-이미지확인 5-한줄소개 확인) -> Post
+    if (
+      checknick.message === '현재 사용자가 설정한 닉네임 입니다.' ||
+      checknick.message === '사용 가능한 닉네임 입니다' ||
+      checknick.message === ''
+    ) {
+      if (
+        /\d{4}-\d{2}-\d{2}/g.test(inputfield.birthday) ||
+        inputfield.birthday === ''
+      ) {
+        setBirthday(inputfield.birthday);
+        // console.log('생일 확인');
+        if (select !== null) {
+          setGender(select);
+          // console.log('성별 확인');
+        }
+        if (inputfield.bio !== null) {
+          setBio(inputfield.bio);
+        }
+        if (image !== '') {
+          const formData = new FormData();
+          formData.append('file', form.form_file);
+          postImg(formData);
+        }
+      } else {
+        alert('생일 입력 형식을 다시 확인하세요.');
+      }
+      postInfo();
+      alert('회원정보가 변경되었습니다.');
       setNick(inputfield.nickname);
     } else if (checknick.message === '이미 존재하는 닉네임 입니다.') {
       alert('이미 존재하는 닉네임 입니다.');
     }
-    if (inputfield.bio !== null) {
-      setBio(inputfield.bio);
-    }
-    if (image !== '') {
-      const formData = new FormData();
-      formData.append('file', form.form_file);
-      postImg(formData);
-    }
-    postInfo();
-    // console.log('정보변경');
   };
 
   return (
@@ -300,7 +327,7 @@ const UserEditForm = () => {
           onChange={onChangeInput}
         ></ChangeInput>
       </Field>
-      <DupCheck>*{checknick.message}</DupCheck>
+      {checknick.message !== '' && <DupCheck>*{checknick.message}</DupCheck>}
       <Field>
         <div className="title">한줄소개</div>
         <ChangeInput
@@ -350,8 +377,8 @@ const UserEditForm = () => {
           <input
             type="radio"
             value="FEMALE"
-            checked={select === 'FEMALE'}
             onChange={onSelectChange}
+            checked={info.gender === 'FEMALE'}
           ></input>
           여성
         </label>
@@ -359,7 +386,7 @@ const UserEditForm = () => {
           <input
             type="radio"
             value="MALE"
-            checked={select === 'MALE'}
+            checked={info.gender === 'MALE'}
             onChange={onSelectChange}
           ></input>
           남성
@@ -371,6 +398,7 @@ const UserEditForm = () => {
     </>
   );
 };
+
 const MyEdit = () => {
   return (
     <>

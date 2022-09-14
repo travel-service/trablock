@@ -54,10 +54,11 @@ public class Member implements UserDetails{
 
     @Builder
     public Member(MemberSaveDto memberSaveDto, String pwd) {
+        String memberImg = "https://api-storage.cloud.toast.com/v1/AUTH_92bb02eefaa74ad6a53a63ebc9abba2f/trablock/member_default_img.png";
         this.userName = memberSaveDto.getUserName();
         this.password = pwd;
         this.emailAuth = false;
-        this.memberProfile = new MemberProfile(memberSaveDto.getNickName(), null);
+        this.memberProfile = new MemberProfile(memberSaveDto.getNickName(), memberImg, null);
         this.memberInfo = new MemberInfo(memberSaveDto.getBirthday(), Gender.valueOf(memberSaveDto.getGender()),
                 memberSaveDto.getEmail());
         this.roles = Collections.singletonList("ROLE_USER");

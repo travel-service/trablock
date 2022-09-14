@@ -5,10 +5,7 @@ import com.trablock.web.controller.form.Form;
 import com.trablock.web.controller.form.OneDayOneLocationForm;
 import com.trablock.web.entity.location.Coords;
 import com.trablock.web.entity.location.Location;
-import com.trablock.web.entity.member.Gender;
 import com.trablock.web.entity.member.Member;
-import com.trablock.web.entity.member.MemberInfo;
-import com.trablock.web.entity.member.MemberProfile;
 import com.trablock.web.entity.plan.Day;
 import com.trablock.web.entity.plan.MovingData;
 import com.trablock.web.entity.plan.Plan;
@@ -20,7 +17,6 @@ import com.trablock.web.repository.plan.DayRepository;
 import com.trablock.web.repository.plan.PlanRepository;
 import com.trablock.web.service.plan.interfaceC.DayService;
 import com.trablock.web.service.plan.interfaceC.PlanService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -32,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
