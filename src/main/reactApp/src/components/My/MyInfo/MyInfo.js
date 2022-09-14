@@ -205,7 +205,6 @@ const UserInfoBox = () => {
     // console.log(profile);
   }, [profile]);
 
-  // Test function
   const onEdit = () => {
     setVisible(!visible);
     if (visible) {
@@ -221,6 +220,8 @@ const UserInfoBox = () => {
   const cancel = () => {
     setVisible(true);
     setImage('');
+    sendnick.nickname = '';
+    checknick.message = '';
     // setNick(profile.nickname);
     // setBio(profile.bio);
   };
@@ -237,6 +238,8 @@ const UserInfoBox = () => {
       setBio(inputfield.bio);
       postNick();
       postBio();
+      sendnick.nickname = '';
+      checknick.message = '';
       alert('성공적으로 변경 됐습니다.');
     } else if (checknick.message === '현재 사용자가 설정한 닉네임 입니다.') {
       if (image !== '') {
@@ -245,6 +248,17 @@ const UserInfoBox = () => {
         postImg(formData);
       }
       setBio(inputfield.bio);
+      postBio();
+      sendnick.nickname = '';
+      checknick.message = '';
+      alert('성공적으로 변경 됐습니다.');
+    } else if (checknick.message === '') {
+      if (image !== '') {
+        const formData = new FormData();
+        formData.append('file', form.form_file);
+        postImg(formData);
+      }
+      setBio();
       postBio();
       alert('성공적으로 변경 됐습니다.');
     } else {
@@ -263,7 +277,10 @@ const UserInfoBox = () => {
       [e.target.name]: e.target.value,
     });
     if (e.target.name === 'nickname') {
-      sendnick.nickname = inputfield.nickname;
+      sendnick.nickname = e.target.value;
+      if (e.target.value === '') {
+        sendnick.nickname = profile.nickname;
+      }
       checkgetNick();
     }
   };
@@ -359,7 +376,9 @@ const UserInfoBox = () => {
             placeholder={profile.nickname}
             onChange={onChangeInput}
           ></ChangeInput>
-          <DupCheck>*{checknick.message}</DupCheck>
+          <DupCheck>
+            {checknick.message !== '' && <p>*{checknick.message}</p>}
+          </DupCheck>
           <ChangeInput
             type="text"
             id="bio"
@@ -381,6 +400,7 @@ const UserInfoBox = () => {
 };
 
 const MyInfo = () => {
+  const { planCount } = useStore();
   return (
     <MyInfoBox>
       <UserInfoBox />
@@ -405,7 +425,7 @@ const MyInfo = () => {
           <Link to={process.env.PUBLIC_URL + '/canvas/directory'}>
             <HiOutlineFolderOpen size="24px" />
             <div>내 플랜</div>
-            <div>1</div>
+            <div>{planCount}</div>
           </Link>
         </div>
       </Menu>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import HeaderContainer from 'containers/common/HeaderContainer';
 
 const NoticeTemplateBlock = styled.div`
-  height: 100%;
+  height: 100vh;
   flex-direction: row;
   background-color: #ffd0c0;
 `;
