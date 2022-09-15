@@ -75,9 +75,21 @@ const MyHeader = () => {
                 모두보기
               </Link>
             </li>
-            <li>스크랩북</li>
-            <li>좋아요</li>
-            <li>질문과 답변</li>
+            <li>
+              <Link to={process.env.PUBLIC_URL + '/mypage/MyInfo/ready'}>
+                스크랩북
+              </Link>
+            </li>
+            <li>
+              <Link to={process.env.PUBLIC_URL + '/mypage/MyInfo/ready'}>
+                좋아요
+              </Link>
+            </li>
+            <li>
+              <Link to={process.env.PUBLIC_URL + '/mypage/MyInfo/ready'}>
+                질문과 답변
+              </Link>
+            </li>
           </ul>
         ) : location.pathname === '/mypage/MySetting' ||
           location.pathname === '/mypage/MySetting/MyPasswd' ? (

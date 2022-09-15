@@ -27,9 +27,9 @@ const WhiteBox = styled.div`
   border-radius: 10px;
   overflow-y: scroll;
   height: 450px;
-  ::-webkit-scrollbar {
+  /* ::-webkit-scrollbar {
     display: none;
-  }
+  } */
 `;
 
 const BlockListArea = styled.div`

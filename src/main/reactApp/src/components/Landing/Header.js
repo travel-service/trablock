@@ -7,6 +7,8 @@ import palette from 'lib/styles/palette';
 import { Pc, Mobile } from 'lib/custom/responsive';
 // import { useLocation } from 'react-router-dom';
 
+const DEFAULT_IMAGE = process.env.PUBLIC_URL + '/images/face1.png';
+
 const Container = styled.div`
   width: 100%;
   background-color: ${(props) =>
@@ -127,12 +129,15 @@ const Thumbnail = styled.img`
   border-radius: 50%;
 `;
 
-const Header = ({ userState, onLogout, type }) => {
+const Header = ({ userState, onLogout, type, profileImg }) => {
   const [menu, setMenu] = useState(false);
-  // const location = useLocation();
 
   const btnClick = () => {
     setMenu(!menu);
+  };
+
+  const handleImgError = (e) => {
+    e.target.src = DEFAULT_IMAGE;
   };
 
   return (
@@ -151,8 +156,9 @@ const Header = ({ userState, onLogout, type }) => {
               <Pc>
                 <Profile>
                   <Thumbnail
-                    src={process.env.PUBLIC_URL + '/images/face1.png'}
+                    src={profileImg}
                     alt=""
+                    onError={(e) => handleImgError(e)}
                   />
                   {userState.nickName}
                   <HoverProfile>

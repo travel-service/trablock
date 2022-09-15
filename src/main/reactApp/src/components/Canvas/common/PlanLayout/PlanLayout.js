@@ -6,8 +6,6 @@ import MoreControl from './MoreControl';
 
 // 플랜 레이아웃(이름, 기간, 날짜, 썸네일(호버 시 정보), 이동/복사/담기 버튼)
 const PlanContainer = styled.div`
-  //width: 246px;
-  height: 272px;
   background: #ffffff;
   border: 1px solid #e5e7e8;
   border-radius: 10px;

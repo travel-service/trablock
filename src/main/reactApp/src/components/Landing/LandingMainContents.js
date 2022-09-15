@@ -3,6 +3,7 @@ import UseWays from 'components/Landing/UseWays';
 import styled from 'styled-components';
 import BackImg from 'lib/images/landingBackV2.png';
 import BackImg_small from 'lib/images/landingBackV2_small.png';
+import BannerBackImg from 'lib/images/bannerBack.jpg';
 import { MdSearch } from 'react-icons/md';
 import { Link } from 'react-router-dom';
 import palette from 'lib/styles/palette';
@@ -212,6 +213,10 @@ const Banner = styled.div`
   box-shadow: 0px 14px 10px rgba(0, 0, 0, 0.11);
   position: relative;
   top: -200px;
+  background-image: url(${BannerBackImg});
+  background-repeat: no-repeat;
+  background-position: center top;
+
   @media screen and (max-width: 1023px) {
     width: 750px;
     height: 220px;
@@ -244,7 +249,6 @@ const LandingMainContents = () => {
                 <SearchIcon />
                 <Input placeholder="현재는 제주도로만 서비스중!" />
               </Div>
-              {/* <button>검색</button> */}
               <SearchDes to={process.env.PUBLIC_URL + '/search'}>
                 검색
               </SearchDes>
@@ -252,7 +256,6 @@ const LandingMainContents = () => {
             <GoDirBtn to={process.env.PUBLIC_URL + '/canvas/directory'}>
               여행 보관함 가기
             </GoDirBtn>
-            {/* 사용자 검증 필요 */}
           </MainContents>
         </Contents>
       </FlexBox>

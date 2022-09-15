@@ -7,10 +7,14 @@ import MyHeader from './MyHeader';
 const MyTemplateBlock = styled.div``;
 
 const MyBox = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   /* align-items: center; */
   background-color: #f6f6f8;
+  @media screen and (max-width: 767px) {
+    display: block;
+  }
 `;
 
 const MyTemplate = ({ children }) => {
