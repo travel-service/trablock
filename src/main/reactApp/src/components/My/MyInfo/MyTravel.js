@@ -125,8 +125,6 @@ const MyTravel = () => {
     }
   };
 
-  console.log(plansList);
-
   const Plan = () => {
     return (
       <Box>

@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
+import ModalModule from 'components/common/modal/ModalModule';
 
 const Container = styled.div`
   max-width: 1400px;
@@ -82,6 +83,10 @@ const Detail = styled.div`
   }
 `;
 
+const WayImg = styled.img`
+  width: 100%;
+`;
+
 const useWaysData = [
   {
     header: '서비스 이용방법',
@@ -110,8 +115,14 @@ const useWaysData = [
 ];
 
 const UseWays = () => {
-  const onClick = () => {
-    // 이미지 추가예정 0912
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const openModal = () => {
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   return (
@@ -122,7 +133,7 @@ const UseWays = () => {
             <Way
               key={i}
               active={way.active}
-              onClick={way.active ? () => onClick() : null}
+              onClick={way.active ? () => openModal() : null}
             >
               <Img src={way.image} alt="블록 이미지" />
               <Div>
@@ -133,6 +144,19 @@ const UseWays = () => {
           );
         })}
       </List>
+      <ModalModule
+        modalIsOpen={modalIsOpen}
+        openModal={openModal}
+        closeModal={closeModal}
+        title="서비스 이용방법"
+        map="moveLoc"
+        img="img"
+      >
+        <WayImg
+          src={process.env.PUBLIC_URL + '/images/serviceDetailWEBP.webp'}
+          alt=""
+        />
+      </ModalModule>
     </Container>
   );
 };

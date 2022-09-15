@@ -50,6 +50,7 @@ const Container = styled.div`
   display: flex;
   align-items: flex-start;
   width: 100%;
+  height: 100%;
   ${(props) =>
     !props.len &&
     css`
@@ -163,7 +164,9 @@ const Days = ({
             </FontDiv>
           </ErrorImg>
         )}
-        {travelDay !== '' && travelDay.length === 0 && <Spinner flag={true} />}
+        {travelDay !== '' && travelDay.length === 0 && (
+          <Spinner flagTwo={true} />
+        )}
         {travelDay !== '' &&
           travelDay.map((day, index) => (
             // 각 day
