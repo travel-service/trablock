@@ -379,13 +379,16 @@ export const sysLocStore = create(
         set({ lng: found.coords.longitude });
       },
 
-      setLocIsSelect: (type, idx, flag) => {
+      setLocIsSelect: (type, id, flag) => {
         let tmpLocArr = get().sysCateLoc[type];
+        let loc = tmpLocArr.find((val) => val.locationId === id);
+
         if (flag) {
-          tmpLocArr[idx].isSelect = true;
+          loc.isSelect = true;
         } else {
-          tmpLocArr[idx].isSelect = false;
+          loc.isSelect = false;
         }
+
         set((state) => ({
           sysCateLoc: {
             ...state.sysCateLoc,
