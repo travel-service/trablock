@@ -8,44 +8,44 @@ import palette from 'lib/styles/palette';
 const sampleLocation = {
   Attraction: [
     {
-      name: '천지연폭포 (제주도 국가지질공원)',
-      id: 3,
+      name: '휴애리자연생활공원',
+      id: 1,
       type: {
-        type: 'ATTRACTION',
+        type: 'Attraction',
       },
-      address1: '제주특별자치도 서귀포시 천지동',
-      address2: 'null',
-      image: 'https://i.ibb.co/MVvvPsX/image.jpg',
+      address1: '제주특별자치도 서귀포시 남원읍',
+      image:
+        'http://tong.visitkorea.or.kr/cms/resource/47/2615547_image2_1.bmp',
     },
     {
-      name: '천지연폭포 (제주도 국가지질공원)',
-      id: 3,
+      name: '제주민속촌',
+      id: 50,
       type: {
-        type: 'ATTRACTION',
+        type: 'Culture',
       },
-      address1: '제주특별자치도 서귀포시 천지동',
-      address2: 'null',
-      image: 'https://i.ibb.co/MVvvPsX/image.jpg',
+      address1: '제주특별자치도 서귀포시 표선면',
+      image:
+        'http://tong.visitkorea.or.kr/cms/resource/78/2659578_image2_1.bmp',
     },
     {
-      name: '천지연폭포 (제주도 국가지질공원)',
-      id: 3,
+      name: '한화리조트 제주',
+      id: 81,
       type: {
-        type: 'ATTRACTION',
+        type: 'Lodge',
       },
-      address1: '제주특별자치도 서귀포시 천지동',
-      address2: 'null',
-      image: 'https://i.ibb.co/MVvvPsX/image.jpg',
+      address1: '제주특별자치도 제주시 명림로',
+      image:
+        'http://tong.visitkorea.or.kr/cms/resource/99/1180899_image2_1.jpg',
     },
     {
-      name: '천지연폭포 (제주도 국가지질공원)',
-      id: 3,
+      name: '도라지식당',
+      id: 87,
       type: {
-        type: 'ATTRACTION',
+        type: 'Restaurant',
       },
-      address1: '제주특별자치도 서귀포시 천지동',
-      address2: 'null',
-      image: 'https://i.ibb.co/MVvvPsX/image.jpg',
+      address1: '제주특별자치도 제주시 연삼로',
+      image:
+        'http://tong.visitkorea.or.kr/cms/resource/01/1934501_image2_1.jpg',
     },
   ],
 };
@@ -187,7 +187,7 @@ const SearchPage = () => {
             {/* location get api*/}
             {sampleLocation.Attraction.map((location, i) => {
               return (
-                <Location key={i}>
+                <Location key={location.id}>
                   <div>{location.name}</div>
                   <Img alt="" src={location.image} />
                   <div>{location.address1}</div>

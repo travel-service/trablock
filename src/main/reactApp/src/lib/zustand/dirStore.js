@@ -92,7 +92,6 @@ export const dirStore = create((set, get) => ({
     const currentDirId = get().currentDirId;
     if (checkedPlans.length > 0) {
       const res = await dirAPI.userTrash(checkedPlans, currentDirId);
-      console.log(res);
       if (res.httpStatus === 204) {
         set({ checkedPlans: [] });
         //n개 이상의 플랜 복원 시 데이터 새로 불러오는 것이 낫다고 생각,,

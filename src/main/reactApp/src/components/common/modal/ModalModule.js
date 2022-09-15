@@ -8,8 +8,6 @@ import BlackCustomBtn from 'components/Canvas/common/BlackCustomBtn';
 
 const StyledModal = styled(Modal)`
   display: flex;
-  /* justify-content: center; */
-
   @media screen and (max-width: 767px) {
     flex-direction: column-reverse;
     justify-content: center;
@@ -26,14 +24,11 @@ const Header = styled.div`
 `;
 
 const Section = styled.div`
-  /* border-radius: 0.3rem; */
   display: flex;
   flex-direction: column;
   background-color: #fff;
   border-radius: 10px;
   animation: modal-show 0.3s;
-  /* overflow: hidden; */
-  /* margin: 0 auto; */
   @media screen and (max-width: 767px) {
     overflow: auto;
     margin-top: 15px;
@@ -49,14 +44,25 @@ const Main = styled.main`
       width: 90vw;
     `}
 
-  padding: 5px 16px;
+  padding: 16px;
+
   max-height: 80vh;
   overflow: auto;
+
   @media screen and (max-width: 767px) {
     overflow: auto;
     flex: 1;
     justify-content: center;
   }
+
+  ${(props) =>
+    props.img === 'img' &&
+    css`
+      padding: 0px;
+      @media screen and (max-width: 767px) {
+        width: 100%;
+      }
+    `}
 `;
 
 const Section2 = styled.div`
@@ -97,13 +103,11 @@ const ModalModule = ({
   title,
   map,
   onSubmit,
-  day,
-  fromLocName,
-  toLocName,
   onSelect,
   onClickAddress,
   blockSelect,
-  isSel
+  isSel,
+  img,
 }) => {
   return (
     <StyledModal
@@ -116,7 +120,9 @@ const ModalModule = ({
           <div>{title}</div>
           <Close size="20" onClick={closeModal} tooltip={false} />
         </Header>
-        <Main map={map}>{children}</Main>
+        <Main map={map} img={img}>
+          {children}
+        </Main>
         {onSubmit && (
           <Btn>
             <BlackCustomBtn onClick={onSubmit} value="완료" color="black" />
@@ -154,6 +160,7 @@ const openModal = () => {
 
 const closeModal = () => {
   setModalIsOpen(false);
+}
 
   <ModalModule
   modalIsOpen={modalIsOpen}
@@ -161,7 +168,6 @@ const closeModal = () => {
   closeModal={closeModal}
   header="이동수단 설정"
 >
-  <MoveSettingChild /> 내부요소, children
+  내부요소, children
 </ModalModule>
 */
-// 0313

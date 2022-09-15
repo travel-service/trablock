@@ -167,8 +167,6 @@ const MoveDataDiv = ({
         title="이동 수단 / 시간 설정"
         onSubmit={onSubmit}
         map="moveLoc"
-        fromLocName={fromLoc.name}
-        toLocName={ToLoc.name}
       >
         <FlexBox>
           <MoveSettingChild
