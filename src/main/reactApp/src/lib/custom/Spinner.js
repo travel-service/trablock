@@ -10,12 +10,19 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   background: ${palette.back2};
+  margin: auto;
   ${(props) =>
     props.flag &&
     css`
       height: 100%;
       width: 100%;
-    `}
+    `};
+
+  ${(props) =>
+    props.flagTwo &&
+    css`
+      height: 500px;
+    `};
 `;
 
 const SpinnerStyle = styled.div`
@@ -36,9 +43,9 @@ const SpinnerStyle = styled.div`
   }
 `;
 
-const Spinner = ({ flag }) => {
+const Spinner = ({ flag, flagTwo }) => {
   return (
-    <Container flag={flag}>
+    <Container flag={flag} flagTwo={flagTwo}>
       <SpinnerStyle></SpinnerStyle>
     </Container>
   );

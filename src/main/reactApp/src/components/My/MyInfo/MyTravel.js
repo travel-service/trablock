@@ -4,11 +4,22 @@ import { Link } from 'react-router-dom';
 import PlanLayout from 'components/Canvas/common/PlanLayout/PlanLayout.js';
 import { useStore } from 'lib/zustand/myStore';
 
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 10px 0px;
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+  }
+`;
+
 const Main = styled.div`
   margin: 25px 10px 25px 10px;
   padding: 25px;
   background: #ffffff;
   border-radius: 10px;
+  flex: 1;
 `;
 const Displaybox = styled.div`
   display: flex;
@@ -37,23 +48,23 @@ const Displaybox = styled.div`
     color: #f16b6c;
   }
 `;
-const Box = styled.div`
-  margin: 25px 25px 15px 0px;
-  .travelbox {
-    display: grid;
-    grid-template-rows: repeat(1, 180px);
-    grid-template-columns: repeat(4, 180px);
-    border-radius: 10px;
-    justify-content: space-evenly;
-  }
-  .travelitem {
-    border-radius: 10px;
-    width: 170px;
-    height: 170px;
-    margin: 10px 0px 10px 0px;
-    background: rgba(255, 241, 169, 0.5);
-  }
-`;
+// const Box = styled.div`
+//   margin: 25px 25px 15px 0px;
+//   .travelbox {
+//     display: grid;
+//     grid-template-rows: repeat(1, 180px);
+//     grid-template-columns: repeat(4, 180px);
+//     border-radius: 10px;
+//     justify-content: space-evenly;
+//   }
+//   .travelitem {
+//     border-radius: 10px;
+//     width: 170px;
+//     height: 170px;
+//     margin: 10px 0px 10px 0px;
+//     background: rgba(255, 241, 169, 0.5);
+//   }
+// `;
 const EddPlan = styled.div`
   margin: 0px 0px 25px 0px;
   border: 1px solid #e5e7e8;
@@ -110,48 +121,30 @@ const MyTravel = () => {
   }, []);
 
   useEffect(() => {
-    setPlan(mainPlans.mainDirectory);
-    RecentPlan(plansList);
+    if (mainPlans.mainDirectory) {
+      setPlan(mainPlans.mainDirectory.reverse().slice(0, 4));
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainPlans.mainDirectory]);
 
-  const RecentPlan = () => {
-    if (plansList > 0) {
-      plansList.sort((a, b) => {
-        let n = a.createdDate.toLowerCase();
-        let m = b.createdDate.toLowerCase();
-        return n < m ? 1 : n === m ? 0 : -1;
-      });
-    }
-  };
-
-  console.log(plansList);
-
   const Plan = () => {
     return (
-      <Box>
-        {plansList > 0 ? (
-          <>
-            <PlanLayout
-              myP={true}
-              planId={plansList.planId}
-              name={plansList.name}
-              periods={plansList.periods}
-              createdDate={plansList.createdDate}
-              thumbnail={plansList.thumbnail}
-            />
-          </>
-        ) : (
-          <>
-            <div className="travelbox">
-              <div className="travelitem"></div>
-              <div className="travelitem"></div>
-              <div className="travelitem"></div>
-              <div className="travelitem"></div>
-            </div>
-          </>
-        )}
-      </Box>
+      <Container>
+        {plansList.length &&
+          plansList.map((item, i) => {
+            return (
+              <PlanLayout
+                myP={true}
+                planId={item.planId}
+                name={item.name}
+                periods={item.periods}
+                createdDate={item.createdDate}
+                thumbnail={item.thumbnail}
+                key={i}
+              />
+            );
+          })}
+      </Container>
     );
   };
 

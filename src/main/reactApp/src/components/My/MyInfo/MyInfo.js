@@ -15,14 +15,14 @@ const MyInfoBox = styled.div`
   justify-content: center;
   width: 308px;
   height: 487px;
-  // height: 100%;
-  // width: 20%;
   margin: 25px 10px 25px 10px;
-  // border: 1.5px solid rgba(241, 107, 108, 0.2);
   border-radius: 10px;
   background-color: #fff;
   hr {
     border: 1px solid #e5e7e8;
+  }
+  @media screen and (max-width: 767px) {
+    margin: auto;
   }
 `;
 
