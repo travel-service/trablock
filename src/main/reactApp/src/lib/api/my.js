@@ -62,11 +62,16 @@ export const postMyImg = async (formdata) => {
 
 // 회원 프로필 사진 요청
 export const getMyImg = async () => {
+  const DEFAULT_IMAGE = process.env.PUBLIC_URL + '/images/face1.png';
   try {
     const res = await axios.get('/members/my-page/img');
-    return { img: res.data.result.memberImg };
+    console.log(res);
+    if (res.data.result.memberImg === null) {
+      return { img: DEFAULT_IMAGE };
+    } else {
+      return { img: res.data.result.memberImg };
+    }
   } catch (e) {
-    const DEFAULT_IMAGE = process.env.PUBLIC_URL + '/images/face1.png';
     return { img: DEFAULT_IMAGE };
     // console.log(e);
   }
