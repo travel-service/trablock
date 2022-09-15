@@ -1,8 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Spinner from 'lib/custom/Spinner';
-
-// router lazy 적용
+import NotFoundPage from 'pages/OtherPages/NotFoundPage';
 
 const DirectoryPage = lazy(() => import('./DirectoryPage'));
 const TravelSettingPage = lazy(() => import('./TravelSettingPage'));
@@ -21,6 +20,7 @@ const CanvasMainPage = () => {
         <Route element={<BuildBlockPage />} path="build" />
         <Route element={<TravelCheckPage />} path="check" />
         <Route element={<TravelCheckPage />} path="check/:planId" />
+        <Route element={<NotFoundPage />} path="*" />
       </Routes>
     </Suspense>
   );
