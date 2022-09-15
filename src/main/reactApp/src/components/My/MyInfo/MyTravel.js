@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import PlanLayout from 'components/Canvas/common/PlanLayout/PlanLayout.js';
@@ -127,26 +127,28 @@ const MyTravel = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mainPlans.mainDirectory]);
 
-  const Plan = () => {
+  const Plan = useCallback(() => {
     return (
-      <Container>
-        {plansList.length &&
-          plansList.map((item, i) => {
-            return (
-              <PlanLayout
-                myP={true}
-                planId={item.planId}
-                name={item.name}
-                periods={item.periods}
-                createdDate={item.createdDate}
-                thumbnail={item.thumbnail}
-                key={i}
-              />
-            );
-          })}
-      </Container>
+      <>
+        <Container>
+          {!!plansList.length &&
+            plansList.map((item, i) => {
+              return (
+                <PlanLayout
+                  myP={true}
+                  planId={item.planId}
+                  name={item.name}
+                  periods={item.periods}
+                  createdDate={item.createdDate}
+                  thumbnail={item.thumbnail}
+                  key={i}
+                />
+              );
+            })}
+        </Container>
+      </>
     );
-  };
+  }, [plansList]);
 
   return (
     <Main>

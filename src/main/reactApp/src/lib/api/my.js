@@ -65,7 +65,6 @@ export const getMyImg = async () => {
   const DEFAULT_IMAGE = process.env.PUBLIC_URL + '/images/face1.png';
   try {
     const res = await axios.get('/members/my-page/img');
-    console.log(res);
     if (res.data.result.memberImg === null) {
       return { img: DEFAULT_IMAGE };
     } else {

@@ -58,18 +58,21 @@ function LocationList({ locations, search, type }) {
     var arr = locations.filter((val) => val.name.includes(search));
   }
 
-  const onClick = useCallback((loc, idx) => {
-    const { type } = loc.type;
-    let { isSelect, locationId } = loc;
-    if (!isSelect) {
-      onAdd(loc, type);
-      setLocIsSelect(type, idx, true);
-    } else {
-      remove(locationId, type);
-      setLocIsSelect(type, idx, false);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const onClick = useCallback(
+    (loc, idx) => {
+      const { type } = loc.type;
+      let { isSelect, locationId } = loc;
+      if (!isSelect) {
+        onAdd(loc, type);
+        setLocIsSelect(type, locationId, true);
+        console.log(type, idx);
+      } else {
+        remove(locationId, type);
+        setLocIsSelect(type, locationId, false);
+      }
+    },
+    [onAdd, remove, setLocIsSelect],
+  );
 
   return (
     <>
